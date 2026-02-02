@@ -6,8 +6,19 @@ package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.commands.Autos;
+import frc.robot.commands.ClimbCommand;
 import frc.robot.commands.ExampleCommand;
+import frc.robot.commands.IntakeCommand;
+import frc.robot.commands.OuttakeCommand;
+import frc.robot.commands.ShooterAlignCommand;
+import frc.robot.commands.ShooterCommand;
+import frc.robot.constants.OtherConstants.SpindexerConstants;
+import frc.robot.subsystems.ClimbSubsystem;
 import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.IndexerSubsystem;
+import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.subsystems.SpindexerSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -21,6 +32,13 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
+  private final IntakeSubsystem m_IntakeSubsystem = new IntakeSubsystem();
+  private final ShooterSubsystem m_ShooterSubsystem = new ShooterSubsystem();
+  private final IndexerSubsystem m_IndexerSubsystem = new IndexerSubsystem();
+  private final SpindexerSubsystem m_SpindexerSubsystem = new SpindexerSubsystem();
+  private final ClimbSubsystem m_ClimbSubsystem = new ClimbSubsystem();
+
+  private final CommandXboxController joystick = new CommandXboxController(0);
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController =
@@ -30,6 +48,7 @@ public class RobotContainer {
   public RobotContainer() {
     // Configure the trigger bindings
     configureBindings();
+    configureButtons();
   }
 
   /**
@@ -59,5 +78,13 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
     return Autos.exampleAuto(m_exampleSubsystem);
+  }
+
+  public void configureButtons(){
+    joystick.rightBumper().whileTrue(new IntakeCommand(m_IntakeSubsystem));
+    joystick.rightTrigger().whileTrue(new OuttakeCommand(m_IntakeSubsystem));
+    joystick.leftBumper().whileTrue(new ShooterAlignCommand(m_ShooterSubsystem));
+    joystick.leftTrigger().whileTrue(new ShooterCommand(m_ShooterSubsystem, m_IndexerSubsystem, m_SpindexerSubsystem));
+    joystick.x().whileTrue(new ClimbCommand(m_ClimbSubsystem));
   }
 }
