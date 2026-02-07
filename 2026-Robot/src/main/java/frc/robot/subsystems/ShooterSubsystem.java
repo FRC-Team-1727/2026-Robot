@@ -31,7 +31,7 @@ public class ShooterSubsystem extends SubsystemBase {
     configs.kD = ShooterConstants.kShooterD;
 
     shooter.getConfigurator().apply(configs);
-    shooter.setNeutralMode(NeutralModeValue.Brake);
+    shooter.setNeutralMode(NeutralModeValue.Coast);
     shooter.getConfigurator().apply(configLimit);
   }
 
