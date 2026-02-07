@@ -24,7 +24,7 @@ public class IntakeSubsystem extends SubsystemBase {
     CurrentLimitsConfigs configLimit = new CurrentLimitsConfigs();
 
     configLimit.StatorCurrentLimit = 80;
-    configLimit.SupplyCurrentLimit = 40;
+    configLimit.SupplyCurrentLimit = 60;
   
     configs.kP = IntakeConstants.kIntakeP;
     configs.kI = IntakeConstants.kIntakeI;

@@ -4,35 +4,36 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.constants.OtherConstants.IntakeConstants;
-
 import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
 import com.ctre.phoenix6.configs.Slot0Configs;
 import com.ctre.phoenix6.controls.DutyCycleOut;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 
-public class IntakeSubsystem extends SubsystemBase {
-  private TalonFX intake = new TalonFX(IntakeConstants.kIntakeID);
-  private static boolean inUse;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.constants.OtherConstants.IntakeConstants;
+import frc.robot.constants.OtherConstants.ShooterConstants;
+
+public class ShooterSubsystem extends SubsystemBase {
+  private TalonFX shooter = new TalonFX(ShooterConstants.kShooterID);
+  private boolean inUse;
 
   /** Creates a new ExampleSubsystem. */
-  public IntakeSubsystem() {
+  public ShooterSubsystem() {
     Slot0Configs configs = new Slot0Configs();
     CurrentLimitsConfigs configLimit = new CurrentLimitsConfigs();
 
     configLimit.StatorCurrentLimit = 80;
-    configLimit.SupplyCurrentLimit = 40;
+    configLimit.SupplyCurrentLimit = 60;
   
-    configs.kP = IntakeConstants.kIntakeP;
-    configs.kI = IntakeConstants.kIntakeI;
-    configs.kD = IntakeConstants.kIntakeD;
+    configs.kP = ShooterConstants.kShooterP;
+    configs.kI = ShooterConstants.kShooterI;
+    configs.kD = ShooterConstants.kShooterD;
 
-    intake.getConfigurator().apply(configs);
-    intake.setNeutralMode(NeutralModeValue.Coast);
-    intake.getConfigurator().apply(configLimit);
+    shooter.getConfigurator().apply(configs);
+    shooter.setNeutralMode(NeutralModeValue.Brake);
+    shooter.getConfigurator().apply(configLimit);
 
     inUse = false;
   }
@@ -47,12 +48,15 @@ public class IntakeSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run during simulation
   }
 
-
-  public void setSpeed(double speed){
-    intake.setControl(new DutyCycleOut(speed));
+  public boolean shooterSpeed(){
+    return shooter.getVelocity().getValueAsDouble()>ShooterConstants.shooterRPSMinimum;
   }
 
-  public static boolean getUse(){
+  public void setSpeed(double speed){
+    shooter.setControl(new DutyCycleOut(speed));
+  }
+
+  public boolean getUse(){
     return inUse;
   }
 

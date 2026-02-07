@@ -10,7 +10,7 @@ import frc.robot.subsystems.IntakeSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 
 /** An example command that uses an example subsystem. */
-public class IntakeCommand extends Command {
+public class OuttakeCommand extends Command {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final IntakeSubsystem m_IntakeSubsystem;
 
@@ -19,7 +19,7 @@ public class IntakeCommand extends Command {
    *
    * @param subsystem The subsystem used by this command.
    */
-  public IntakeCommand(IntakeSubsystem intakeSubsystem) {
+  public OuttakeCommand(IntakeSubsystem intakeSubsystem) {
     m_IntakeSubsystem = intakeSubsystem;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(intakeSubsystem);
@@ -32,11 +32,7 @@ public class IntakeCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(IntakeSubsystem.getUse()){
-      m_IntakeSubsystem.setSpeed(IntakeConstants.intakeSpeed);
-    } else if(!IntakeSubsystem.getUse()){
-      
-    }
+    m_IntakeSubsystem.setSpeed(IntakeConstants.outtakeSpeed);
   }
 
   // Called once the command ends or is interrupted.

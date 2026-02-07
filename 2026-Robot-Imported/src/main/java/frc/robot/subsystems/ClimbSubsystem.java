@@ -12,30 +12,31 @@ import com.ctre.phoenix6.signals.NeutralModeValue;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.constants.OtherConstants.IntakeConstants;
-import frc.robot.constants.OtherConstants.ShooterConstants;
+import frc.robot.constants.OtherConstants.ClimbConstants;
+import frc.robot.constants.OtherConstants.SpindexerConstants;
 
-public class ShooterSubsystem extends SubsystemBase {
-  private TalonFX shooter = new TalonFX(ShooterConstants.kShooterID);
-  private boolean inUse;
+public class ClimbSubsystem extends SubsystemBase {
+  private TalonFX climb = new TalonFX(ClimbConstants.kClimbID);
+  private boolean deployed;
+
 
   /** Creates a new ExampleSubsystem. */
-  public ShooterSubsystem() {
-    Slot0Configs configs = new Slot0Configs();
+  public ClimbSubsystem() {
+    Slot0Configs configs = new Slot0Configs(); 
     CurrentLimitsConfigs configLimit = new CurrentLimitsConfigs();
 
     configLimit.StatorCurrentLimit = 80;
     configLimit.SupplyCurrentLimit = 60;
-  
-    configs.kP = ShooterConstants.kShooterP;
-    configs.kI = ShooterConstants.kShooterI;
-    configs.kD = ShooterConstants.kShooterD;
 
-    shooter.getConfigurator().apply(configs);
-    shooter.setNeutralMode(NeutralModeValue.Coast);
-    shooter.getConfigurator().apply(configLimit);
+    configs.kP = ClimbConstants.kClimbP;
+    configs.kI = ClimbConstants.kClimbI;
+    configs.kD = ClimbConstants.kClimbD;
 
-    inUse = false;
+    climb.getConfigurator().apply(configs);
+    climb.setNeutralMode(NeutralModeValue.Brake);
+    climb.getConfigurator().apply(configLimit);
+
+    deployed = false;
   }
 
   @Override
@@ -48,19 +49,16 @@ public class ShooterSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run during simulation
   }
 
-  public boolean shooterSpeed(){
-    return shooter.getVelocity().getValueAsDouble()>ShooterConstants.shooterRPSMinimum;
-  }
-
   public void setSpeed(double speed){
-    shooter.setControl(new DutyCycleOut(speed));
+    climb.setControl(new DutyCycleOut(speed));
   }
 
-  public boolean getUse(){
-    return inUse;
-  }
 
-  public void setUse(){
-    inUse = !inUse;
-  }
+  public void switchClimbStatus(){
+    deployed = !deployed; //changes the status of the climb from deployed and retracted
+}
+
+public boolean getClimbStatus(){
+    return deployed;
+}
 }

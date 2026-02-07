@@ -4,37 +4,34 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.constants.OtherConstants.IntakeConstants;
-
 import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
 import com.ctre.phoenix6.configs.Slot0Configs;
 import com.ctre.phoenix6.controls.DutyCycleOut;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 
-public class IntakeSubsystem extends SubsystemBase {
-  private TalonFX intake = new TalonFX(IntakeConstants.kIntakeID);
-  private static boolean inUse;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.constants.OtherConstants.IndexerConstants;
+
+public class IndexerSubsystem extends SubsystemBase {
+  private TalonFX indexer = new TalonFX(IndexerConstants.kIndexerID);
 
   /** Creates a new ExampleSubsystem. */
-  public IntakeSubsystem() {
+  public IndexerSubsystem() {
     Slot0Configs configs = new Slot0Configs();
     CurrentLimitsConfigs configLimit = new CurrentLimitsConfigs();
 
     configLimit.StatorCurrentLimit = 80;
     configLimit.SupplyCurrentLimit = 40;
   
-    configs.kP = IntakeConstants.kIntakeP;
-    configs.kI = IntakeConstants.kIntakeI;
-    configs.kD = IntakeConstants.kIntakeD;
+    configs.kP = IndexerConstants.kIndexerP;
+    configs.kI = IndexerConstants.kIndexerI;
+    configs.kD = IndexerConstants.kIndexerD;
 
-    intake.getConfigurator().apply(configs);
-    intake.setNeutralMode(NeutralModeValue.Coast);
-    intake.getConfigurator().apply(configLimit);
-
-    inUse = false;
+    indexer.getConfigurator().apply(configs);
+    indexer.setNeutralMode(NeutralModeValue.Brake);
+    indexer.getConfigurator().apply(configLimit);
   }
 
   @Override
@@ -47,16 +44,7 @@ public class IntakeSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run during simulation
   }
 
-
   public void setSpeed(double speed){
-    intake.setControl(new DutyCycleOut(speed));
-  }
-
-  public static boolean getUse(){
-    return inUse;
-  }
-
-  public void setUse(){
-    inUse = !inUse;
+    indexer.setControl(new DutyCycleOut(speed));
   }
 }
