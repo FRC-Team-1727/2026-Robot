@@ -37,6 +37,7 @@ public class RobotContainer {
   private final IndexerSubsystem m_IndexerSubsystem = new IndexerSubsystem();
   private final SpindexerSubsystem m_SpindexerSubsystem = new SpindexerSubsystem();
   private final ClimbSubsystem m_ClimbSubsystem = new ClimbSubsystem();
+  public final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
 
   private final CommandXboxController joystick = new CommandXboxController(0);
 
@@ -61,13 +62,11 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
-    // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
-    new Trigger(m_exampleSubsystem::exampleCondition)
-        .onTrue(new ExampleCommand(m_exampleSubsystem));
-
-    // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
-    // cancelling on release.
-    m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
+    joystick.rightBumper().whileTrue(new IntakeCommand(m_IntakeSubsystem));
+    joystick.rightTrigger().whileTrue(new OuttakeCommand(m_IntakeSubsystem));
+    joystick.leftBumper().whileTrue(new ShooterAlignCommand(drivetrain));
+    joystick.leftTrigger().whileTrue(new ShooterCommand(m_ShooterSubsystem, m_IndexerSubsystem, m_SpindexerSubsystem));
+    joystick.x().whileTrue(new ClimbCommand(m_ClimbSubsystem));
   }
 
   /**
@@ -81,10 +80,6 @@ public class RobotContainer {
   }
 
   public void configureButtons(){
-    joystick.rightBumper().whileTrue(new IntakeCommand(m_IntakeSubsystem));
-    joystick.rightTrigger().whileTrue(new OuttakeCommand(m_IntakeSubsystem));
-    joystick.leftBumper().whileTrue(new ShooterAlignCommand(m_ShooterSubsystem));
-    joystick.leftTrigger().whileTrue(new ShooterCommand(m_ShooterSubsystem, m_IndexerSubsystem, m_SpindexerSubsystem));
-    joystick.x().whileTrue(new ClimbCommand(m_ClimbSubsystem));
+    
   }
 }

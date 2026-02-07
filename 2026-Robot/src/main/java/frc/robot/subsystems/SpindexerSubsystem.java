@@ -23,7 +23,7 @@ public class SpindexerSubsystem extends SubsystemBase {
     CurrentLimitsConfigs configLimit = new CurrentLimitsConfigs();
 
     configLimit.StatorCurrentLimit = 80;
-    configLimit.SupplyCurrentLimit = 60;
+    configLimit.SupplyCurrentLimit = 40;
   
     configs.kP = SpindexerConstants.kSpindexerP;
     configs.kI = SpindexerConstants.kSpindexerI;
