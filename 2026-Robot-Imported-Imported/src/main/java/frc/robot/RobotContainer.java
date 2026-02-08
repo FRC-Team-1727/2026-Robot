@@ -34,10 +34,32 @@ public class RobotContainer {
 
     private final CommandXboxController joystick = new CommandXboxController(0);
 
+    private final IntakeSubsystem m_IntakeSubsystem = new IntakeSubsystem();
+    private final ShooterSubsystem m_ShooterSubsystem = new ShooterSubsystem();
+    private final IndexerSubsystem m_IndexerSubsystem = new IndexerSubsystem();
+    private final SpindexerSubsystem m_SpindexerSubsystem = new SpindexerSubsystem();
+    private final ClimbSubsystem m_ClimbSubsystem = new ClimbSubsystem();
+
     public final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
+
+    private final SendableChooser<Command> autoChooser;
 
     public RobotContainer() {
         configureBindings();
+        configureNamedCommands();
+
+        autoChooser = AutoBuilder.buildAutoChooser();
+    
+        autoChooser.addOption("Left Shoot", new PathPlannerAuto("Left Shooter"))
+        SmartDashboard.putData("Auto Chooser", autoChooser);
+       
+    }
+
+    private void configureNamedCommands(){
+        NamedCommands.registerCommand("Intake", new IntakeCommand(m_IntakeSubsystem));
+        NamedCommands.registerCommand("Align", new ShooterAlignCommand(drivetrain));
+        NamedCommands.registerCommand("Shoot", new ShooterCommand(m_ShooterSubsystem, m_IndexerSubsystem, m_SpindexerSubsystem));
+        NamedCommands.registerCommand("Climb", new ClimbCommand(m_ClimbSubsystem));
     }
 
     private void configureBindings() {
@@ -84,21 +106,23 @@ public class RobotContainer {
     }
 
     public Command getAutonomousCommand() {
-        // Simple drive forward auton
-        final var idle = new SwerveRequest.Idle();
-        return Commands.sequence(
-            // Reset our field centric heading to match the robot
-            // facing away from our alliance station wall (0 deg).
-            drivetrain.runOnce(() -> drivetrain.seedFieldCentric(Rotation2d.kZero)),
-            // Then slowly drive forward (away from us) for 5 seconds.
-            drivetrain.applyRequest(() ->
-                drive.withVelocityX(0.5)
-                    .withVelocityY(0)
-                    .withRotationalRate(0)
-            )
-            .withTimeout(5.0),
-            // Finally idle for the rest of auton
-            drivetrain.applyRequest(() -> idle)
-        );
+        return autoChooser.getSelected();
+        // // Simple drive forward auton
+        // final var idle = new SwerveRequest.Idle();
+        // return Commands.sequence(
+        //     // Reset our field centric heading to match the robot
+        //     // facing away from our alliance station wall (0 deg).
+        //     drivetrain.runOnce(() -> drivetrain.seedFieldCentric(Rotation2d.kZero)),
+        //     // Then slowly drive forward (away from us) for 5 seconds.
+        //     drivetrain.applyRequest(() ->
+        //         drive.withVelocityX(0.5)
+        //             .withVelocityY(0)
+        //             .withRotationalRate(0)
+        //     )
+        //     .withTimeout(5.0),
+        //     // Finally idle for the rest of auton
+        //     drivetrain.applyRequest(() -> idle)
+        // );
+        
     }
 }
