@@ -14,11 +14,6 @@ public class OuttakeCommand extends Command {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final IntakeSubsystem m_IntakeSubsystem;
 
-  /**
-   * Creates a new ExampleCommand.
-   *
-   * @param subsystem The subsystem used by this command.
-   */
   public OuttakeCommand(IntakeSubsystem intakeSubsystem) {
     m_IntakeSubsystem = intakeSubsystem;
     // Use addRequirements() here to declare subsystem dependencies.
