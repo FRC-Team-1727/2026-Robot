@@ -56,9 +56,9 @@ public class ClimbSubsystem extends SubsystemBase {
 
   public void switchClimbStatus(){
     deployed = !deployed; //changes the status of the climb from deployed and retracted
-}
+  }
 
-public boolean getClimbStatus(){
+  public boolean getClimbStatus(){
     return deployed;
-}
+  }
 }
