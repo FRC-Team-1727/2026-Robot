@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import frc.robot.constants.OtherConstants.ShooterConstants;
+import frc.robot.subsystems.CommandSwerveDrivetrain;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -12,7 +13,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 /** An example command that uses an example subsystem. */
 public class ShooterAlignCommand extends Command {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  private final ShooterSubsystem m_ShooterSubsystem;
+  private final CommandSwerveDrivetrain m_Drivetrain;
   //need limelights
 
   /**
@@ -20,10 +21,10 @@ public class ShooterAlignCommand extends Command {
    *
    * @param subsystem The subsystem used by this command.
    */
-  public ShooterAlignCommand(ShooterSubsystem shooterSubsystem) {
-    m_ShooterSubsystem = shooterSubsystem;
+  public ShooterAlignCommand(CommandSwerveDrivetrain drivetrain) {
+    m_Drivetrain = drivetrain;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(shooterSubsystem);
+    addRequirements(drivetrain);
   }
 
   // Called when the command is initially scheduled.
@@ -34,7 +35,7 @@ public class ShooterAlignCommand extends Command {
   @Override
   public void execute() {
     //limelight auto align
-    m_ShooterSubsystem.setSpeed(ShooterConstants.shooterSpeed);
+    
   }
 
   // Called once the command ends or is interrupted.

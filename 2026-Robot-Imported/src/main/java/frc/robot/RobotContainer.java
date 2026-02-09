@@ -8,6 +8,7 @@ import static edu.wpi.first.units.Units.*;
 
 import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.swerve.SwerveRequest;
+import com.pathplanner.lib.auto.NamedCommands;
 
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -16,9 +17,18 @@ import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
-
-import frc.robot.generated.TunerConstants;
+import frc.robot.commands.ClimbCommand;
+import frc.robot.commands.IntakeCommand;
+import frc.robot.commands.OuttakeCommand;
+import frc.robot.commands.ShooterAlignCommand;
+import frc.robot.commands.ShooterCommand;
+import frc.robot.constants.TunerConstants;
+import frc.robot.subsystems.ClimbSubsystem;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
+import frc.robot.subsystems.IndexerSubsystem;
+import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.ShooterSubsystem;
+import frc.robot.subsystems.SpindexerSubsystem;
 
 public class RobotContainer {
     private double MaxSpeed = 1.0 * TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
@@ -35,12 +45,19 @@ public class RobotContainer {
 
     private final CommandXboxController joystick = new CommandXboxController(0);
 
+    private final IntakeSubsystem m_IntakeSubsystem = new IntakeSubsystem();
+    private final ShooterSubsystem m_ShooterSubsystem = new ShooterSubsystem();
+    private final IndexerSubsystem m_IndexerSubsystem = new IndexerSubsystem();
+    private final SpindexerSubsystem m_SpindexerSubsystem = new SpindexerSubsystem();
+    private final ClimbSubsystem m_ClimbSubsystem = new ClimbSubsystem();
+
     public final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
 
     SendableChooser<Command> autoChooser = new SendableChooser<>();
 
     public RobotContainer() {
         configureBindings();
+        configureNamedCommands();
         autoChooser = new SendableChooser<>();
         autoChooser.setDefaultOption("None", Commands.none());
         
@@ -81,6 +98,19 @@ public class RobotContainer {
         joystick.leftBumper().onTrue(drivetrain.runOnce(drivetrain::seedFieldCentric));
 
         drivetrain.registerTelemetry(logger::telemeterize);
+
+        joystick.rightBumper().whileTrue(new IntakeCommand(m_IntakeSubsystem));
+    joystick.rightTrigger().whileTrue(new OuttakeCommand(m_IntakeSubsystem));
+    joystick.leftBumper().whileTrue(new ShooterAlignCommand(drivetrain));
+    joystick.leftTrigger().whileTrue(new ShooterCommand(m_ShooterSubsystem, m_IndexerSubsystem, m_SpindexerSubsystem));
+    joystick.x().whileTrue(new ClimbCommand(m_ClimbSubsystem));
+    }
+
+     private void configureNamedCommands(){
+        NamedCommands.registerCommand("Intake", new IntakeCommand(m_IntakeSubsystem));
+        NamedCommands.registerCommand("Align", new ShooterAlignCommand(drivetrain));
+        NamedCommands.registerCommand("Shoot", new ShooterCommand(m_ShooterSubsystem, m_IndexerSubsystem, m_SpindexerSubsystem));
+        NamedCommands.registerCommand("Climb", new ClimbCommand(m_ClimbSubsystem));
     }
 
     public Command getAutonomousCommand() {
