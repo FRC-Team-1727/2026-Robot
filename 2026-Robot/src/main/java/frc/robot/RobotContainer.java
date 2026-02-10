@@ -9,9 +9,11 @@ import static edu.wpi.first.units.Units.*;
 import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.swerve.SwerveRequest;
 import com.pathplanner.lib.auto.NamedCommands;
+import com.pathplanner.lib.commands.PathPlannerAuto;
 
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -60,7 +62,10 @@ public class RobotContainer {
         configureNamedCommands();
         autoChooser = new SendableChooser<>();
         autoChooser.setDefaultOption("None", Commands.none());
+        autoChooser.addOption("BL Move", new PathPlannerAuto("BL Move"));
+        autoChooser.addOption("BL Gather", new PathPlannerAuto("BL Gather"));
         
+        SmartDashboard.putData("Auto Chooser", autoChooser);
     }
 
     private void configureBindings() {
