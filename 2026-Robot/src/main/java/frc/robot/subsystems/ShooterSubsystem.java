@@ -16,26 +16,32 @@ import frc.robot.constants.OtherConstants.IntakeConstants;
 import frc.robot.constants.OtherConstants.ShooterConstants;
 
 public class ShooterSubsystem extends SubsystemBase {
-  private TalonFX shooter = new TalonFX(ShooterConstants.kShooterID);
+  private TalonFX shooterR = new TalonFX(ShooterConstants.kShooterRID);
+  private TalonFX shooterL = new TalonFX(ShooterConstants.kShooterRID);
   private boolean inUse;
 
   /** Creates a new ExampleSubsystem. */
   public ShooterSubsystem() {
     Slot0Configs configs = new Slot0Configs();
-    CurrentLimitsConfigs configLimit = new CurrentLimitsConfigs();
+        
+        configs.kP = ShooterConstants.kShooterP;
+        configs.kI = ShooterConstants.kShooterI;
+        configs.kD = ShooterConstants.kShooterD;
 
-    configLimit.StatorCurrentLimit = 80;
-    configLimit.SupplyCurrentLimit = 60;
-  
-    configs.kP = ShooterConstants.kShooterP;
-    configs.kI = ShooterConstants.kShooterI;
-    configs.kD = ShooterConstants.kShooterD;
+        shooterR.getConfigurator().apply(configs);
+        shooterL.getConfigurator().apply(configs);
+        CurrentLimitsConfigs configLimit = new CurrentLimitsConfigs();
 
-    shooter.getConfigurator().apply(configs);
-    shooter.setNeutralMode(NeutralModeValue.Brake);
-    shooter.getConfigurator().apply(configLimit);
+        configLimit.StatorCurrentLimit = 80;
+        configLimit.SupplyCurrentLimit = 60;
+        
+        shooterR.setNeutralMode(NeutralModeValue.Brake);
 
-    inUse = false;
+        shooterL.setNeutralMode(NeutralModeValue.Brake);
+
+        shooterR.getConfigurator().apply(configLimit);
+        shooterL.getConfigurator().apply(configLimit);
+        inUse = true;
   }
 
   @Override
@@ -49,11 +55,12 @@ public class ShooterSubsystem extends SubsystemBase {
   }
 
   public boolean shooterSpeed(){
-    return shooter.getVelocity().getValueAsDouble()>ShooterConstants.shooterRPSMinimum;
+    return shooterR.getVelocity().getValueAsDouble()>ShooterConstants.shooterRPSMinimum;
   }
 
   public void setSpeed(double speed){
-    shooter.setControl(new DutyCycleOut(speed));
+    shooterR.setControl(new DutyCycleOut(speed));
+    shooterL.setControl(new DutyCycleOut(-speed));
   }
 
   public boolean getUse(){

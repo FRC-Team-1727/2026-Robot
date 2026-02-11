@@ -14,13 +14,14 @@ public final class OtherConstants {
     }
 
     public static class ShooterConstants{
-        public static int kShooterID=12;
+        public static int kShooterRID=11;
+        public static int kShooterLID=12;
 
         public static final double kShooterP = 0.2;
         public static final double kShooterI = 0;
         public static final double kShooterD = 0;
 
-        public static double shooterSpeed=1;
+        public static double shooterSpeed=.8;
         public static double passiveShooterSpeed=.1;
 
         public static double shooterRPSMinimum=400;
@@ -50,7 +51,7 @@ public final class OtherConstants {
     }
 
     public static class SpindexerConstants{
-        public static int kSpindexerID=9;
+        public static int kSpindexerID=45;
 
         public static final double kSpindexerP = 0.2;
         public static final double kSpindexerI = 0;
