@@ -60,6 +60,7 @@ public class RobotContainer {
     public RobotContainer() {
         configureBindings();
         configureNamedCommands();
+        
         autoChooser = new SendableChooser<>();
         autoChooser.setDefaultOption("None", Commands.none());
         autoChooser.addOption("BL Move", new PathPlannerAuto("BL Move"));

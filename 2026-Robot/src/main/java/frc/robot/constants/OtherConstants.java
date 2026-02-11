@@ -2,7 +2,7 @@ package frc.robot.constants;
 
 public final class OtherConstants {
     public static class IntakeConstants{
-        public static int kIntakeID=1;
+        public static int kIntakeID=10;
 
         public static final double kIntakeP = 0.2;
         public static final double kIntakeI = 0;
@@ -14,7 +14,7 @@ public final class OtherConstants {
     }
 
     public static class ShooterConstants{
-        public static int kShooterID=2;
+        public static int kShooterID=12;
 
         public static final double kShooterP = 0.2;
         public static final double kShooterI = 0;
@@ -27,7 +27,7 @@ public final class OtherConstants {
     }
 
     public static class ClimbConstants{
-        public static int kClimbID=3;
+        public static int kClimbID=11;
 
         public static final double kClimbP = 0.2;
         public static final double kClimbI = 0;
@@ -39,7 +39,7 @@ public final class OtherConstants {
     }
 
     public static class IndexerConstants{
-        public static int kIndexerID=3;
+        public static int kIndexerID=13;
 
         public static final double kIndexerP = 0.2;
         public static final double kIndexerI = 0;
@@ -50,7 +50,7 @@ public final class OtherConstants {
     }
 
     public static class SpindexerConstants{
-        public static int kSpindexerID=3;
+        public static int kSpindexerID=9;
 
         public static final double kSpindexerP = 0.2;
         public static final double kSpindexerI = 0;

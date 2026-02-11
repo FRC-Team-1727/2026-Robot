@@ -5,15 +5,40 @@
     "data": {
       "commands": [
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "BL Collect"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "BL Collect"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Intake"
+                }
+              }
+            ]
           }
         },
         {
           "type": "path",
           "data": {
             "pathName": "BL Return"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Align"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Shoot"
           }
         }
       ]
