@@ -17,7 +17,7 @@ import frc.robot.constants.OtherConstants.ShooterConstants;
 
 public class ShooterSubsystem extends SubsystemBase {
   private TalonFX shooterR = new TalonFX(ShooterConstants.kShooterRID);
-  private TalonFX shooterL = new TalonFX(ShooterConstants.kShooterRID);
+  private TalonFX shooterL = new TalonFX(ShooterConstants.kShooterLID);
   private boolean inUse;
 
   /** Creates a new ExampleSubsystem. */
@@ -35,9 +35,9 @@ public class ShooterSubsystem extends SubsystemBase {
         configLimit.StatorCurrentLimit = 80;
         configLimit.SupplyCurrentLimit = 60;
         
-        shooterR.setNeutralMode(NeutralModeValue.Brake);
+        shooterR.setNeutralMode(NeutralModeValue.Coast);
 
-        shooterL.setNeutralMode(NeutralModeValue.Brake);
+        shooterL.setNeutralMode(NeutralModeValue.Coast);
 
         shooterR.getConfigurator().apply(configLimit);
         shooterL.getConfigurator().apply(configLimit);
@@ -69,5 +69,9 @@ public class ShooterSubsystem extends SubsystemBase {
 
   public void setUse(){
     inUse = !inUse;
+  }
+
+  public double getSpeed(){
+    return shooterR.getVelocity().getValueAsDouble();
   }
 }

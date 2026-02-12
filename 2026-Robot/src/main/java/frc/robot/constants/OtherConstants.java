@@ -2,7 +2,7 @@ package frc.robot.constants;
 
 public final class OtherConstants {
     public static class IntakeConstants{
-        public static int kIntakeID=10;
+        public static int kIntakeID=16;
 
         public static final double kIntakeP = 0.2;
         public static final double kIntakeI = 0;
@@ -22,13 +22,14 @@ public final class OtherConstants {
         public static final double kShooterD = 0;
 
         public static double shooterSpeed=.8;
-        public static double passiveShooterSpeed=.1;
+        public static double passiveShooterSpeed=0
+        ;
 
         public static double shooterRPSMinimum=400;
     }
 
     public static class ClimbConstants{
-        public static int kClimbID=11;
+        public static int kClimbID=14;
 
         public static final double kClimbP = 0.2;
         public static final double kClimbI = 0;

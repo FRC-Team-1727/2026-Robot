@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 public class ShooterAlignCommand extends Command {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final CommandSwerveDrivetrain m_Drivetrain;
+  private final ShooterSubsystem m_ShooterSubsystem;
   //need limelights
 
   /**
@@ -21,10 +22,11 @@ public class ShooterAlignCommand extends Command {
    *
    * @param subsystem The subsystem used by this command.
    */
-  public ShooterAlignCommand(CommandSwerveDrivetrain drivetrain) {
+  public ShooterAlignCommand(CommandSwerveDrivetrain drivetrain, ShooterSubsystem shooterSubsystem) {
     m_Drivetrain = drivetrain;
+    m_ShooterSubsystem = shooterSubsystem;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(drivetrain);
+    addRequirements(drivetrain, shooterSubsystem);
   }
 
   // Called when the command is initially scheduled.
@@ -35,12 +37,16 @@ public class ShooterAlignCommand extends Command {
   @Override
   public void execute() {
     //limelight auto align
+    m_ShooterSubsystem.setSpeed(ShooterConstants.shooterSpeed);
+    System.out.println(m_ShooterSubsystem.getSpeed());
     
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    System.out.println(m_ShooterSubsystem.getSpeed());
+  }
 
   // Returns true when the command should end.
   @Override

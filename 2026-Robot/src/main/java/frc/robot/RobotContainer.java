@@ -23,7 +23,7 @@ import frc.robot.commands.ClimbCommand;
 import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.OuttakeCommand;
 import frc.robot.commands.ShooterAlignCommand;
-import frc.robot.commands.ShooterCommand;
+import frc.robot.commands.ShootCommand;
 import frc.robot.constants.TunerConstants;
 import frc.robot.subsystems.ClimbSubsystem;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
@@ -60,7 +60,7 @@ public class RobotContainer {
     public RobotContainer() {
         configureBindings();
         configureNamedCommands();
-        
+
         autoChooser = new SendableChooser<>();
         autoChooser.setDefaultOption("None", Commands.none());
         autoChooser.addOption("BL Move", new PathPlannerAuto("BL Move"));
@@ -105,17 +105,17 @@ public class RobotContainer {
 
         drivetrain.registerTelemetry(logger::telemeterize);
 
-        joystick.rightBumper().whileTrue(new IntakeCommand(m_IntakeSubsystem));
+        joystick.leftBumper().onTrue(new IntakeCommand(m_IntakeSubsystem));
     joystick.rightTrigger().whileTrue(new OuttakeCommand(m_IntakeSubsystem));
-    joystick.leftBumper().whileTrue(new ShooterAlignCommand(drivetrain));
-    joystick.leftTrigger().whileTrue(new ShooterCommand(m_ShooterSubsystem, m_IndexerSubsystem, m_SpindexerSubsystem));
-    joystick.x().whileTrue(new ClimbCommand(m_ClimbSubsystem));
+    joystick.x().whileTrue(new ShooterAlignCommand(drivetrain, m_ShooterSubsystem));
+    joystick.rightBumper().whileTrue(new ShootCommand(m_ShooterSubsystem, m_IndexerSubsystem, m_SpindexerSubsystem));
+    joystick.povUp().onTrue(new ClimbCommand(m_ClimbSubsystem));
     }
 
      private void configureNamedCommands(){
         NamedCommands.registerCommand("Intake", new IntakeCommand(m_IntakeSubsystem));
-        NamedCommands.registerCommand("Align", new ShooterAlignCommand(drivetrain));
-        NamedCommands.registerCommand("Shoot", new ShooterCommand(m_ShooterSubsystem, m_IndexerSubsystem, m_SpindexerSubsystem));
+        NamedCommands.registerCommand("Align", new ShooterAlignCommand(drivetrain, m_ShooterSubsystem));
+        NamedCommands.registerCommand("Shoot", new ShootCommand(m_ShooterSubsystem, m_IndexerSubsystem, m_SpindexerSubsystem));
         NamedCommands.registerCommand("Climb", new ClimbCommand(m_ClimbSubsystem));
     }
 

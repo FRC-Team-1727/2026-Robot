@@ -14,7 +14,7 @@ import frc.robot.subsystems.SpindexerSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 
 /** An example command that uses an example subsystem. */
-public class ShooterCommand extends Command {
+public class ShootCommand extends Command {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final ShooterSubsystem m_ShooterSubsystem;
   private final IndexerSubsystem m_IndexerSubsystem;
@@ -25,7 +25,7 @@ public class ShooterCommand extends Command {
    *
    * @param subsystem The subsystem used by this command.
    */
-  public ShooterCommand(ShooterSubsystem shooterSubsystem, IndexerSubsystem indexerSubsystem, SpindexerSubsystem spindexerSubsystem) {
+  public ShootCommand(ShooterSubsystem shooterSubsystem, IndexerSubsystem indexerSubsystem, SpindexerSubsystem spindexerSubsystem) {
     m_ShooterSubsystem = shooterSubsystem;
     m_IndexerSubsystem = indexerSubsystem;
     m_SpindexerSubsystem = spindexerSubsystem;
@@ -42,13 +42,10 @@ public class ShooterCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(m_ShooterSubsystem.getUse()){
-    m_ShooterSubsystem.setSpeed(ShooterConstants.shooterSpeed);
     if(m_ShooterSubsystem.shooterSpeed()){
       m_IndexerSubsystem.setSpeed(IndexerConstants.indexerSpeed);
       m_SpindexerSubsystem.setSpeed(SpindexerConstants.spindexerSpeed);
-    }
-  } else if (!m_ShooterSubsystem.getUse()){
+  } else {
     m_ShooterSubsystem.setSpeed(ShooterConstants.passiveShooterSpeed);
     m_IndexerSubsystem.setSpeed(IndexerConstants.passiveIndexerSpeed);
     m_SpindexerSubsystem.setSpeed(SpindexerConstants.passiveSpindexerSpeed);
