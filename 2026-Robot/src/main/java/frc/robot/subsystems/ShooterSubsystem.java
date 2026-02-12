@@ -18,7 +18,6 @@ import frc.robot.constants.OtherConstants.ShooterConstants;
 public class ShooterSubsystem extends SubsystemBase {
   private TalonFX shooterR = new TalonFX(ShooterConstants.kShooterRID);
   private TalonFX shooterL = new TalonFX(ShooterConstants.kShooterLID);
-  private boolean inUse;
 
   /** Creates a new ExampleSubsystem. */
   public ShooterSubsystem() {
@@ -41,7 +40,7 @@ public class ShooterSubsystem extends SubsystemBase {
 
         shooterR.getConfigurator().apply(configLimit);
         shooterL.getConfigurator().apply(configLimit);
-        inUse = true;
+       
   }
 
   @Override
@@ -59,16 +58,8 @@ public class ShooterSubsystem extends SubsystemBase {
   }
 
   public void setSpeed(double speed){
-    shooterR.setControl(new DutyCycleOut(speed));
-    shooterL.setControl(new DutyCycleOut(-speed));
-  }
-
-  public boolean getUse(){
-    return inUse;
-  }
-
-  public void setUse(){
-    inUse = !inUse;
+    shooterR.setControl(new DutyCycleOut(-speed));
+    shooterL.setControl(new DutyCycleOut(speed));
   }
 
   public double getSpeed(){

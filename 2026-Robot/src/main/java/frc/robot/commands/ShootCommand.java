@@ -36,20 +36,20 @@ public class ShootCommand extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-      m_ShooterSubsystem.setUse();
+     
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(m_ShooterSubsystem.shooterSpeed()){
-      m_IndexerSubsystem.setSpeed(IndexerConstants.indexerSpeed);
-      m_SpindexerSubsystem.setSpeed(SpindexerConstants.spindexerSpeed);
-  } else {
-    m_ShooterSubsystem.setSpeed(ShooterConstants.passiveShooterSpeed);
-    m_IndexerSubsystem.setSpeed(IndexerConstants.passiveIndexerSpeed);
-    m_SpindexerSubsystem.setSpeed(SpindexerConstants.passiveSpindexerSpeed);
-  }
+    m_ShooterSubsystem.setSpeed(ShooterConstants.shooterSpeed);
+  //   if(m_ShooterSubsystem.shooterSpeed()){
+  //     m_IndexerSubsystem.setSpeed(IndexerConstants.indexerSpeed);
+  //     m_SpindexerSubsystem.setSpeed(SpindexerConstants.spindexerSpeed);
+  // } else {
+  //   m_IndexerSubsystem.setSpeed(IndexerConstants.passiveIndexerSpeed);
+  //   m_SpindexerSubsystem.setSpeed(SpindexerConstants.passiveSpindexerSpeed);
+  // }
   }
 
   // Called once the command ends or is interrupted.

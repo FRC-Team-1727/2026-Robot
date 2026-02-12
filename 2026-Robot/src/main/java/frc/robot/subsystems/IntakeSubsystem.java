@@ -16,7 +16,6 @@ import com.ctre.phoenix6.signals.NeutralModeValue;
 
 public class IntakeSubsystem extends SubsystemBase {
   private TalonFX intake = new TalonFX(IntakeConstants.kIntakeID);
-  private static boolean inUse;
 
   /** Creates a new ExampleSubsystem. */
   public IntakeSubsystem() {
@@ -34,7 +33,6 @@ public class IntakeSubsystem extends SubsystemBase {
     intake.setNeutralMode(NeutralModeValue.Coast);
     intake.getConfigurator().apply(configLimit);
 
-    inUse = false;
   }
 
   @Override
@@ -52,11 +50,4 @@ public class IntakeSubsystem extends SubsystemBase {
     intake.setControl(new DutyCycleOut(speed));
   }
 
-  public static boolean getUse(){
-    return inUse;
-  }
-
-  public void setUse(){
-    inUse = !inUse;
-  }
 }
