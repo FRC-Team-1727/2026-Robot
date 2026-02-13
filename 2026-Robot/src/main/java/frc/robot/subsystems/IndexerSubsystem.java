@@ -7,15 +7,18 @@ package frc.robot.subsystems;
 import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
 import com.ctre.phoenix6.configs.Slot0Configs;
 import com.ctre.phoenix6.controls.DutyCycleOut;
+import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.constants.OtherConstants.IndexerConstants;
+import frc.robot.constants.OtherConstants.IntakeConstants;
 
 public class IndexerSubsystem extends SubsystemBase {
   private TalonFX indexer = new TalonFX(IndexerConstants.kIndexerID);
+  final VelocityVoltage m_request = new VelocityVoltage(0).withSlot(0);
 
   /** Creates a new ExampleSubsystem. */
   public IndexerSubsystem() {
@@ -24,7 +27,9 @@ public class IndexerSubsystem extends SubsystemBase {
 
     configLimit.StatorCurrentLimit = 80;
     configLimit.SupplyCurrentLimit = 60;
-  
+
+    configs.kS = IndexerConstants.kIntakeS;
+    configs.kV = IndexerConstants.kIntakeV;
     configs.kP = IndexerConstants.kIndexerP;
     configs.kI = IndexerConstants.kIndexerI;
     configs.kD = IndexerConstants.kIndexerD;
@@ -45,6 +50,6 @@ public class IndexerSubsystem extends SubsystemBase {
   }
 
   public void setSpeed(double speed){
-    indexer.setControl(new DutyCycleOut(speed));
+      indexer.setControl(m_request.withVelocity(speed).withFeedForward(0.5));
   }
 }

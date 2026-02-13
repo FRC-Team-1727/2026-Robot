@@ -4,6 +4,8 @@ public final class OtherConstants {
     public static class IntakeConstants{
         public static int kIntakeID=16;
 
+        public static final double kIntakeV = 0.12;
+        public static final double kIntakeS = 0.1;
         public static final double kIntakeP = 0.2;
         public static final double kIntakeI = 0;
         public static final double kIntakeD = 0;
@@ -21,7 +23,7 @@ public final class OtherConstants {
         public static final double kShooterI = 0;
         public static final double kShooterD = 0;
 
-        public static double shooterSpeed=.8;
+        public static double shooterSpeed=.4;
         public static double passiveShooterSpeed=0
         ;
 
@@ -43,6 +45,8 @@ public final class OtherConstants {
     public static class IndexerConstants{
         public static int kIndexerID=13;
 
+        public static final double kIntakeV = 0.12;
+        public static final double kIntakeS = 0.1;
         public static final double kIndexerP = 0.2;
         public static final double kIndexerI = 0;
         public static final double kIndexerD = 0;

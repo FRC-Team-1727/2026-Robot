@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.units.measure.Velocity;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.constants.OtherConstants.IntakeConstants;
@@ -11,11 +12,13 @@ import frc.robot.constants.OtherConstants.IntakeConstants;
 import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
 import com.ctre.phoenix6.configs.Slot0Configs;
 import com.ctre.phoenix6.controls.DutyCycleOut;
+import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 
 public class IntakeSubsystem extends SubsystemBase {
   private TalonFX intake = new TalonFX(IntakeConstants.kIntakeID);
+  final VelocityVoltage m_request = new VelocityVoltage(0).withSlot(0);
 
   /** Creates a new ExampleSubsystem. */
   public IntakeSubsystem() {
@@ -25,6 +28,8 @@ public class IntakeSubsystem extends SubsystemBase {
     configLimit.StatorCurrentLimit = 80;
     configLimit.SupplyCurrentLimit = 60;
   
+    configs.kS = IntakeConstants.kIntakeS;
+    configs.kV = IntakeConstants.kIntakeV;
     configs.kP = IntakeConstants.kIntakeP;
     configs.kI = IntakeConstants.kIntakeI;
     configs.kD = IntakeConstants.kIntakeD;
@@ -47,7 +52,7 @@ public class IntakeSubsystem extends SubsystemBase {
 
 
   public void setSpeed(double speed){
-    intake.setControl(new DutyCycleOut(speed));
+    intake.setControl(m_request.withVelocity(speed).withFeedForward(0.5));
   }
 
 }
