@@ -52,7 +52,7 @@ public class IntakeSubsystem extends SubsystemBase {
 
 
   public void setSpeed(double speed){
-    intake.setControl(m_request.withVelocity(speed).withFeedForward(0.5));
+    intake.setControl(new DutyCycleOut(speed));
   }
 
 }

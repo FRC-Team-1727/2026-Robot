@@ -100,15 +100,15 @@ public class RobotContainer {
         joystick.start().and(joystick.y()).whileTrue(drivetrain.sysIdQuasistatic(Direction.kForward));
         joystick.start().and(joystick.x()).whileTrue(drivetrain.sysIdQuasistatic(Direction.kReverse));
 
-        // Reset the field-centric heading on left bumper press.
+        // Reset the field-centric heading
         joystick.y().onTrue(drivetrain.runOnce(drivetrain::seedFieldCentric)); //xbox Y = PS5 triangle
 
         drivetrain.registerTelemetry(logger::telemeterize);
 
         joystick.leftBumper().onTrue(new IntakeCommand(m_IntakeSubsystem));
-        joystick.rightTrigger().whileTrue(new OuttakeCommand(m_IntakeSubsystem)); 
-        joystick.x().whileTrue(new ShooterAlignCommand(drivetrain, m_ShooterSubsystem)); //xbox X = PS5 square
-        joystick.rightBumper().whileTrue(new ShootCommand(m_ShooterSubsystem, m_IndexerSubsystem, m_SpindexerSubsystem));
+        joystick.leftTrigger().whileTrue(new OuttakeCommand(m_IntakeSubsystem)); 
+        joystick.rightBumper().whileTrue(new ShooterAlignCommand(drivetrain, m_ShooterSubsystem)); //xbox X = PS5 square
+        joystick.rightTrigger().whileTrue(new ShootCommand(m_ShooterSubsystem, m_IndexerSubsystem, m_SpindexerSubsystem));
         joystick.povUp().onTrue(new ClimbCommand(m_ClimbSubsystem));
     }
 
