@@ -105,7 +105,7 @@ public class RobotContainer {
 
         drivetrain.registerTelemetry(logger::telemeterize);
 
-        joystick.leftBumper().onTrue(new IntakeCommand(m_IntakeSubsystem));
+        joystick.leftBumper().toggleOnTrue(new IntakeCommand(m_IntakeSubsystem));
         joystick.leftTrigger().whileTrue(new OuttakeCommand(m_IntakeSubsystem)); 
         joystick.rightBumper().whileTrue(new ShooterAlignCommand(drivetrain, m_ShooterSubsystem)); //xbox X = PS5 square
         joystick.rightTrigger().whileTrue(new ShootCommand(m_ShooterSubsystem, m_IndexerSubsystem, m_SpindexerSubsystem));
