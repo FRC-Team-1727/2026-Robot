@@ -10,8 +10,8 @@ public final class OtherConstants {
         public static final double kIntakeI = 0;
         public static final double kIntakeD = 0;
 
-        public static double intakeSpeed = -.4;
-        public static double outtakeSpeed = .4;
+        public static double intakeSpeed = -.6;
+        public static double outtakeSpeed = .5;
         public static double passiveIntakeSpeed = 0;
     }
 
