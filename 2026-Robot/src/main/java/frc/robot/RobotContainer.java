@@ -7,6 +7,8 @@ package frc.robot;
 import static edu.wpi.first.units.Units.*;
 
 import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
+import com.lumynlabs.devices.ConnectorXAnimate;
+import com.lumynlabs.domain.led.Animation;
 import com.ctre.phoenix6.swerve.SwerveRequest;
 import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
@@ -14,6 +16,8 @@ import com.pathplanner.lib.commands.PathPlannerAuto;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.util.Color;
+import edu.wpi.first.wpilibj.util.Color8Bit;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -52,14 +56,17 @@ public class RobotContainer {
     private final IndexerSubsystem m_IndexerSubsystem = new IndexerSubsystem();
     private final SpindexerSubsystem m_SpindexerSubsystem = new SpindexerSubsystem();
     private final ClimbSubsystem m_ClimbSubsystem = new ClimbSubsystem();
+    private final ConnectorXAnimate m_leds;
+
 
     public final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
 
     SendableChooser<Command> autoChooser = new SendableChooser<>();
 
-    public RobotContainer() {
+    public RobotContainer(ConnectorXAnimate leds) {
         configureBindings();
         configureNamedCommands();
+        m_leds = leds;
 
         autoChooser = new SendableChooser<>();
         autoChooser.setDefaultOption("None", Commands.none());
@@ -106,15 +113,21 @@ public class RobotContainer {
         drivetrain.registerTelemetry(logger::telemeterize);
 
         joystick.leftBumper().toggleOnTrue(new IntakeCommand(m_IntakeSubsystem));
-        joystick.leftTrigger().whileTrue(new OuttakeCommand(m_IntakeSubsystem)); 
-        joystick.rightBumper().whileTrue(new ShooterAlignCommand(drivetrain, m_ShooterSubsystem)); //xbox X = PS5 square
+        // joystick.leftTrigger().onFalse(m_leds.leds.SetAnimation(Animation.RainbowRoll)
+        //     .ForZone("front")
+        //     .WithColor(new Color(new Color8Bit(255, 255, 255)))
+        //     .WithDelay(Seconds.of(.5))
+        //     .Reverse(false)
+        //     .RunOnce(false)); 
+        joystick.rightBumper().whileTrue(new ShooterAlignCommand(drivetrain, m_ShooterSubsystem, m_leds)); //xbox X = PS5 square
         joystick.rightTrigger().whileTrue(new ShootCommand(m_ShooterSubsystem, m_IndexerSubsystem, m_SpindexerSubsystem));
         joystick.povUp().onTrue(new ClimbCommand(m_ClimbSubsystem));
+    
     }
 
      private void configureNamedCommands(){
         NamedCommands.registerCommand("Intake", new IntakeCommand(m_IntakeSubsystem));
-        NamedCommands.registerCommand("Align", new ShooterAlignCommand(drivetrain, m_ShooterSubsystem));
+        NamedCommands.registerCommand("Align", new ShooterAlignCommand(drivetrain, m_ShooterSubsystem, m_leds));
         NamedCommands.registerCommand("Shoot", new ShootCommand(m_ShooterSubsystem, m_IndexerSubsystem, m_SpindexerSubsystem));
         NamedCommands.registerCommand("Climb", new ClimbCommand(m_ClimbSubsystem));
     }
