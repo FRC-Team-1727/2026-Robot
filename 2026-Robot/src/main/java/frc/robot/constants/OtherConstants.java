@@ -19,6 +19,8 @@ public final class OtherConstants {
         public static int kShooterRID=11;
         public static int kShooterLID=12;
 
+        public static final double kShooterV = 0.12;
+        public static final double kShooterS = 0.1;
         public static final double kShooterP = 0.2;
         public static final double kShooterI = 0;
         public static final double kShooterD = 0;
@@ -33,6 +35,8 @@ public final class OtherConstants {
     public static class ClimbConstants{
         public static int kClimbID=14;
 
+        public static final double kClimbV = 0.12;
+        public static final double kClimbS = 0.1;
         public static final double kClimbP = 0.2;
         public static final double kClimbI = 0;
         public static final double kClimbD = 0;
@@ -45,8 +49,9 @@ public final class OtherConstants {
     public static class IndexerConstants{
         public static int kIndexerID=13;
 
-        public static final double kIntakeV = 0.12;
-        public static final double kIntakeS = 0.1;
+        
+        public static final double kIndexerV = 0.12;
+        public static final double kIndexerS = 0.1;
         public static final double kIndexerP = 0.2;
         public static final double kIndexerI = 0;
         public static final double kIndexerD = 0;
@@ -58,6 +63,8 @@ public final class OtherConstants {
     public static class SpindexerConstants{
         public static int kSpindexerID=45;
 
+        public static final double kSpindexerV = 0.12;
+        public static final double kSpindexerS = 0.1;
         public static final double kSpindexerP = 0.2;
         public static final double kSpindexerI = 0;
         public static final double kSpindexerD = 0;

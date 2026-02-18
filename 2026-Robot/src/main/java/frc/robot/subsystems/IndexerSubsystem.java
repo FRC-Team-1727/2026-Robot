@@ -26,16 +26,16 @@ public class IndexerSubsystem extends SubsystemBase {
     CurrentLimitsConfigs configLimit = new CurrentLimitsConfigs();
 
     configLimit.StatorCurrentLimit = 80;
-    configLimit.SupplyCurrentLimit = 60;
+    configLimit.SupplyCurrentLimit = 40;
 
-    configs.kS = IndexerConstants.kIntakeS;
-    configs.kV = IndexerConstants.kIntakeV;
+    configs.kS = IndexerConstants.kIndexerS;
+    configs.kV = IndexerConstants.kIndexerV;
     configs.kP = IndexerConstants.kIndexerP;
     configs.kI = IndexerConstants.kIndexerI;
     configs.kD = IndexerConstants.kIndexerD;
 
     indexer.getConfigurator().apply(configs);
-    indexer.setNeutralMode(NeutralModeValue.Brake);
+    indexer.setNeutralMode(NeutralModeValue.Coast);
     indexer.getConfigurator().apply(configLimit);
   }
 

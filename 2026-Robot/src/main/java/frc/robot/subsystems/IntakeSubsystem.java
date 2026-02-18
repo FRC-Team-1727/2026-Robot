@@ -26,7 +26,7 @@ public class IntakeSubsystem extends SubsystemBase {
     CurrentLimitsConfigs configLimit = new CurrentLimitsConfigs();
 
     configLimit.StatorCurrentLimit = 80;
-    configLimit.SupplyCurrentLimit = 60;
+    configLimit.SupplyCurrentLimit = 40;
   
     configs.kS = IntakeConstants.kIntakeS;
     configs.kV = IntakeConstants.kIntakeV;
@@ -52,7 +52,7 @@ public class IntakeSubsystem extends SubsystemBase {
 
 
   public void setSpeed(double speed){
-    intake.setControl(new DutyCycleOut(speed));
+     intake.setControl(m_request.withVelocity(speed).withFeedForward(0.5));
   }
 
 }

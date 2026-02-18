@@ -7,6 +7,7 @@ package frc.robot.subsystems;
 import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
 import com.ctre.phoenix6.configs.Slot0Configs;
 import com.ctre.phoenix6.controls.DutyCycleOut;
+import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 
@@ -18,11 +19,14 @@ import frc.robot.constants.OtherConstants.ShooterConstants;
 public class ShooterSubsystem extends SubsystemBase {
   private TalonFX shooterR = new TalonFX(ShooterConstants.kShooterRID);
   private TalonFX shooterL = new TalonFX(ShooterConstants.kShooterLID);
+  final VelocityVoltage m_request = new VelocityVoltage(0).withSlot(0);
 
   /** Creates a new ExampleSubsystem. */
   public ShooterSubsystem() {
     Slot0Configs configs = new Slot0Configs();
         
+        configs.kS = ShooterConstants.kShooterS;
+        configs.kV = ShooterConstants.kShooterV;
         configs.kP = ShooterConstants.kShooterP;
         configs.kI = ShooterConstants.kShooterI;
         configs.kD = ShooterConstants.kShooterD;
@@ -58,8 +62,8 @@ public class ShooterSubsystem extends SubsystemBase {
   }
 
   public void setSpeed(double speed){
-    shooterR.setControl(new DutyCycleOut(-speed));
-    shooterL.setControl(new DutyCycleOut(speed));
+     shooterL.setControl(m_request.withVelocity(speed).withFeedForward(0.5));
+     shooterR.setControl(m_request.withVelocity(-speed).withFeedForward(0.5));
   }
 
   public double getSpeed(){
