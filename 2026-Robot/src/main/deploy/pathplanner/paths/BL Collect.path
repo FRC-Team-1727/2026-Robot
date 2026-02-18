@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.0,
-        "y": 7.0
+        "x": 2.601,
+        "y": 4.913257042253522
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.0,
-        "y": 7.0
+        "x": 3.601,
+        "y": 4.913257042253522
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Shoot Position BL"
     },
     {
       "anchor": {
-        "x": 4.582613095238096,
-        "y": 7.425452380952382
+        "x": 3.351760563380282,
+        "y": 7.34044014084507
       },
       "prevControl": {
-        "x": 3.7242023809523817,
-        "y": 7.576619047619047
+        "x": 2.4579581795303436,
+        "y": 7.244675599718291
       },
       "nextControl": {
-        "x": 5.503927312563987,
-        "y": 7.263208367838389
+        "x": 4.245985915492957,
+        "y": 7.436249999999999
       },
       "isLocked": false,
       "linkedName": null
@@ -41,7 +41,7 @@
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "Gather Position BL"
     }
   ],
   "rotationTargets": [
@@ -66,10 +66,10 @@
     "rotation": -50.0
   },
   "reversed": false,
-  "folder": null,
+  "folder": "Blue Left",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": -38.65980825409017
   },
   "useDefaultConstraints": true
 }

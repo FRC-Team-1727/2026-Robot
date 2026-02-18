@@ -3,71 +3,67 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.519565476190477,
-        "y": 6.248511904761905
+        "x": 2.952552816901409,
+        "y": 4.035
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.028273809523809,
-        "y": 6.982749999999999
+        "x": 3.0164260563380285,
+        "y": 2.9491549295774657
       },
       "isLocked": false,
-      "linkedName": "Gather Position BL"
+      "linkedName": "Shoot Position BM"
     },
     {
       "anchor": {
-        "x": 5.635380952380952,
-        "y": 7.3876607142857145
+        "x": 2.952552816901409,
+        "y": 0.6656866197183104
       },
       "prevControl": {
-        "x": 6.5505820304779245,
-        "y": 7.365870212426263
+        "x": 1.952552816901409,
+        "y": 0.6656866197183104
       },
       "nextControl": {
-        "x": 4.728380952380952,
-        "y": 7.409255952380952
+        "x": 3.952552816901409,
+        "y": 0.6656866197183104
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 3.0007619047619056,
-        "y": 7.3876607142857145
+        "x": 5.9386267605633805,
+        "y": 0.6656866197183104
       },
       "prevControl": {
-        "x": 3.4629686013538477,
-        "y": 7.458406637233461
+        "x": 5.124242957746479,
+        "y": 0.6337500000000001
       },
       "nextControl": {
-        "x": 2.471678571428572,
-        "y": 7.306678571428572
+        "x": 6.753010563380282,
+        "y": 0.6976232394366207
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.601,
-        "y": 4.913257042253522
+        "x": 7.439647887323944,
+        "y": 1.8313732394366196
       },
       "prevControl": {
-        "x": 2.406642857142857,
-        "y": 5.771667756539236
+        "x": 7.10431338028169,
+        "y": 1.5120070422535208
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Shoot Position BL"
+      "linkedName": "Gather Position BR"
     }
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 1.0008298755186864,
-      "rotationDegrees": -90.0
-    },
-    {
-      "waypointRelativePos": 2.0016597510373555,
-      "rotationDegrees": -90.0
+      "waypointRelativePos": 2.023529411764702,
+      "rotationDegrees": 0.0
     }
   ],
   "constraintZones": [],
@@ -83,13 +79,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -38.65980825409017
+    "rotation": 43.60281897270362
   },
   "reversed": false,
-  "folder": "Blue Left",
+  "folder": "Blue Middle",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -50.0
+    "rotation": 0.0
   },
   "useDefaultConstraints": true
 }

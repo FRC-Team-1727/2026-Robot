@@ -7,7 +7,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "BL Move"
+            "pathName": "BR Move"
           }
         },
         {
@@ -29,7 +29,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "BL Collect"
+                  "pathName": "BR Collect"
                 }
               },
               {
@@ -44,7 +44,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "BL Return"
+            "pathName": "BR Return"
           }
         },
         {
