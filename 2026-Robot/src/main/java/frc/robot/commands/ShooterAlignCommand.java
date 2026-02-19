@@ -9,8 +9,19 @@ import frc.robot.constants.OtherConstants.ShooterConstants;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
+<<<<<<< HEAD
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.trajectory.TrapezoidProfile;
+=======
+
+import static edu.wpi.first.units.Units.Seconds;
+
+import com.lumynlabs.devices.ConnectorXAnimate;
+import com.lumynlabs.domain.led.Animation;
+
+import edu.wpi.first.wpilibj.util.Color;
+import edu.wpi.first.wpilibj.util.Color8Bit;
+>>>>>>> 3fbb39808ba89caff602a173963aa94e2d7a7ca9
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
@@ -19,9 +30,13 @@ public class ShooterAlignCommand extends Command {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final CommandSwerveDrivetrain m_Drivetrain;
   private final ShooterSubsystem m_ShooterSubsystem;
+<<<<<<< HEAD
   // private ProfiledPIDController translationalPID;
   // private ProfiledPIDController rotationalPID;
   // private final CommandXboxController joystick;
+=======
+  private final ConnectorXAnimate m_leds;
+>>>>>>> 3fbb39808ba89caff602a173963aa94e2d7a7ca9
   //need limelights
 
   /**
@@ -29,10 +44,14 @@ public class ShooterAlignCommand extends Command {
    *
    * @param subsystem The subsystem used by this command.
    */
-  public ShooterAlignCommand(CommandSwerveDrivetrain drivetrain, ShooterSubsystem shooterSubsystem) {
+  public ShooterAlignCommand(CommandSwerveDrivetrain drivetrain, ShooterSubsystem shooterSubsystem, ConnectorXAnimate leds) {
     m_Drivetrain = drivetrain;
     m_ShooterSubsystem = shooterSubsystem;
+<<<<<<< HEAD
     
+=======
+    m_leds = leds;
+>>>>>>> 3fbb39808ba89caff602a173963aa94e2d7a7ca9
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(drivetrain, shooterSubsystem);
   }
@@ -58,6 +77,12 @@ public class ShooterAlignCommand extends Command {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+     m_leds.leds.SetAnimation(Animation.RainbowRoll)
+            .ForZone("front")
+            .WithColor(new Color(new Color8Bit(255, 255, 255)))
+            .WithDelay(Seconds.of(.5))
+            .Reverse(false)
+            .RunOnce(false);
     System.out.println(m_ShooterSubsystem.getSpeed());
   }
 

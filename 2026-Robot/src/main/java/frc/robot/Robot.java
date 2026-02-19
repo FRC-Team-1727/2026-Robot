@@ -4,14 +4,29 @@
 
 package frc.robot;
 
-import com.ctre.phoenix6.HootAutoReplay;
+import java.time.temporal.ChronoUnit;
+import java.util.concurrent.TimeUnit;
 
+import com.ctre.phoenix6.HootAutoReplay;
+import com.lumynlabs.connection.usb.USBPort;
+import com.lumynlabs.devices.ConnectorXAnimate;
+import com.lumynlabs.domain.led.Animation;
+
+import edu.wpi.first.math.util.Units;
+import edu.wpi.first.units.Measure;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.util.Color;
+import edu.wpi.first.wpilibj.util.Color8Bit;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
+import static edu.wpi.first.units.Units.Second;
+import static edu.wpi.first.units.Units.Seconds;
+
 public class Robot extends TimedRobot {
     private Command m_autonomousCommand;
+    private ConnectorXAnimate m_leds = new ConnectorXAnimate();
+
 
     private final RobotContainer m_robotContainer;
 
@@ -21,7 +36,7 @@ public class Robot extends TimedRobot {
         .withJoystickReplay();
 
     public Robot() {
-        m_robotContainer = new RobotContainer();
+        m_robotContainer = new RobotContainer(m_leds);
     }
 
     @Override
@@ -46,6 +61,19 @@ public class Robot extends TimedRobot {
         if (m_autonomousCommand != null) {
             CommandScheduler.getInstance().schedule(m_autonomousCommand);
         }
+          m_leds.leds.SetAnimation(Animation.RainbowRoll)
+            .ForZone("front")
+            .WithColor(new Color(new Color8Bit(255, 255, 255)))
+            .WithDelay(Seconds.of(.5))
+            .Reverse(false)
+            .RunOnce(false);
+    }
+    
+    @Override
+    public void robotInit() {
+        // Connect to the device on USB port 1
+        boolean connected = m_leds.Connect(USBPort.kUSB1);
+        System.out.println("ConnectorX connected: " + connected);
     }
 
     @Override
@@ -59,6 +87,12 @@ public class Robot extends TimedRobot {
         if (m_autonomousCommand != null) {
             CommandScheduler.getInstance().cancel(m_autonomousCommand);
         }
+
+            m_leds.leds.SetAnimation(Animation.Fill)
+            .ForZone("front")
+            .WithColor(new Color(new Color8Bit(0, 255, 0)))
+            .WithDelay(Seconds.of(1.5))
+            .RunOnce(false);
     }
 
     @Override

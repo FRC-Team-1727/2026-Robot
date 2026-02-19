@@ -49,10 +49,10 @@ public class IntakeSubsystem extends SubsystemBase {
   public void simulationPeriodic() {
     // This method will be called once per scheduler run during simulation
   }
-
+ 
 
   public void setSpeed(double speed){
-     intake.setControl(m_request.withVelocity(speed).withFeedForward(0.5));
+    //  intake.setControl(m_request.withVelocity(speed).withFeedForward(0.5));
+     intake.setControl(new DutyCycleOut(speed));
   }
-
 }
