@@ -4,17 +4,24 @@
 
 package frc.robot.commands;
 
+import frc.robot.LimelightHelpers;
 import frc.robot.constants.OtherConstants.ShooterConstants;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
+import edu.wpi.first.math.controller.ProfiledPIDController;
+import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
 /** An example command that uses an example subsystem. */
 public class ShooterAlignCommand extends Command {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final CommandSwerveDrivetrain m_Drivetrain;
   private final ShooterSubsystem m_ShooterSubsystem;
+  // private ProfiledPIDController translationalPID;
+  // private ProfiledPIDController rotationalPID;
+  // private final CommandXboxController joystick;
   //need limelights
 
   /**
@@ -25,13 +32,19 @@ public class ShooterAlignCommand extends Command {
   public ShooterAlignCommand(CommandSwerveDrivetrain drivetrain, ShooterSubsystem shooterSubsystem) {
     m_Drivetrain = drivetrain;
     m_ShooterSubsystem = shooterSubsystem;
+    
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(drivetrain, shooterSubsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    //  translationalPID = new ProfiledPIDController(2, 0, 0,
+    //             new TrapezoidProfile.Constraints(translationSpeedLim, translationAccelLim));
+    //     rotationalPID = new ProfiledPIDController(6, 0, 0,
+    //             new TrapezoidProfile.Constraints(rotationalSpeedLim, rotationalAccelLim));
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
@@ -51,6 +64,8 @@ public class ShooterAlignCommand extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+    // return (rotationalPID.atGoal() && translationalPID.atGoal()) || joystick.leftTrigger().getAsBoolean()
+    //   || (!LimelightHelpers.getTV("limelight-left") && !LimelightHelpers.getTV("limelight-right"));
     return false;
   }
 }
