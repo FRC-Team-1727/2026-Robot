@@ -6,6 +6,11 @@ package frc.robot;
 
 import static edu.wpi.first.units.Units.*;
 
+import com.lumynlabs.domain.config.ConfigBuilder;
+import com.lumynlabs.domain.config.LumynDeviceConfig;
+import com.lumynlabs.domain.config.NetworkType;
+import java.util.Optional;
+
 import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
 import com.lumynlabs.devices.ConnectorXAnimate;
 import com.lumynlabs.domain.led.Animation;
@@ -56,7 +61,9 @@ public class RobotContainer {
     private final IndexerSubsystem m_IndexerSubsystem = new IndexerSubsystem();
     private final SpindexerSubsystem m_SpindexerSubsystem = new SpindexerSubsystem();
     private final ClimbSubsystem m_ClimbSubsystem = new ClimbSubsystem();
-    private final ConnectorXAnimate m_leds;
+    private final ConnectorXAnimate m_leds = new ConnectorXAnimate();
+
+    // private final LumynDevice mCx = new LumynDevice(3); 
 
 
     public final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
@@ -64,14 +71,17 @@ public class RobotContainer {
     SendableChooser<Command> autoChooser = new SendableChooser<>();
 
     public RobotContainer(ConnectorXAnimate leds) {
+        
         configureBindings();
         configureNamedCommands();
-        m_leds = leds;
+        configureLEDS();
 
         autoChooser = new SendableChooser<>();
         autoChooser.setDefaultOption("None", Commands.none());
-        autoChooser.addOption("BL Move", new PathPlannerAuto("BL Move"));
+        autoChooser.addOption("BM Gather Right", new PathPlannerAuto("BM Gather Right"));
         autoChooser.addOption("BL Gather", new PathPlannerAuto("BL Gather"));
+        autoChooser.addOption("BM Gather Left", new PathPlannerAuto("BM Gather Left"));
+        autoChooser.addOption("BR Gather", new PathPlannerAuto("BR Gather"));
         
         SmartDashboard.putData("Auto Chooser", autoChooser);
     }
@@ -149,5 +159,20 @@ public class RobotContainer {
             // Finally idle for the rest of auton
             drivetrain.applyRequest(() -> idle)
         );
+    }
+
+    public void configureLEDS(){
+ConfigBuilder builder = new ConfigBuilder();
+LumynDeviceConfig cfg = builder
+    .forTeam("1727")
+    .setNetworkType(NetworkType.USB)
+    .addChannel(1, "PORT 1", 3)  // Channel 1, name, total LEDs
+        .addStripZone("front", 3)       // Zone name, LED count
+        .endChannel()
+    .build();
+
+m_leds.ApplyConfiguration(cfg);
+
+
     }
 }

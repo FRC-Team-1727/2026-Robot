@@ -41,7 +41,14 @@ public class ShooterAlignCommand extends Command {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+      m_leds.leds.SetAnimation(Animation.Fill)
+            .ForZone("front")
+            .WithColor(new Color(new Color8Bit(0, 0, 255)))
+            .WithDelay(Seconds.of(0))
+            .Reverse(false)
+            .RunOnce(false);
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
@@ -49,7 +56,13 @@ public class ShooterAlignCommand extends Command {
     //limelight auto align
     m_ShooterSubsystem.setSpeed(ShooterConstants.shooterSpeed);
     System.out.println(m_ShooterSubsystem.getSpeed());
-    
+     m_leds.leds.SetAnimation(Animation.Fill)
+            .ForZone("front")
+            .WithColor(new Color(new Color8Bit(0, 0, 255)))
+            .WithDelay(Seconds.of(0))
+            .Reverse(false)
+            .RunOnce(false);
+            System.out.println(m_leds.IsConnected());
   }
 
   // Called once the command ends or is interrupted.
