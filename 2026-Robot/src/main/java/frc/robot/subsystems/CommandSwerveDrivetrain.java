@@ -349,4 +349,10 @@ public class CommandSwerveDrivetrain extends TunerSwerveDrivetrain implements Su
     }
   }
 
+@Override
+public void resetPose(Pose2d pose){
+super.resetPose(pose);
+getPigeon2().setYaw(pose.getRotation().getDegrees());
+  }
+
 }
