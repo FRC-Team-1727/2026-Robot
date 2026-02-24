@@ -6,7 +6,13 @@ package frc.robot;
 
 import static edu.wpi.first.units.Units.*;
 
+import com.lumynlabs.domain.config.ConfigBuilder;
+import com.lumynlabs.domain.config.LumynDeviceConfig;
+import com.lumynlabs.domain.config.NetworkType;
+import java.util.Optional;
+
 import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
+import com.lumynlabs.connection.usb.USBPort;
 import com.lumynlabs.devices.ConnectorXAnimate;
 import com.lumynlabs.domain.led.Animation;
 import com.ctre.phoenix6.swerve.SwerveRequest;
@@ -14,6 +20,7 @@ import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
@@ -36,12 +43,13 @@ import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.SpindexerSubsystem;
 
+
 public class RobotContainer {
     private double MaxSpeed = 1.0 * TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
     private double MaxAngularRate = RotationsPerSecond.of(0.75).in(RadiansPerSecond); // 3/4 of a rotation per second max angular velocity
 
     /* Setting up bindings for necessary control of the swerve drive platform */
-    private final SwerveRequest.FieldCentric drive = new SwerveRequest.FieldCentric()
+    private final SwerveRequest.FieldCentric driveRequest = new SwerveRequest.FieldCentric()
             .withDeadband(MaxSpeed * 0.1).withRotationalDeadband(MaxAngularRate * 0.1) // Add a 10% deadband
             .withDriveRequestType(DriveRequestType.OpenLoopVoltage); // Use open-loop control for drive motors
     private final SwerveRequest.SwerveDriveBrake brake = new SwerveRequest.SwerveDriveBrake();
@@ -56,24 +64,39 @@ public class RobotContainer {
     private final IndexerSubsystem m_IndexerSubsystem = new IndexerSubsystem();
     private final SpindexerSubsystem m_SpindexerSubsystem = new SpindexerSubsystem();
     private final ClimbSubsystem m_ClimbSubsystem = new ClimbSubsystem();
-    private final ConnectorXAnimate m_leds;
+    private final ConnectorXAnimate m_leds = new ConnectorXAnimate();
+    
+
+    // private final LumynDevice mCx = new LumynDevice(3); 
+    private boolean aligning;
 
 
     public final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
 
+    
+    private final RobotStateEstimator estimator = new RobotStateEstimator(drivetrain);
+
     SendableChooser<Command> autoChooser = new SendableChooser<>();
 
     public RobotContainer(ConnectorXAnimate leds) {
+        
         configureBindings();
         configureNamedCommands();
-        m_leds = leds;
+        boolean connected = m_leds.Connect(USBPort.kUSB1);
+        System.out.println("ConnectorX connected: " + connected);
+        configureLEDS();
+
+        
 
         autoChooser = new SendableChooser<>();
         autoChooser.setDefaultOption("None", Commands.none());
-        autoChooser.addOption("BL Move", new PathPlannerAuto("BL Move"));
+        autoChooser.addOption("BM Gather Right", new PathPlannerAuto("BM Gather Right"));
         autoChooser.addOption("BL Gather", new PathPlannerAuto("BL Gather"));
+        autoChooser.addOption("BM Gather Left", new PathPlannerAuto("BM Gather Left"));
+        autoChooser.addOption("BR Gather", new PathPlannerAuto("BR Gather"));
         
         SmartDashboard.putData("Auto Chooser", autoChooser);
+        
     }
 
     private void configureBindings() {
@@ -82,7 +105,7 @@ public class RobotContainer {
         drivetrain.setDefaultCommand(
             // Drivetrain will execute this command periodically
             drivetrain.applyRequest(() ->
-                drive.withVelocityX(-joystick.getLeftY() * MaxSpeed) // Drive forward with negative Y (forward)
+                driveRequest.withVelocityX(-joystick.getLeftY() * MaxSpeed) // Drive forward with negative Y (forward)
                     .withVelocityY(-joystick.getLeftX() * MaxSpeed) // Drive left with negative X (left)
                     .withRotationalRate(-joystick.getRightX() * MaxAngularRate) // Drive counterclockwise with negative X (left)
             )
@@ -119,7 +142,7 @@ public class RobotContainer {
         //     .WithDelay(Seconds.of(.5))
         //     .Reverse(false)
         //     .RunOnce(false)); 
-        joystick.rightBumper().whileTrue(new ShooterAlignCommand(drivetrain, m_ShooterSubsystem, m_leds)); //xbox X = PS5 square
+        joystick.rightBumper().whileTrue(new ShooterAlignCommand(drivetrain, m_ShooterSubsystem, m_leds, driveRequest, this)); //xbox X = PS5 square
         joystick.rightTrigger().whileTrue(new ShootCommand(m_ShooterSubsystem, m_IndexerSubsystem, m_SpindexerSubsystem));
         joystick.povUp().onTrue(new ClimbCommand(m_ClimbSubsystem));
     
@@ -127,9 +150,11 @@ public class RobotContainer {
 
      private void configureNamedCommands(){
         NamedCommands.registerCommand("Intake", new IntakeCommand(m_IntakeSubsystem).withTimeout(2.5));
-        NamedCommands.registerCommand("Align", new ShooterAlignCommand(drivetrain, m_ShooterSubsystem, m_leds));
+        NamedCommands.registerCommand("Align", new ShooterAlignCommand(drivetrain, m_ShooterSubsystem, m_leds, driveRequest, this));
         NamedCommands.registerCommand("Shoot", new ShootCommand(m_ShooterSubsystem, m_IndexerSubsystem, m_SpindexerSubsystem).withTimeout(2.5));
-        NamedCommands.registerCommand("Climb", new ClimbCommand(m_ClimbSubsystem));
+        NamedCommands.registerCommand("Climb", new ClimbCommand(m_ClimbSubsystem).withTimeout(2.5));
+    
+>>>>>>> 60e36a6e8c03991ef7f68e9a37e826503fc8e0fe
     }
 
     public Command getAutonomousCommand() {
@@ -137,11 +162,16 @@ public class RobotContainer {
         final var idle = new SwerveRequest.Idle();
         return Commands.sequence(
             // Reset our field centric heading to match the robot
-            // facing away from our alliance station wall (0 deg).
-            drivetrain.runOnce(() -> drivetrain.seedFieldCentric()),
+            drivetrain.runOnce(() -> {
+                if(DriverStation.getAlliance().get() == DriverStation.Alliance.Red){
+                    drivetrain.seedFieldCentric(Rotation2d.fromDegrees(180.0));
+                } else {
+                    drivetrain.seedFieldCentric(Rotation2d.fromDegrees(0.0));
+                }
+            }),
             // Then slowly drive forward (away from us) for 5 seconds.
             drivetrain.applyRequest(() ->
-                drive.withVelocityX(0.5)
+                driveRequest.withVelocityX(0.5)
                     .withVelocityY(0)
                     .withRotationalRate(0)
             )
@@ -149,5 +179,29 @@ public class RobotContainer {
             // Finally idle for the rest of auton
             drivetrain.applyRequest(() -> idle)
         );
+    }
+
+    public void configureLEDS(){
+     Optional<LumynDeviceConfig> config=  m_leds.LoadConfigurationFromDeploy("config.json");
+     config.ifPresent(m_leds::ApplyConfiguration);
+ m_leds.leds.SetAnimation(Animation.Fill)
+            .ForZone("front")
+            .WithColor(new Color(new Color8Bit(0, 0, 255)))
+            .WithDelay(Seconds.of(0))
+            .Reverse(false)
+            .RunOnce(false);
+
+    }
+
+    public void configureAuto(){
+
+    } 
+
+    public CommandXboxController getJoystick(){
+        return joystick;
+    }
+
+    public void setAligning(boolean a){
+        aligning=a;
     }
 }

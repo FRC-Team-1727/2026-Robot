@@ -12,6 +12,7 @@ import com.lumynlabs.connection.usb.USBPort;
 import com.lumynlabs.devices.ConnectorXAnimate;
 import com.lumynlabs.domain.led.Animation;
 
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.units.Measure;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -87,7 +88,7 @@ public class Robot extends TimedRobot {
         if (m_autonomousCommand != null) {
             CommandScheduler.getInstance().cancel(m_autonomousCommand);
         }
-
+            m_robotContainer.drivetrain.resetPose(new Pose2d());
             m_leds.leds.SetAnimation(Animation.Fill)
             .ForZone("front")
             .WithColor(new Color(new Color8Bit(0, 255, 0)))

@@ -50,6 +50,7 @@ public class ShootCommand extends Command {
   //   m_IndexerSubsystem.setSpeed(IndexerConstants.passiveIndexerSpeed);
   //   m_SpindexerSubsystem.setSpeed(SpindexerConstants.passiveSpindexerSpeed);
   // }
+  
   }
 
   // Called once the command ends or is interrupted.

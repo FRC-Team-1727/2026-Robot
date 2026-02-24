@@ -1,0 +1,65 @@
+{
+  "team": "1727",
+  "network": {
+    "mode": "USB"
+  },
+  "channels": {
+    "1": {
+      "id": "front",
+      "length": 3,
+      "brightness": 255,
+      "zones": [
+        {
+          "id": "0",
+          "type": "strip",
+          "length": 3,
+          "brightness": 255,
+          "reversed": false
+        }
+      ]
+    }
+  },
+  "sequences": [
+    {
+      "id": "1",
+      "steps": [
+        {
+          "animationId": "Comet",
+          "color": {
+            "r": 255,
+            "g": 61,
+            "b": 236
+          },
+          "delay": 75,
+          "reversed": false,
+          "repeat": null
+        },
+        {
+          "animationId": "Breathe",
+          "color": {
+            "r": 255,
+            "g": 61,
+            "b": 236
+          },
+          "delay": 10,
+          "reversed": false,
+          "repeat": null
+        },
+        {
+          "animationId": "Blink",
+          "color": {
+            "r": 255,
+            "g": 61,
+            "b": 236
+          },
+          "delay": 500,
+          "reversed": false,
+          "repeat": null
+        }
+      ]
+    }
+  ],
+  "bitmaps": [],
+  "sensors": [],
+  "groups": []
+}
