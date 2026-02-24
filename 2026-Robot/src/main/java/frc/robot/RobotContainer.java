@@ -126,17 +126,10 @@ public class RobotContainer {
     }
 
      private void configureNamedCommands(){
-<<<<<<< HEAD
         NamedCommands.registerCommand("Intake", new IntakeCommand(m_IntakeSubsystem).withTimeout(2.5));
-        NamedCommands.registerCommand("Align", new ShooterAlignCommand(drivetrain, m_ShooterSubsystem));
-        NamedCommands.registerCommand("Shoot", new ShootCommand(m_ShooterSubsystem, m_IndexerSubsystem, m_SpindexerSubsystem).withTimeout(2.5));
-        NamedCommands.registerCommand("Climb", new ClimbCommand(m_ClimbSubsystem).withTimeout(2.5));
-=======
-        NamedCommands.registerCommand("Intake", new IntakeCommand(m_IntakeSubsystem));
         NamedCommands.registerCommand("Align", new ShooterAlignCommand(drivetrain, m_ShooterSubsystem, m_leds));
-        NamedCommands.registerCommand("Shoot", new ShootCommand(m_ShooterSubsystem, m_IndexerSubsystem, m_SpindexerSubsystem));
+        NamedCommands.registerCommand("Shoot", new ShootCommand(m_ShooterSubsystem, m_IndexerSubsystem, m_SpindexerSubsystem).withTimeout(2.5));
         NamedCommands.registerCommand("Climb", new ClimbCommand(m_ClimbSubsystem));
->>>>>>> 3fbb39808ba89caff602a173963aa94e2d7a7ca9
     }
 
     public Command getAutonomousCommand() {
