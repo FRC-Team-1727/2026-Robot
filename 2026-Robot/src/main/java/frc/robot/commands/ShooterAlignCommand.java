@@ -4,20 +4,6 @@
 
 package frc.robot.commands;
 
-import frc.robot.LimelightHelpers;
-import frc.robot.RobotContainer;
-import frc.robot.constants.FieldConstants;
-import frc.robot.constants.FieldConstants.Hub;
-import frc.robot.constants.OtherConstants.ShooterConstants;
-import frc.robot.constants.TunerConstants;
-import frc.robot.subsystems.CommandSwerveDrivetrain;
-import frc.robot.subsystems.ExampleSubsystem;
-import frc.robot.subsystems.ShooterSubsystem;
-import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.math.controller.ProfiledPIDController;
-import edu.wpi.first.math.geometry.Rotation2d;
-import edu.wpi.first.math.trajectory.TrapezoidProfile;
-
 import static edu.wpi.first.units.Units.MetersPerSecond;
 import static edu.wpi.first.units.Units.Seconds;
 
@@ -25,22 +11,34 @@ import com.ctre.phoenix6.swerve.SwerveRequest;
 import com.lumynlabs.devices.ConnectorXAnimate;
 import com.lumynlabs.domain.led.Animation;
 
+import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj.util.Color8Bit;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import frc.robot.RobotContainer;
+import frc.robot.constants.FieldConstants;
+import frc.robot.constants.FieldConstants.Hub;
+import frc.robot.constants.OtherConstants.ShooterConstants;
+import frc.robot.constants.TunerConstants;
+import frc.robot.subsystems.CommandSwerveDrivetrain;
+import frc.robot.subsystems.ShooterSubsystem;
 
 /** An example command that uses an example subsystem. */
 public class ShooterAlignCommand extends Command {
   @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
   private final CommandSwerveDrivetrain m_Drivetrain;
   private final ShooterSubsystem m_ShooterSubsystem;
+  private SwerveRequest.FieldCentricFacingAngle turnCommand;
   SwerveRequest.FieldCentric drive;
   // private ProfiledPIDController translationalPID;
   // private ProfiledPIDController rotationalPID;
   private CommandXboxController joystick;
     private final RobotContainer robo;
+    private final Rotation2d flip = new Rotation2d(Math.PI);
   
     private final ConnectorXAnimate m_leds;
     private final PIDController pid;
@@ -56,11 +54,13 @@ public class ShooterAlignCommand extends Command {
     SwerveRequest.FieldCentric drive, RobotContainer robotContainer) {
       m_Drivetrain = drivetrain;
       m_ShooterSubsystem = shooterSubsystem;
+      turnCommand = new SwerveRequest.FieldCentricFacingAngle();
       m_leds = leds;    // Use addRequirements() here to declare subsystem dependencies.
       this.drive = drive;
       robo = robotContainer;
       this.joystick = robo.getJoystick();
       pid = new PIDController(1, 0, 1);
+      pid.enableContinuousInput(-180, 180);
       addRequirements(drivetrain, shooterSubsystem);
     }
   
@@ -82,26 +82,36 @@ public class ShooterAlignCommand extends Command {
   
     // Called every time the scheduler runs while the command is scheduled.
     @Override
-    public void execute() {
-      //limelight auto align
-      joystick = robo.getJoystick();
-   Rotation2d a = Hub.topCenterPoint.toTranslation2d().minus(m_Drivetrain.getState().Pose.getTranslation()).getAngle();
-   System.out.print(a);
-    new RunCommand(() -> m_Drivetrain.applyRequest(() ->
-                drive.withVelocityX(-joystick.getLeftY() * MaxSpeed) // Drive forward with negative Y (forward)
-                    .withVelocityY(-joystick.getLeftX() * MaxSpeed) // Drive left with negative X (left)
-                    .withRotationalRate(pid.calculate(m_Drivetrain.getPigeon2().getYaw().getValueAsDouble(), a.getDegrees()*0.1) // Drive counterclockwise with negative X (left)
-            )), m_Drivetrain);
+     public void execute() {
+boolean isRed = DriverStation.getAlliance()
+        .orElse(DriverStation.Alliance.Blue)
+        == DriverStation.Alliance.Red;
+        Translation2d    target = Hub.topCenterPointBlue.toTranslation2d();
+        Rotation2d direction = target.minus(m_Drivetrain.getState().Pose.getTranslation())
+          .getAngle();;
+
+if (isRed) {
+  target = Hub.topCenterPointRed.toTranslation2d();
+    direction = 
+   (m_Drivetrain.getState().Pose.getTranslation()).minus(target)
+          .getAngle();
+}
+turnCommand.withDesaturateWheelSpeeds(true)
+    .withHeadingPID(3.0, 0.0, 0.0)
+    .withTargetDirection(direction)
+    .withVelocityX(MaxSpeed * -joystick.getLeftY())
+    .withVelocityY(MaxSpeed * -joystick.getLeftX());
+m_Drivetrain.setControl(turnCommand);
     
-    // m_ShooterSubsystem.setSpeed(ShooterConstants.shooterSpeed);
-    System.out.println(m_ShooterSubsystem.getSpeed());
+    m_ShooterSubsystem.setSpeed(ShooterConstants.passiveShooterSpeed);
+    //System.out.println(m_ShooterSubsystem.getSpeed());
      m_leds.leds.SetAnimation(Animation.Fill)
             .ForZone("front")
             .WithColor(new Color(new Color8Bit(0, 0, 255)))
             .WithDelay(Seconds.of(0))
             .Reverse(false)
             .RunOnce(false);
-            System.out.println(m_leds.IsConnected());
+            //System.out.println(m_leds.IsConnected());
       
             // m_leds.leds.SetAnimationSequence("front", "Test");
   }
@@ -115,7 +125,7 @@ public class ShooterAlignCommand extends Command {
             .WithDelay(Seconds.of(.5))
             .Reverse(false)
             .RunOnce(false);
-    System.out.println(m_ShooterSubsystem.getSpeed());
+    //System.out.println(m_ShooterSubsystem.getSpeed());
   }
 
   // Returns true when the command should end.
@@ -125,4 +135,6 @@ public class ShooterAlignCommand extends Command {
     //   || (!LimelightHelpers.getTV("limelight-left") && !LimelightHelpers.getTV("limelight-right"));
     return false;
   }
+
+
 }

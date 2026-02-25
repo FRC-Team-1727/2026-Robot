@@ -25,7 +25,9 @@ public final class OtherConstants {
         public static final double kShooterI = 0;
         public static final double kShooterD = 0;
 
-        public static double shooterSpeed=.4;
+        public static double shooterSpeedClose=.4;
+        public static double shooterSpeedTower=.4;
+        public static double shooterSpeedOutpost=.4;
         public static double passiveShooterSpeed=0;
 
         public static double shooterRPSMinimum=400;

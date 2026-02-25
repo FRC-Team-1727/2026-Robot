@@ -13,8 +13,10 @@ import com.lumynlabs.devices.ConnectorXAnimate;
 import com.lumynlabs.domain.led.Animation;
 
 import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.units.Measure;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj.util.Color8Bit;
@@ -94,6 +96,11 @@ public class Robot extends TimedRobot {
             .WithColor(new Color(new Color8Bit(0, 255, 0)))
             .WithDelay(Seconds.of(1.5))
             .RunOnce(false);
+            if(DriverStation.getAlliance().get() == DriverStation.Alliance.Red){
+                    m_robotContainer.drivetrain.seedFieldCentric(Rotation2d.fromDegrees(180.0));
+                } else {
+                    m_robotContainer.drivetrain.seedFieldCentric(Rotation2d.fromDegrees(0.0));
+                }
     }
 
     @Override

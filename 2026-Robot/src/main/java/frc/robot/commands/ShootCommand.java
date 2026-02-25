@@ -19,16 +19,18 @@ public class ShootCommand extends Command {
   private final ShooterSubsystem m_ShooterSubsystem;
   private final IndexerSubsystem m_IndexerSubsystem;
   private final SpindexerSubsystem m_SpindexerSubsystem;
+  private final double shootSpeed;
 
   /**
    * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
-  public ShootCommand(ShooterSubsystem shooterSubsystem, IndexerSubsystem indexerSubsystem, SpindexerSubsystem spindexerSubsystem) {
+  public ShootCommand(ShooterSubsystem shooterSubsystem, IndexerSubsystem indexerSubsystem, SpindexerSubsystem spindexerSubsystem, double shootSpeed) {
     m_ShooterSubsystem = shooterSubsystem;
     m_IndexerSubsystem = indexerSubsystem;
     m_SpindexerSubsystem = spindexerSubsystem;
+    this.shootSpeed = shootSpeed;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(shooterSubsystem, indexerSubsystem, spindexerSubsystem);
   }
@@ -42,7 +44,7 @@ public class ShootCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_ShooterSubsystem.setSpeed(ShooterConstants.shooterSpeed);
+    m_ShooterSubsystem.setSpeed(shootSpeed);
   //   if(m_ShooterSubsystem.shooterSpeed()){
   //     m_IndexerSubsystem.setSpeed(IndexerConstants.indexerSpeed);
   //     m_SpindexerSubsystem.setSpeed(SpindexerConstants.spindexerSpeed);

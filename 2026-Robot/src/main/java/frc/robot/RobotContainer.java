@@ -36,6 +36,7 @@ import frc.robot.commands.OuttakeCommand;
 import frc.robot.commands.ShooterAlignCommand;
 import frc.robot.commands.ShootCommand;
 import frc.robot.constants.TunerConstants;
+import frc.robot.constants.OtherConstants.ShooterConstants;
 import frc.robot.subsystems.ClimbSubsystem;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 import frc.robot.subsystems.IndexerSubsystem;
@@ -143,7 +144,9 @@ public class RobotContainer {
         //     .Reverse(false)
         //     .RunOnce(false)); 
         joystick.rightBumper().whileTrue(new ShooterAlignCommand(drivetrain, m_ShooterSubsystem, m_leds, driveRequest, this)); //xbox X = PS5 square
-        joystick.rightTrigger().whileTrue(new ShootCommand(m_ShooterSubsystem, m_IndexerSubsystem, m_SpindexerSubsystem));
+        joystick.rightTrigger().whileTrue(new ShootCommand(m_ShooterSubsystem, m_IndexerSubsystem, m_SpindexerSubsystem, ShooterConstants.shooterSpeedClose));
+        joystick.leftTrigger().whileTrue(new ShootCommand(m_ShooterSubsystem, m_IndexerSubsystem, m_SpindexerSubsystem, ShooterConstants.shooterSpeedTower));
+        joystick.x().whileTrue(new ShootCommand(m_ShooterSubsystem, m_IndexerSubsystem, m_SpindexerSubsystem, ShooterConstants.shooterSpeedOutpost));
         joystick.povUp().onTrue(new ClimbCommand(m_ClimbSubsystem));
     
     }
@@ -151,10 +154,10 @@ public class RobotContainer {
      private void configureNamedCommands(){
         NamedCommands.registerCommand("Intake", new IntakeCommand(m_IntakeSubsystem).withTimeout(2.5));
         NamedCommands.registerCommand("Align", new ShooterAlignCommand(drivetrain, m_ShooterSubsystem, m_leds, driveRequest, this));
-        NamedCommands.registerCommand("Shoot", new ShootCommand(m_ShooterSubsystem, m_IndexerSubsystem, m_SpindexerSubsystem).withTimeout(2.5));
+        NamedCommands.registerCommand("Shoot", new ShootCommand(m_ShooterSubsystem, m_IndexerSubsystem, m_SpindexerSubsystem, ShooterConstants.shooterSpeedClose).withTimeout(2.5));
         NamedCommands.registerCommand("Climb", new ClimbCommand(m_ClimbSubsystem).withTimeout(2.5));
     
->>>>>>> 60e36a6e8c03991ef7f68e9a37e826503fc8e0fe
+//>>>>>>> 60e36a6e8c03991ef7f68e9a37e826503fc8e0fe
     }
 
     public Command getAutonomousCommand() {

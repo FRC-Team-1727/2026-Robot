@@ -86,9 +86,15 @@ public class FieldConstants {
     public static final double innerHeight = Units.inchesToMeters(56.5);
 
     // Relevant reference points on alliance side
-    public static final Translation3d topCenterPoint =
+    public static final Translation3d topCenterPointBlue =
         new Translation3d(
             AprilTagLayoutType.OFFICIAL.getLayout().getTagPose(26).get().getX() + width / 2.0,
+            fieldWidth / 2.0,
+            height);
+
+    public static final Translation3d topCenterPointRed =
+        new Translation3d(
+            AprilTagLayoutType.OFFICIAL.getLayout().getTagPose(10).get().getX() + width / 2.0,
             fieldWidth / 2.0,
             height);
     public static final Translation3d innerCenterPoint =
@@ -98,13 +104,13 @@ public class FieldConstants {
             innerHeight);
 
     public static final Translation2d nearLeftCorner =
-        new Translation2d(topCenterPoint.getX() - width / 2.0, fieldWidth / 2.0 + width / 2.0);
+        new Translation2d(topCenterPointBlue.getX() - width / 2.0, fieldWidth / 2.0 + width / 2.0);
     public static final Translation2d nearRightCorner =
-        new Translation2d(topCenterPoint.getX() - width / 2.0, fieldWidth / 2.0 - width / 2.0);
+        new Translation2d(topCenterPointBlue.getX() - width / 2.0, fieldWidth / 2.0 - width / 2.0);
     public static final Translation2d farLeftCorner =
-        new Translation2d(topCenterPoint.getX() + width / 2.0, fieldWidth / 2.0 + width / 2.0);
+        new Translation2d(topCenterPointBlue.getX() + width / 2.0, fieldWidth / 2.0 + width / 2.0);
     public static final Translation2d farRightCorner =
-        new Translation2d(topCenterPoint.getX() + width / 2.0, fieldWidth / 2.0 - width / 2.0);
+        new Translation2d(topCenterPointBlue.getX() + width / 2.0, fieldWidth / 2.0 - width / 2.0);
 
     // Relevant reference points on the opposite side
     public static final Translation3d oppTopCenterPoint =
