@@ -62,8 +62,13 @@ public class ShooterSubsystem extends SubsystemBase {
   }
 
   public void setSpeed(double speed){
-     shooterL.setControl(m_request.withVelocity(speed).withFeedForward(0.5));
-     shooterR.setControl(m_request.withVelocity(-speed).withFeedForward(0.5));
+    //  shooterL.setControl(m_request.withVelocity(speed).withFeedForward(0.5));
+    //  shooterR.setControl(m_request.withVelocity(-speed).withFeedForward(0.5));
+
+         shooterL.setControl(new DutyCycleOut(speed));
+          shooterR.setControl(new DutyCycleOut(-speed));
+
+
   }
 
   public double getSpeed(){

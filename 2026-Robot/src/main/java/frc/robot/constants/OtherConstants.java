@@ -16,8 +16,8 @@ public final class OtherConstants {
     }
 
     public static class ShooterConstants{
-        public static int kShooterRID=11;
-        public static int kShooterLID=12;
+        public static int kShooterRID=10;
+        public static int kShooterLID=11;
 
         public static final double kShooterV = 0.12;
         public static final double kShooterS = 0.1;

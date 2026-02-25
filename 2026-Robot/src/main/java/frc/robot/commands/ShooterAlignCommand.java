@@ -88,7 +88,7 @@ boolean isRed = DriverStation.getAlliance()
         == DriverStation.Alliance.Red;
         Translation2d    target = Hub.topCenterPointBlue.toTranslation2d();
         Rotation2d direction = target.minus(m_Drivetrain.getState().Pose.getTranslation())
-          .getAngle();;
+          .getAngle();
 
 if (isRed) {
   target = Hub.topCenterPointRed.toTranslation2d();
