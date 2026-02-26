@@ -41,6 +41,7 @@ import frc.robot.subsystems.ClimbSubsystem;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 import frc.robot.subsystems.IndexerSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.LEDSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.SpindexerSubsystem;
 
@@ -66,6 +67,7 @@ public class RobotContainer {
     private final SpindexerSubsystem m_SpindexerSubsystem = new SpindexerSubsystem();
     private final ClimbSubsystem m_ClimbSubsystem = new ClimbSubsystem();
     private final ConnectorXAnimate m_leds = new ConnectorXAnimate();
+    private final LEDSubsystem m_LedSubsystem= new LEDSubsystem();
     
 
     // private final LumynDevice mCx = new LumynDevice(3); 
@@ -143,7 +145,7 @@ public class RobotContainer {
         //     .WithDelay(Seconds.of(.5))
         //     .Reverse(false)
         //     .RunOnce(false)); 
-        joystick.rightBumper().whileTrue(new ShooterAlignCommand(drivetrain, m_ShooterSubsystem, m_leds, driveRequest, this)); //xbox X = PS5 square
+        joystick.rightBumper().whileTrue(new ShooterAlignCommand(drivetrain, m_ShooterSubsystem, m_leds, m_LedSubsystem, driveRequest, this)); //xbox X = PS5 square
         joystick.rightTrigger().whileTrue(new ShootCommand(m_ShooterSubsystem, m_IndexerSubsystem, m_SpindexerSubsystem, ShooterConstants.shooterSpeedClose));
         joystick.leftTrigger().whileTrue(new ShootCommand(m_ShooterSubsystem, m_IndexerSubsystem, m_SpindexerSubsystem, ShooterConstants.shooterSpeedTower));
         joystick.x().whileTrue(new ShootCommand(m_ShooterSubsystem, m_IndexerSubsystem, m_SpindexerSubsystem, ShooterConstants.shooterSpeedOutpost));
@@ -153,7 +155,7 @@ public class RobotContainer {
 
      private void configureNamedCommands(){
         NamedCommands.registerCommand("Intake", new IntakeCommand(m_IntakeSubsystem).withTimeout(2.5));
-        NamedCommands.registerCommand("Align", new ShooterAlignCommand(drivetrain, m_ShooterSubsystem, m_leds, driveRequest, this));
+        NamedCommands.registerCommand("Align", new ShooterAlignCommand(drivetrain, m_ShooterSubsystem, m_leds, m_LedSubsystem, driveRequest, this));
         NamedCommands.registerCommand("Shoot", new ShootCommand(m_ShooterSubsystem, m_IndexerSubsystem, m_SpindexerSubsystem, ShooterConstants.shooterSpeedClose).withTimeout(2.5));
         NamedCommands.registerCommand("Climb", new ClimbCommand(m_ClimbSubsystem).withTimeout(2.5));
     
@@ -193,7 +195,6 @@ public class RobotContainer {
             .WithDelay(Seconds.of(0))
             .Reverse(false)
             .RunOnce(false);
-
     }
 
     public void configureAuto(){

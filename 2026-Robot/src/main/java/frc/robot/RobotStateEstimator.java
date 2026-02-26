@@ -17,6 +17,7 @@ public class RobotStateEstimator extends SubsystemBase{
       doRejectUpdate = false;
       LimelightHelpers.SetRobotOrientation("limelight", m_SwerveDriveTrain.getPigeon2().getYaw().getValueAsDouble(), 0, 0, 0, 0, 0);
       LimelightHelpers.PoseEstimate mt2 = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight");
+      LimelightHelpers.PoseEstimate mt1 = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight");
       if(mt2 == null) {
         return;
       }

@@ -48,7 +48,7 @@ public final class OtherConstants {
     }
 
     public static class IndexerConstants{
-        public static int kIndexerID=13;
+        public static int kIndexerID=12;
 
         
         public static final double kIndexerV = 0.12;
@@ -57,12 +57,12 @@ public final class OtherConstants {
         public static final double kIndexerI = 0;
         public static final double kIndexerD = 0;
 
-        public static double indexerSpeed=.6;
+        public static double indexerSpeed=.5;
         public static double passiveIndexerSpeed=0;
     }
 
     public static class SpindexerConstants{
-        public static int kSpindexerID=45;
+        public static int kSpindexerID=9;
 
         public static final double kSpindexerV = 0.12;
         public static final double kSpindexerS = 0.1;
@@ -70,7 +70,7 @@ public final class OtherConstants {
         public static final double kSpindexerI = 0;
         public static final double kSpindexerD = 0;
 
-        public static double spindexerSpeed=.5;
+        public static double spindexerSpeed=1;
         public static double passiveSpindexerSpeed=0;
     }
 }

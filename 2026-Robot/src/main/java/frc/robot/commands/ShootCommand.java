@@ -44,7 +44,11 @@ public class ShootCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_ShooterSubsystem.setSpeed(shootSpeed);
+    // m_ShooterSubsystem.setSpeed(shootSpeed);
+    // m_IndexerSubsystem.setSpeed(IndexerConstants.indexerSpeed);
+    m_SpindexerSubsystem.setSpeed(SpindexerConstants.spindexerSpeed);
+
+
   //   if(m_ShooterSubsystem.shooterSpeed()){
   //     m_IndexerSubsystem.setSpeed(IndexerConstants.indexerSpeed);
   //     m_SpindexerSubsystem.setSpeed(SpindexerConstants.spindexerSpeed);

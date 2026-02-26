@@ -25,6 +25,7 @@ import frc.robot.constants.FieldConstants.Hub;
 import frc.robot.constants.OtherConstants.ShooterConstants;
 import frc.robot.constants.TunerConstants;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
+import frc.robot.subsystems.LEDSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 
 /** An example command that uses an example subsystem. */
@@ -39,6 +40,7 @@ public class ShooterAlignCommand extends Command {
   private CommandXboxController joystick;
     private final RobotContainer robo;
     private final Rotation2d flip = new Rotation2d(Math.PI);
+    private final LEDSubsystem m_LedSubsystem;
   
     private final ConnectorXAnimate m_leds;
     private final PIDController pid;
@@ -51,17 +53,18 @@ public class ShooterAlignCommand extends Command {
      * @param subsystem The subsystem used by this command.
      */
     public ShooterAlignCommand(CommandSwerveDrivetrain drivetrain, ShooterSubsystem shooterSubsystem, ConnectorXAnimate leds, 
-    SwerveRequest.FieldCentric drive, RobotContainer robotContainer) {
+    LEDSubsystem led, SwerveRequest.FieldCentric drive, RobotContainer robotContainer) {
       m_Drivetrain = drivetrain;
       m_ShooterSubsystem = shooterSubsystem;
       turnCommand = new SwerveRequest.FieldCentricFacingAngle();
+      m_LedSubsystem = led;
       m_leds = leds;    // Use addRequirements() here to declare subsystem dependencies.
       this.drive = drive;
       robo = robotContainer;
       this.joystick = robo.getJoystick();
       pid = new PIDController(1, 0, 1);
       pid.enableContinuousInput(-180, 180);
-      addRequirements(drivetrain, shooterSubsystem);
+      addRequirements(drivetrain, shooterSubsystem, led);
     }
   
     // Called when the command is initially scheduled.
@@ -97,7 +100,7 @@ if (isRed) {
           .getAngle();
 }
 turnCommand.withDesaturateWheelSpeeds(true)
-    .withHeadingPID(3.0, 0.0, 0.0)
+    .withHeadingPID(4.5, 0.0, 0.0)
     .withTargetDirection(direction)
     .withVelocityX(MaxSpeed * -joystick.getLeftY())
     .withVelocityY(MaxSpeed * -joystick.getLeftX());
@@ -114,6 +117,7 @@ m_Drivetrain.setControl(turnCommand);
             //System.out.println(m_leds.IsConnected());
       
             // m_leds.leds.SetAnimationSequence("front", "Test");
+            m_LedSubsystem.aligning();
   }
 
   // Called once the command ends or is interrupted.
@@ -126,6 +130,8 @@ m_Drivetrain.setControl(turnCommand);
             .Reverse(false)
             .RunOnce(false);
     //System.out.println(m_ShooterSubsystem.getSpeed());
+                m_LedSubsystem.aligned();
+
   }
 
   // Returns true when the command should end.
