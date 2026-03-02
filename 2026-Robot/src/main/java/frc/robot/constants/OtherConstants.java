@@ -19,7 +19,7 @@ public final class OtherConstants {
         public static int kShooterRID=10;
         public static int kShooterLID=11;
 
-        public static final double kShooterV = 0.12;
+        public static final double kShooterV = 0.19;
         public static final double kShooterS = 0.1;
         public static final double kShooterP = 0.2;
         public static final double kShooterI = 0;

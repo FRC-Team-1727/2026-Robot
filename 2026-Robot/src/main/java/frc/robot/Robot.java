@@ -9,6 +9,7 @@ import java.util.concurrent.TimeUnit;
 
 import com.ctre.phoenix6.HootAutoReplay;
 import com.lumynlabs.connection.usb.USBPort;
+import com.lumynlabs.devices.ConnectorX;
 import com.lumynlabs.devices.ConnectorXAnimate;
 import com.lumynlabs.domain.led.Animation;
 
@@ -28,7 +29,7 @@ import static edu.wpi.first.units.Units.Seconds;
 
 public class Robot extends TimedRobot {
     private Command m_autonomousCommand;
-    private ConnectorXAnimate m_leds = new ConnectorXAnimate();
+    private ConnectorX m_leds = new ConnectorX();
 
 
     private final RobotContainer m_robotContainer;
@@ -65,7 +66,7 @@ public class Robot extends TimedRobot {
             CommandScheduler.getInstance().schedule(m_autonomousCommand);
         }
           m_leds.leds.SetAnimation(Animation.RainbowRoll)
-            .ForZone("front")
+            .ForZone("2")
             .WithColor(new Color(new Color8Bit(255, 255, 255)))
             .WithDelay(Seconds.of(.5))
             .Reverse(false)
@@ -75,8 +76,10 @@ public class Robot extends TimedRobot {
     @Override
     public void robotInit() {
         // Connect to the device on USB port 1
-        boolean connected = m_leds.Connect(USBPort.kUSB1);
+        boolean connected = m_leds.Connect(USBPort.kUSB2);
+        for(int i=0;i<50;i++){
         System.out.println("ConnectorX connected: " + connected);
+        }
     }
 
     @Override
@@ -92,9 +95,9 @@ public class Robot extends TimedRobot {
         }
             m_robotContainer.drivetrain.resetPose(new Pose2d());
             m_leds.leds.SetAnimation(Animation.Fill)
-            .ForZone("front")
+            .ForZone("2")
             .WithColor(new Color(new Color8Bit(0, 255, 0)))
-            .WithDelay(Seconds.of(1.5))
+            .WithDelay(Seconds.of(0.1))
             .RunOnce(false);
             if(DriverStation.getAlliance().get() == DriverStation.Alliance.Red){
                     m_robotContainer.drivetrain.seedFieldCentric(Rotation2d.fromDegrees(180.0));

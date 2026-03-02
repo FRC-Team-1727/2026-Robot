@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
+import com.ctre.phoenix6.configs.FeedbackConfigs;
 import com.ctre.phoenix6.configs.Slot0Configs;
 import com.ctre.phoenix6.controls.DutyCycleOut;
 import com.ctre.phoenix6.controls.VelocityVoltage;
@@ -24,7 +25,7 @@ public class ShooterSubsystem extends SubsystemBase {
   /** Creates a new ExampleSubsystem. */
   public ShooterSubsystem() {
     Slot0Configs configs = new Slot0Configs();
-        
+    FeedbackConfigs fConfigs = new FeedbackConfigs();
         configs.kS = ShooterConstants.kShooterS;
         configs.kV = ShooterConstants.kShooterV;
         configs.kP = ShooterConstants.kShooterP;
@@ -35,8 +36,11 @@ public class ShooterSubsystem extends SubsystemBase {
         shooterL.getConfigurator().apply(configs);
         CurrentLimitsConfigs configLimit = new CurrentLimitsConfigs();
 
+        shooterL.getConfigurator().apply(fConfigs);
+
         configLimit.StatorCurrentLimit = 80;
         configLimit.SupplyCurrentLimit = 60;
+
         
         shooterR.setNeutralMode(NeutralModeValue.Coast);
 

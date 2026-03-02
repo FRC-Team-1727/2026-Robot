@@ -13,6 +13,7 @@ import java.util.Optional;
 
 import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
 import com.lumynlabs.connection.usb.USBPort;
+import com.lumynlabs.devices.ConnectorX;
 import com.lumynlabs.devices.ConnectorXAnimate;
 import com.lumynlabs.domain.led.Animation;
 import com.ctre.phoenix6.swerve.SwerveRequest;
@@ -20,6 +21,7 @@ import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.units.Units;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -66,7 +68,7 @@ public class RobotContainer {
     private final IndexerSubsystem m_IndexerSubsystem = new IndexerSubsystem();
     private final SpindexerSubsystem m_SpindexerSubsystem = new SpindexerSubsystem();
     private final ClimbSubsystem m_ClimbSubsystem = new ClimbSubsystem();
-    private final ConnectorXAnimate m_leds = new ConnectorXAnimate();
+    private final ConnectorX m_leds;
     private final LEDSubsystem m_LedSubsystem= new LEDSubsystem();
     
 
@@ -81,13 +83,13 @@ public class RobotContainer {
 
     SendableChooser<Command> autoChooser = new SendableChooser<>();
 
-    public RobotContainer(ConnectorXAnimate leds) {
+    public RobotContainer(ConnectorX leds) {
         
         configureBindings();
         configureNamedCommands();
-        boolean connected = m_leds.Connect(USBPort.kUSB1);
-        System.out.println("ConnectorX connected: " + connected);
-        configureLEDS();
+        
+        m_leds = leds;
+        // configureLEDS();
 
         
 
@@ -159,7 +161,6 @@ public class RobotContainer {
         NamedCommands.registerCommand("Shoot", new ShootCommand(m_ShooterSubsystem, m_IndexerSubsystem, m_SpindexerSubsystem, ShooterConstants.shooterSpeedClose).withTimeout(2.5));
         NamedCommands.registerCommand("Climb", new ClimbCommand(m_ClimbSubsystem).withTimeout(2.5));
     
-//>>>>>>> 60e36a6e8c03991ef7f68e9a37e826503fc8e0fe
     }
 
     public Command getAutonomousCommand() {
@@ -190,9 +191,9 @@ public class RobotContainer {
      Optional<LumynDeviceConfig> config=  m_leds.LoadConfigurationFromDeploy("config.json");
      config.ifPresent(m_leds::ApplyConfiguration);
  m_leds.leds.SetAnimation(Animation.Fill)
-            .ForZone("front")
+            .ForZone("2")
             .WithColor(new Color(new Color8Bit(0, 0, 255)))
-            .WithDelay(Seconds.of(0))
+            .WithDelay(Units.Seconds.of(0))
             .Reverse(false)
             .RunOnce(false);
     }

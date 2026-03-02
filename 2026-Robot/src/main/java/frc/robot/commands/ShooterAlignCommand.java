@@ -8,6 +8,7 @@ import static edu.wpi.first.units.Units.MetersPerSecond;
 import static edu.wpi.first.units.Units.Seconds;
 
 import com.ctre.phoenix6.swerve.SwerveRequest;
+import com.lumynlabs.devices.ConnectorX;
 import com.lumynlabs.devices.ConnectorXAnimate;
 import com.lumynlabs.domain.led.Animation;
 
@@ -42,7 +43,7 @@ public class ShooterAlignCommand extends Command {
     private final Rotation2d flip = new Rotation2d(Math.PI);
     private final LEDSubsystem m_LedSubsystem;
   
-    private final ConnectorXAnimate m_leds;
+    private final ConnectorX m_leds;
     private final PIDController pid;
         private double MaxSpeed = 1.0 * TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
     //need limelights
@@ -52,7 +53,7 @@ public class ShooterAlignCommand extends Command {
      *
      * @param subsystem The subsystem used by this command.
      */
-    public ShooterAlignCommand(CommandSwerveDrivetrain drivetrain, ShooterSubsystem shooterSubsystem, ConnectorXAnimate leds, 
+    public ShooterAlignCommand(CommandSwerveDrivetrain drivetrain, ShooterSubsystem shooterSubsystem, ConnectorX leds, 
     LEDSubsystem led, SwerveRequest.FieldCentric drive, RobotContainer robotContainer) {
       m_Drivetrain = drivetrain;
       m_ShooterSubsystem = shooterSubsystem;
@@ -106,7 +107,7 @@ turnCommand.withDesaturateWheelSpeeds(true)
     .withVelocityY(MaxSpeed * -joystick.getLeftX());
 m_Drivetrain.setControl(turnCommand);
     
-    m_ShooterSubsystem.setSpeed(ShooterConstants.passiveShooterSpeed);
+    m_ShooterSubsystem.setSpeed(ShooterConstants.shooterSpeedClose);
     //System.out.println(m_ShooterSubsystem.getSpeed());
      m_leds.leds.SetAnimation(Animation.Fill)
             .ForZone("front")
