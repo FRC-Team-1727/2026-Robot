@@ -71,6 +71,7 @@ public class ShooterAlignCommand extends Command {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
+            System.out.println("*****************************************************");
         // m_leds.leds.SetAnimation(Animation.Fill)
         //       .ForZone("front")
         //       .WithColor(new Color(new Color8Bit(0, 0, 255)))
@@ -81,12 +82,14 @@ public class ShooterAlignCommand extends Command {
       //             new TrapezoidProfile.Constraints(translationSpeedLim, translationAccelLim));
       //     rotationalPID = new ProfiledPIDController(6, 0, 0,
       //             new TrapezoidProfile.Constraints(rotationalSpeedLim, rotationalAccelLim));
-      
+        System.out.println("-----------------------------------------------------------------");
+
     }
   
     // Called every time the scheduler runs while the command is scheduled.
     @Override
      public void execute() {
+      System.out.println("align");
 boolean isRed = DriverStation.getAlliance()
         .orElse(DriverStation.Alliance.Blue)
         == DriverStation.Alliance.Red;

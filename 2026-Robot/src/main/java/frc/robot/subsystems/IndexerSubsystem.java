@@ -50,7 +50,7 @@ public class IndexerSubsystem extends SubsystemBase {
   }
 
   public void setSpeed(double speed){
-      // indexer.setControl(m_request.withVelocity(speed).withFeedForward(0.5));
+      //indexer.setControl(m_request.withVelocity(speed).withFeedForward(0.5));
 
       indexer.setControl(new DutyCycleOut(speed));
   }
