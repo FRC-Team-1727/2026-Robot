@@ -71,12 +71,12 @@ public class ShooterAlignCommand extends Command {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        m_leds.leds.SetAnimation(Animation.Fill)
-              .ForZone("front")
-              .WithColor(new Color(new Color8Bit(0, 0, 255)))
-              .WithDelay(Seconds.of(0))
-              .Reverse(false)
-              .RunOnce(false);
+        // m_leds.leds.SetAnimation(Animation.Fill)
+        //       .ForZone("front")
+        //       .WithColor(new Color(new Color8Bit(0, 0, 255)))
+        //       .WithDelay(Seconds.of(0))
+        //       .Reverse(false)
+        //       .RunOnce(false);
       //  translationalPID = new ProfiledPIDController(2, 0, 0,
       //             new TrapezoidProfile.Constraints(translationSpeedLim, translationAccelLim));
       //     rotationalPID = new ProfiledPIDController(6, 0, 0,
@@ -109,29 +109,29 @@ m_Drivetrain.setControl(turnCommand);
     
     m_ShooterSubsystem.setSpeed(ShooterConstants.shooterSpeedClose);
     //System.out.println(m_ShooterSubsystem.getSpeed());
-     m_leds.leds.SetAnimation(Animation.Fill)
-            .ForZone("front")
-            .WithColor(new Color(new Color8Bit(0, 0, 255)))
-            .WithDelay(Seconds.of(0))
-            .Reverse(false)
-            .RunOnce(false);
-            //System.out.println(m_leds.IsConnected());
+    //  m_leds.leds.SetAnimation(Animation.Fill)
+    //         .ForZone("2")
+    //         .WithColor(new Color(new Color8Bit(0, 0, 255)))
+    //         .WithDelay(Seconds.of(0.5))
+    //         .Reverse(false)
+    //         .RunOnce(false);
+    //         //System.out.println(m_leds.IsConnected());
       
-            // m_leds.leds.SetAnimationSequence("front", "Test");
-            m_LedSubsystem.aligning();
+    //         // m_leds.leds.SetAnimationSequence("front", "Test");
+    //         m_LedSubsystem.aligning();
   }
 
-  // Called once the command ends or is interrupted.
+  // Called once the command ends or is interruRpted.
   @Override
   public void end(boolean interrupted) {
-     m_leds.leds.SetAnimation(Animation.RainbowRoll)
-            .ForZone("front")
-            .WithColor(new Color(new Color8Bit(255, 255, 255)))
-            .WithDelay(Seconds.of(.5))
-            .Reverse(false)
-            .RunOnce(false);
-    //System.out.println(m_ShooterSubsystem.getSpeed());
-                m_LedSubsystem.aligned();
+    //  m_leds.leds.SetAnimation(Animation.RainbowRoll)
+    //         .ForZone("2")
+    //         .WithColor(new Color(new Color8Bit(255, 255, 255)))
+    //         .WithDelay(Seconds.of(.5))
+    //         .Reverse(false)
+    //         .RunOnce(false);
+    // //System.out.println(m_ShooterSubsystem.getSpeed());
+    //             m_LedSubsystem.aligned();
 
   }
 

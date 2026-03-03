@@ -31,9 +31,12 @@ public class ShooterSubsystem extends SubsystemBase {
         configs.kP = ShooterConstants.kShooterP;
         configs.kI = ShooterConstants.kShooterI;
         configs.kD = ShooterConstants.kShooterD;
+        fConfigs.RotorToSensorRatio=15/36;
 
         shooterR.getConfigurator().apply(configs);
         shooterL.getConfigurator().apply(configs);
+        shooterR.getConfigurator().apply(fConfigs);
+        shooterL.getConfigurator().apply(fConfigs);
         CurrentLimitsConfigs configLimit = new CurrentLimitsConfigs();
 
         shooterL.getConfigurator().apply(fConfigs);
