@@ -5,10 +5,12 @@
 package frc.robot.commands;
 
 import frc.robot.constants.OtherConstants.IndexerConstants;
+import frc.robot.constants.OtherConstants.IntakeConstants;
 import frc.robot.constants.OtherConstants.ShooterConstants;
 import frc.robot.constants.OtherConstants.SpindexerConstants;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.IndexerSubsystem;
+import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.SpindexerSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -19,6 +21,7 @@ public class ShootCommand extends Command {
   private final ShooterSubsystem m_ShooterSubsystem;
   private final IndexerSubsystem m_IndexerSubsystem;
   private final SpindexerSubsystem m_SpindexerSubsystem;
+  private final IntakeSubsystem m_IntakeSubsystem;
   private final double shootSpeed;
 
   /**
@@ -26,10 +29,11 @@ public class ShootCommand extends Command {
    *
    * @param subsystem The subsystem used by this command.
    */
-  public ShootCommand(ShooterSubsystem shooterSubsystem, IndexerSubsystem indexerSubsystem, SpindexerSubsystem spindexerSubsystem, double shootSpeed) {
+  public ShootCommand(ShooterSubsystem shooterSubsystem, IndexerSubsystem indexerSubsystem, SpindexerSubsystem spindexerSubsystem, IntakeSubsystem intakeSubsystem, double shootSpeed) {
     m_ShooterSubsystem = shooterSubsystem;
     m_IndexerSubsystem = indexerSubsystem;
     m_SpindexerSubsystem = spindexerSubsystem;
+    m_IntakeSubsystem = intakeSubsystem;
     this.shootSpeed = shootSpeed;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(shooterSubsystem, indexerSubsystem, spindexerSubsystem);
@@ -47,6 +51,7 @@ public class ShootCommand extends Command {
     m_ShooterSubsystem.setSpeed(shootSpeed);
     m_IndexerSubsystem.setSpeed(IndexerConstants.indexerSpeed);
     m_SpindexerSubsystem.setSpeed(SpindexerConstants.spindexerSpeed);
+    m_IntakeSubsystem.setSpeed(IntakeConstants.intakeSpeed);
 
 
   //   if(m_ShooterSubsystem.shooterSpeed()){
@@ -57,6 +62,7 @@ public class ShootCommand extends Command {
   //   m_SpindexerSubsystem.setSpeed(SpindexerConstants.passiveSpindexerSpeed);
   // }
   
+  
   }
 
   // Called once the command ends or is interrupted.
@@ -65,6 +71,7 @@ public class ShootCommand extends Command {
     m_ShooterSubsystem.setSpeed(ShooterConstants.passiveShooterSpeed);
     m_IndexerSubsystem.setSpeed(IndexerConstants.passiveIndexerSpeed);
     m_SpindexerSubsystem.setSpeed(SpindexerConstants.passiveSpindexerSpeed);
+    m_IntakeSubsystem.setSpeed(IntakeConstants.passiveIntakeSpeed);
   }
 
   // Returns true when the command should end.

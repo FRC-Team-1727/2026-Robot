@@ -68,7 +68,7 @@ public class RobotContainer {
     private final IndexerSubsystem m_IndexerSubsystem = new IndexerSubsystem();
     private final SpindexerSubsystem m_SpindexerSubsystem = new SpindexerSubsystem();
     private final ClimbSubsystem m_ClimbSubsystem = new ClimbSubsystem();
-    private final ConnectorX m_leds;
+    // private final ConnectorX m_leds;
     private final LEDSubsystem m_LedSubsystem= new LEDSubsystem();
     
 
@@ -88,7 +88,7 @@ public class RobotContainer {
         configureBindings();
         configureNamedCommands();
         
-        m_leds = leds;
+        // m_leds = leds;
         // configureLEDS();
 
         
@@ -141,24 +141,25 @@ public class RobotContainer {
         drivetrain.registerTelemetry(logger::telemeterize);
 
         joystick.leftBumper().toggleOnTrue(new IntakeCommand(m_IntakeSubsystem));
+        joystick.leftTrigger().whileTrue(new OuttakeCommand(m_IntakeSubsystem));
         // joystick.leftTrigger().onFalse(m_leds.leds.SetAnimation(Animation.RainbowRoll)
         //     .ForZone("front")
         //     .WithColor(new Color(new Color8Bit(255, 255, 255)))
         //     .WithDelay(Seconds.of(.5))
         //     .Reverse(false)
         //     .RunOnce(false)); 
-        joystick.rightBumper().whileTrue(new ShooterAlignCommand(drivetrain, m_ShooterSubsystem, m_leds, m_LedSubsystem, driveRequest, this)); //xbox X = PS5 square
-        joystick.rightTrigger().whileTrue(new ShootCommand(m_ShooterSubsystem, m_IndexerSubsystem, m_SpindexerSubsystem, ShooterConstants.shooterSpeedClose));
-        joystick.leftTrigger().whileTrue(new ShootCommand(m_ShooterSubsystem, m_IndexerSubsystem, m_SpindexerSubsystem, ShooterConstants.shooterSpeedTower));
-        joystick.x().whileTrue(new ShootCommand(m_ShooterSubsystem, m_IndexerSubsystem, m_SpindexerSubsystem, ShooterConstants.shooterSpeedOutpost));
+        joystick.rightBumper().whileTrue(new ShooterAlignCommand(drivetrain, m_ShooterSubsystem, m_LedSubsystem, driveRequest, this)); //xbox X = PS5 square
+        joystick.rightTrigger().whileTrue(new ShootCommand(m_ShooterSubsystem, m_IndexerSubsystem, m_SpindexerSubsystem, m_IntakeSubsystem, ShooterConstants.shooterSpeedClose));
+        //joystick.leftTrigger().whileTrue(new ShootCommand(m_ShooterSubsystem, m_IndexerSubsystem, m_SpindexerSubsystem, ShooterConstants.shooterSpeedTower));
+        joystick.x().whileTrue(new ShootCommand(m_ShooterSubsystem, m_IndexerSubsystem, m_SpindexerSubsystem, m_IntakeSubsystem, ShooterConstants.shooterSpeedOutpost));
         joystick.povUp().onTrue(new ClimbCommand(m_ClimbSubsystem));
     
     }
 
      private void configureNamedCommands(){
         NamedCommands.registerCommand("Intake", new IntakeCommand(m_IntakeSubsystem).withTimeout(2.5));
-        NamedCommands.registerCommand("Align", new ShooterAlignCommand(drivetrain, m_ShooterSubsystem, m_leds, m_LedSubsystem, driveRequest, this));
-        NamedCommands.registerCommand("Shoot", new ShootCommand(m_ShooterSubsystem, m_IndexerSubsystem, m_SpindexerSubsystem, ShooterConstants.shooterSpeedClose).withTimeout(2.5));
+        NamedCommands.registerCommand("Align", new ShooterAlignCommand(drivetrain, m_ShooterSubsystem, m_LedSubsystem, driveRequest, this));
+        NamedCommands.registerCommand("Shoot", new ShootCommand(m_ShooterSubsystem, m_IndexerSubsystem, m_SpindexerSubsystem, m_IntakeSubsystem, ShooterConstants.shooterSpeedClose).withTimeout(2.5));
         NamedCommands.registerCommand("Climb", new ClimbCommand(m_ClimbSubsystem).withTimeout(2.5));
     
     }
@@ -187,16 +188,16 @@ public class RobotContainer {
         );
     }
 
-    public void configureLEDS(){
-     Optional<LumynDeviceConfig> config=  m_leds.LoadConfigurationFromDeploy("config.json");
-     config.ifPresent(m_leds::ApplyConfiguration);
- m_leds.leds.SetAnimation(Animation.Fill)
-            .ForZone("2")
-            .WithColor(new Color(new Color8Bit(0, 0, 255)))
-            .WithDelay(Units.Seconds.of(0))
-            .Reverse(false)
-            .RunOnce(false);
-    }
+//     public void configureLEDS(){
+//      Optional<LumynDeviceConfig> config=  m_leds.LoadConfigurationFromDeploy("config.json");
+//      config.ifPresent(m_leds::ApplyConfiguration);
+//  m_leds.leds.SetAnimation(Animation.Fill)
+//             .ForZone("2")
+//             .WithColor(new Color(new Color8Bit(0, 0, 255)))
+//             .WithDelay(Units.Seconds.of(0))
+//             .Reverse(false)
+//             .RunOnce(false);
+//     }
 
     public void configureAuto(){
 

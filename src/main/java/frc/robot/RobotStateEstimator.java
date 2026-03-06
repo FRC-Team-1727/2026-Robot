@@ -11,23 +11,26 @@ public class RobotStateEstimator extends SubsystemBase{
     public RobotStateEstimator(CommandSwerveDrivetrain swerve)
     {
         m_SwerveDriveTrain = swerve;
+      System.out.println("created");
     }
     @Override
     public void periodic(){
       doRejectUpdate = false;
       LimelightHelpers.SetRobotOrientation("limelight", m_SwerveDriveTrain.getPigeon2().getYaw().getValueAsDouble(), 0, 0, 0, 0, 0);
       LimelightHelpers.PoseEstimate mt2 = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight");
-      LimelightHelpers.PoseEstimate mt1 = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight");
+      // LimelightHelpers.PoseEstimate mt1 = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight");
       if(mt2 == null) {
         return;
       }
       if(Math.abs(m_SwerveDriveTrain.getPigeon2().getAngularVelocityZWorld().getValueAsDouble()) > 720) // if our angular velocity is greater than 720 degrees per second, ignore vision updates
       {
         doRejectUpdate = true;
+        System.out.println("velocity too high");
       }
       if(mt2.tagCount == 0)
       {
         doRejectUpdate = true;
+        System.out.println("no tags");
       }
       if(!doRejectUpdate)
       {
@@ -35,6 +38,7 @@ public class RobotStateEstimator extends SubsystemBase{
         m_SwerveDriveTrain.addVisionMeasurement(
             mt2.pose,
             mt2.timestampSeconds);
+            System.out.println("not reject");
       }
       
       //System.out.println("dog");
