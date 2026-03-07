@@ -91,6 +91,8 @@ public class RobotContainer {
         // m_leds = leds;
         // configureLEDS();
 
+        m_ShooterSubsystem.setSpeed(ShooterConstants.passiveShooterSpeed);
+
         
 
         autoChooser = new SendableChooser<>();
@@ -99,6 +101,8 @@ public class RobotContainer {
         autoChooser.addOption("BL Gather", new PathPlannerAuto("BL Gather"));
         autoChooser.addOption("BM Gather Left", new PathPlannerAuto("BM Gather Left"));
         autoChooser.addOption("BR Gather", new PathPlannerAuto("BR Gather"));
+        autoChooser.addOption("Move Forward", new PathPlannerAuto("Move Forward"));
+
         
         SmartDashboard.putData("Auto Chooser", autoChooser);
         
@@ -166,26 +170,29 @@ public class RobotContainer {
 
     public Command getAutonomousCommand() {
         // Simple drive forward auton
-        final var idle = new SwerveRequest.Idle();
-        return Commands.sequence(
-            // Reset our field centric heading to match the robot
-            drivetrain.runOnce(() -> {
-                if(DriverStation.getAlliance().get() == DriverStation.Alliance.Red){
-                    drivetrain.seedFieldCentric(Rotation2d.fromDegrees(180.0));
-                } else {
-                    drivetrain.seedFieldCentric(Rotation2d.fromDegrees(0.0));
-                }
-            }),
-            // Then slowly drive forward (away from us) for 5 seconds.
-            drivetrain.applyRequest(() ->
-                driveRequest.withVelocityX(0.5)
-                    .withVelocityY(0)
-                    .withRotationalRate(0)
-            )
-            .withTimeout(5.0),
-            // Finally idle for the rest of auton
-            drivetrain.applyRequest(() -> idle)
-        );
+        // final var idle = new SwerveRequest.Idle();
+        // return Commands.sequence(
+        //     // Reset our field centric heading to match the robot
+        //     drivetrain.runOnce(() -> {
+        //         if(DriverStation.getAlliance().get() == DriverStation.Alliance.Red){
+        //             drivetrain.seedFieldCentric(Rotation2d.fromDegrees(180.0));
+        //         } else {
+        //             drivetrain.seedFieldCentric(Rotation2d.fromDegrees(0.0));
+        //         }
+        //     }),
+        //     // Then slowly drive forward (away from us) for 5 seconds.
+        //     drivetrain.applyRequest(() ->
+        //         driveRequest.withVelocityX(0.5)
+        //             .withVelocityY(0)
+        //             .withRotationalRate(0)
+        //     )
+        //     .withTimeout(5.0),
+        //     // Finally idle for the rest of auton
+        //     drivetrain.applyRequest(() -> idle)
+        // );
+
+         return autoChooser.getSelected();
+
     }
 
 //     public void configureLEDS(){

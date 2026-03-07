@@ -12,9 +12,7 @@ import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 
-import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.constants.OtherConstants.IntakeConstants;
 import frc.robot.constants.OtherConstants.ShooterConstants;
 
 public class ShooterSubsystem extends SubsystemBase {
@@ -81,4 +79,34 @@ public class ShooterSubsystem extends SubsystemBase {
   public double getSpeed(){
     return shooterR.getVelocity().getValueAsDouble();
   }
+
+  public double getShooterPower(double distanceToTargetMeters) {
+    // Constants - Adjust these to your robot's physical dimensions
+    final double targetHeightMeters = 1.8288; // Height of the hoop
+    final double shooterHeightMeters = 0.476758; // Height of your shooter exit
+    final double angleDegrees = 62.0;
+    final double g = 9.81;
+      //RPM * Radius * 2PI / 60
+    final double maxVelBottom = 30.0;
+    final double maxVelTop = 30.0;
+    final double maxVelocity = (maxVelBottom + maxVelTop)/2; // Max m/s your shooter can actually hit
+
+    double x = distanceToTargetMeters;
+    double y = targetHeightMeters - shooterHeightMeters;
+    double theta = Math.toRadians(angleDegrees);
+
+    // Projectile Motion Formula for Velocity
+    double velocitySquared = (g * Math.pow(x, 2)) / 
+        (2 * Math.pow(Math.cos(theta), 2) * (x * Math.tan(theta) - y));
+
+    if (velocitySquared <= 0) return 0; // Target is physically unreachable
+
+    double requiredVelocity = Math.sqrt(velocitySquared);
+
+    // Normalize to a 0.0 - 1.0 range for motor output
+    double power = requiredVelocity / maxVelocity;
+
+    // Clamp the output between 0 and 1
+    return Math.max(0, Math.min(1, power));
+}
 }

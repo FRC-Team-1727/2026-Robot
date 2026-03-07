@@ -42,6 +42,9 @@ public class ShooterAlignCommand extends Command {
     private final RobotContainer robo;
     private final Rotation2d flip = new Rotation2d(Math.PI);
     private final LEDSubsystem m_LedSubsystem;
+    private boolean isRed = false;
+    Translation2d    target = Hub.topCenterPointBlue.toTranslation2d();
+        Rotation2d direction = null;
   
     // private final ConnectorX m_leds;
     private final PIDController pid;
@@ -71,36 +74,28 @@ public class ShooterAlignCommand extends Command {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        // m_leds.leds.SetAnimation(Animation.Fill)
-        //       .ForZone("front")
-        //       .WithColor(new Color(new Color8Bit(0, 0, 255)))
-        //       .WithDelay(Seconds.of(0))
-        //       .Reverse(false)
-        //       .RunOnce(false);
-      //  translationalPID = new ProfiledPIDController(2, 0, 0,
-      //             new TrapezoidProfile.Constraints(translationSpeedLim, translationAccelLim));
-      //     rotationalPID = new ProfiledPIDController(6, 0, 0,
-      //             new TrapezoidProfile.Constraints(rotationalSpeedLim, rotationalAccelLim));
+        isRed = DriverStation.getAlliance()
+        .orElse(DriverStation.Alliance.Blue)
+        == DriverStation.Alliance.Red;
+            target = Hub.topCenterPointBlue.toTranslation2d();
+
+        if (isRed) {
+          target = Hub.topCenterPointRed.toTranslation2d();
+        }
 
     }
   
     // Called every time the scheduler runs while the command is scheduled.
     @Override
      public void execute() {
-boolean isRed = DriverStation.getAlliance()
-        .orElse(DriverStation.Alliance.Blue)
-        == DriverStation.Alliance.Red;
-        Translation2d    target = Hub.topCenterPointBlue.toTranslation2d();
-        Rotation2d direction = target.minus(m_Drivetrain.getState().Pose.getTranslation())
+      if(isRed){
+        direction = (m_Drivetrain.getState().Pose.getTranslation()).minus(target)
           .getAngle();
-
-if (isRed) {
-  target = Hub.topCenterPointRed.toTranslation2d();
-    direction = 
-   (m_Drivetrain.getState().Pose.getTranslation()).minus(target)
+      } else {
+        direction = target.minus(m_Drivetrain.getState().Pose.getTranslation())
           .getAngle();
-}
-turnCommand.withDesaturateWheelSpeeds(true)
+      }
+      turnCommand.withDesaturateWheelSpeeds(true)
     .withHeadingPID(4.5, 0.0, 0.0)
     .withTargetDirection(direction)
     .withVelocityX(MaxSpeed * -joystick.getLeftY())
@@ -108,7 +103,8 @@ turnCommand.withDesaturateWheelSpeeds(true)
 m_Drivetrain.setControl(turnCommand);
     
     m_ShooterSubsystem.setSpeed(ShooterConstants.shooterSpeedClose);
-    System.out.println(m_ShooterSubsystem.getSpeed());
+    System.out.println("aligning");
+    // System.out.println(m_ShooterSubsystem.getSpeed());
     //  m_leds.leds.SetAnimation(Animation.Fill)
     //         .ForZone("2")
     //         .WithColor(new Color(new Color8Bit(0, 0, 255)))
@@ -138,8 +134,13 @@ m_Drivetrain.setControl(turnCommand);
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    // return (rotationalPID.atGoal() && translationalPID.atGoal()) || joystick.leftTrigger().getAsBoolean()
-    //   || (!LimelightHelpers.getTV("limelight-left") && !LimelightHelpers.getTV("limelight-right"));
+  //  if(direction.getDegrees() >= -5
+  //  && direction.getDegrees() <= 5
+  //  ){
+  //         System.out.println("done");
+
+  //     return true;
+  //  }
     return false;
   }
 

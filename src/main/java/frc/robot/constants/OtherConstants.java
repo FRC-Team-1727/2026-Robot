@@ -28,7 +28,7 @@ public final class OtherConstants {
         public static double shooterSpeedClose=.4;
         public static double shooterSpeedTower=.4;
         public static double shooterSpeedOutpost=.4;
-        public static double passiveShooterSpeed=0;
+        public static double passiveShooterSpeed=.1;
 
         public static double shooterRPSMinimum=400;
     }

@@ -25,12 +25,10 @@ public class RobotStateEstimator extends SubsystemBase{
       if(Math.abs(m_SwerveDriveTrain.getPigeon2().getAngularVelocityZWorld().getValueAsDouble()) > 720) // if our angular velocity is greater than 720 degrees per second, ignore vision updates
       {
         doRejectUpdate = true;
-        System.out.println("velocity too high");
       }
       if(mt2.tagCount == 0)
       {
         doRejectUpdate = true;
-        System.out.println("no tags");
       }
       if(!doRejectUpdate)
       {
@@ -38,7 +36,6 @@ public class RobotStateEstimator extends SubsystemBase{
         m_SwerveDriveTrain.addVisionMeasurement(
             mt2.pose,
             mt2.timestampSeconds);
-            System.out.println("not reject");
       }
       
       //System.out.println("dog");
