@@ -31,7 +31,7 @@ import frc.robot.subsystems.ShooterSubsystem;
 
 /** An example command that uses an example subsystem. */
 public class ShooterAlignCommand extends Command {
-  @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
+  @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
   private final CommandSwerveDrivetrain m_Drivetrain;
   private final ShooterSubsystem m_ShooterSubsystem;
   private SwerveRequest.FieldCentricFacingAngle turnCommand;
@@ -39,110 +39,110 @@ public class ShooterAlignCommand extends Command {
   // private ProfiledPIDController translationalPID;
   // private ProfiledPIDController rotationalPID;
   private CommandXboxController joystick;
-    private final RobotContainer robo;
-    private final Rotation2d flip = new Rotation2d(Math.PI);
-    private final LEDSubsystem m_LedSubsystem;
-    private boolean isRed = false;
-    Translation2d    target = Hub.topCenterPointBlue.toTranslation2d();
-        Rotation2d direction = null;
-  
-    // private final ConnectorX m_leds;
-    private final PIDController pid;
-        private double MaxSpeed = 1.0 * TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
-    //need limelights
-  
-    /**
-     * Creates a new ExampleCommand.
-     *
-     * @param subsystem The subsystem used by this command.
-     */
-    public ShooterAlignCommand(CommandSwerveDrivetrain drivetrain, ShooterSubsystem shooterSubsystem, 
-    LEDSubsystem led, SwerveRequest.FieldCentric drive, RobotContainer robotContainer) {
-      m_Drivetrain = drivetrain;
-      m_ShooterSubsystem = shooterSubsystem;
-      turnCommand = new SwerveRequest.FieldCentricFacingAngle();
-      m_LedSubsystem = led;
-      // m_leds = leds;    // Use addRequirements() here to declare subsystem dependencies.
-      this.drive = drive;
-      robo = robotContainer;
-      this.joystick = robo.getJoystick();
-      pid = new PIDController(1, 0, 1);
-      pid.enableContinuousInput(-180, 180);
-      addRequirements(drivetrain, shooterSubsystem, led);
-    }
-  
-    // Called when the command is initially scheduled.
-    @Override
-    public void initialize() {
-        isRed = DriverStation.getAlliance()
-        .orElse(DriverStation.Alliance.Blue)
-        == DriverStation.Alliance.Red;
-            target = Hub.topCenterPointBlue.toTranslation2d();
+  private final RobotContainer robo;
+  private final Rotation2d flip = new Rotation2d(Math.PI);
+  private final LEDSubsystem m_LedSubsystem;
+  private boolean isRed = false;
+  Translation2d target = Hub.topCenterPointBlue.toTranslation2d();
+  Rotation2d direction = null;
 
-        if (isRed) {
-          target = Hub.topCenterPointRed.toTranslation2d();
-        }
+  // private final ConnectorX m_leds;
+  private final PIDController pid;
+  private double MaxSpeed = 1.0 * TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top
+                                                                                      // speed
+  // need limelights
 
+  /**
+   * Creates a new ExampleCommand.
+   *
+   * @param subsystem The subsystem used by this command.
+   */
+  public ShooterAlignCommand(CommandSwerveDrivetrain drivetrain, ShooterSubsystem shooterSubsystem,
+      LEDSubsystem led, SwerveRequest.FieldCentric drive, RobotContainer robotContainer) {
+    m_Drivetrain = drivetrain;
+    m_ShooterSubsystem = shooterSubsystem;
+    turnCommand = new SwerveRequest.FieldCentricFacingAngle();
+    m_LedSubsystem = led;
+    // m_leds = leds; // Use addRequirements() here to declare subsystem
+    // dependencies.
+    this.drive = drive;
+    robo = robotContainer;
+    this.joystick = robo.getJoystick();
+    pid = new PIDController(1, 0, 1);
+    pid.enableContinuousInput(-180, 180);
+    addRequirements(drivetrain, shooterSubsystem, led);
+  }
+
+  // Called when the command is initially scheduled.
+  @Override
+  public void initialize() {
+    isRed = DriverStation.getAlliance()
+        .orElse(DriverStation.Alliance.Blue) == DriverStation.Alliance.Red;
+    target = Hub.topCenterPointBlue.toTranslation2d();
+
+    if (isRed) {
+      target = Hub.topCenterPointRed.toTranslation2d();
     }
-  
-    // Called every time the scheduler runs while the command is scheduled.
-    @Override
-     public void execute() {
-      if(isRed){
-        direction = (m_Drivetrain.getState().Pose.getTranslation()).minus(target)
+
+  }
+
+  // Called every time the scheduler runs while the command is scheduled.
+  @Override
+  public void execute() {
+    if (isRed) {
+      direction = (m_Drivetrain.getState().Pose.getTranslation()).minus(target)
           .getAngle();
-      } else {
-        direction = target.minus(m_Drivetrain.getState().Pose.getTranslation())
+    } else {
+      direction = target.minus(m_Drivetrain.getState().Pose.getTranslation())
           .getAngle();
-      }
-      turnCommand.withDesaturateWheelSpeeds(true)
-    .withHeadingPID(4.5, 0.0, 0.0)
-    .withTargetDirection(direction)
-    .withVelocityX(MaxSpeed * -joystick.getLeftY())
-    .withVelocityY(MaxSpeed * -joystick.getLeftX());
-m_Drivetrain.setControl(turnCommand);
-    
+    }
+    turnCommand.withDesaturateWheelSpeeds(true)
+        .withHeadingPID(4.5, 0.0, 0.0)
+        .withTargetDirection(direction)
+        .withVelocityX(MaxSpeed * -joystick.getLeftY())
+        .withVelocityY(MaxSpeed * -joystick.getLeftX());
+    m_Drivetrain.setControl(turnCommand);
+
     m_ShooterSubsystem.setSpeed(ShooterConstants.shooterSpeedClose);
     System.out.println("aligning");
     // System.out.println(m_ShooterSubsystem.getSpeed());
-    //  m_leds.leds.SetAnimation(Animation.Fill)
-    //         .ForZone("2")
-    //         .WithColor(new Color(new Color8Bit(0, 0, 255)))
-    //         .WithDelay(Seconds.of(0.5))
-    //         .Reverse(false)
-    //         .RunOnce(false);
-    //         //System.out.println(m_leds.IsConnected());
-      
-    //         // m_leds.leds.SetAnimationSequence("front", "Test");
-    //         m_LedSubsystem.aligning();
+    // m_leds.leds.SetAnimation(Animation.Fill)
+    // .ForZone("2")
+    // .WithColor(new Color(new Color8Bit(0, 0, 255)))
+    // .WithDelay(Seconds.of(0.5))
+    // .Reverse(false)
+    // .RunOnce(false);
+    // //System.out.println(m_leds.IsConnected());
+
+    // // m_leds.leds.SetAnimationSequence("front", "Test");
+    // m_LedSubsystem.aligning();
   }
 
   // Called once the command ends or is interruRpted.
   @Override
   public void end(boolean interrupted) {
-    //  m_leds.leds.SetAnimation(Animation.RainbowRoll)
-    //         .ForZone("2")
-    //         .WithColor(new Color(new Color8Bit(255, 255, 255)))
-    //         .WithDelay(Seconds.of(.5))
-    //         .Reverse(false)
-    //         .RunOnce(false);
+    // m_leds.leds.SetAnimation(Animation.RainbowRoll)
+    // .ForZone("2")
+    // .WithColor(new Color(new Color8Bit(255, 255, 255)))
+    // .WithDelay(Seconds.of(.5))
+    // .Reverse(false)
+    // .RunOnce(false);
     // //System.out.println(m_ShooterSubsystem.getSpeed());
-    //             m_LedSubsystem.aligned();
+    // m_LedSubsystem.aligned();
 
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-  //  if(direction.getDegrees() >= -5
-  //  && direction.getDegrees() <= 5
-  //  ){
-  //         System.out.println("done");
+    // if(direction.getDegrees() >= -5
+    // && direction.getDegrees() <= 5
+    // ){
+    // System.out.println("done");
 
-  //     return true;
-  //  }
+    // return true;
+    // }
     return false;
   }
-
 
 }

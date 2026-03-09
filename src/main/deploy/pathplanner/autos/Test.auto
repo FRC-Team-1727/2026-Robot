@@ -1,0 +1,37 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "BR Intake out"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "BR Move"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "BR Collect"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "BR Return"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": null,
+  "choreoAuto": false
+}

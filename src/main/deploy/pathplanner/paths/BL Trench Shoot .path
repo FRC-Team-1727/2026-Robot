@@ -3,45 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.074295774647888,
-        "y": 4.035
+        "x": 2.0,
+        "y": 7.0
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.074295774647888,
-        "y": 4.035
-      },
-      "isLocked": false,
-      "linkedName": "BM Start"
-    },
-    {
-      "anchor": {
-        "x": 2.903583333333334,
-        "y": 4.035
-      },
-      "prevControl": {
-        "x": 2.2718995476333896,
-        "y": 4.035
-      },
-      "nextControl": {
-        "x": 3.610847986795423,
-        "y": 4.035
+        "x": 3.0,
+        "y": 7.0
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.074295774647888,
-        "y": 4.035
+        "x": 3.540642857142858,
+        "y": 7.344470238095238
       },
       "prevControl": {
-        "x": 2.6763598683972276,
-        "y": 4.035
+        "x": 2.7254226190476194,
+        "y": 7.058333333333333
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "BL Trench Shoot"
     }
   ],
   "rotationTargets": [],
@@ -58,10 +42,10 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": -89.40319054877095
   },
   "reversed": false,
-  "folder": "Blue Middle",
+  "folder": "Blue Left",
   "idealStartingState": {
     "velocity": 0,
     "rotation": 0.0

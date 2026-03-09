@@ -8,7 +8,7 @@ import frc.robot.constants.OtherConstants.IndexerConstants;
 import frc.robot.constants.OtherConstants.IntakeConstants;
 import frc.robot.constants.OtherConstants.ShooterConstants;
 import frc.robot.constants.OtherConstants.SpindexerConstants;
-import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.CommandSwerveDrivetrain;
 import frc.robot.subsystems.IndexerSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
@@ -22,6 +22,7 @@ public class ShootCommand extends Command {
   private final IndexerSubsystem m_IndexerSubsystem;
   private final SpindexerSubsystem m_SpindexerSubsystem;
   private final IntakeSubsystem m_IntakeSubsystem;
+  private final CommandSwerveDrivetrain m_Drivetrain;
   private final double shootSpeed;
 
   /**
@@ -29,14 +30,16 @@ public class ShootCommand extends Command {
    *
    * @param subsystem The subsystem used by this command.
    */
-  public ShootCommand(ShooterSubsystem shooterSubsystem, IndexerSubsystem indexerSubsystem, SpindexerSubsystem spindexerSubsystem, IntakeSubsystem intakeSubsystem, double shootSpeed) {
+  public ShootCommand(ShooterSubsystem shooterSubsystem, IndexerSubsystem indexerSubsystem, SpindexerSubsystem spindexerSubsystem, 
+  IntakeSubsystem intakeSubsystem, CommandSwerveDrivetrain drivetrain, double shootSpeed) {
     m_ShooterSubsystem = shooterSubsystem;
     m_IndexerSubsystem = indexerSubsystem;
     m_SpindexerSubsystem = spindexerSubsystem;
     m_IntakeSubsystem = intakeSubsystem;
+    m_Drivetrain = drivetrain;
     this.shootSpeed = shootSpeed;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(shooterSubsystem, indexerSubsystem, spindexerSubsystem);
+    addRequirements(shooterSubsystem, indexerSubsystem, spindexerSubsystem, drivetrain, intakeSubsystem);
   }
 
   // Called when the command is initially scheduled.
@@ -53,6 +56,7 @@ public class ShootCommand extends Command {
     m_SpindexerSubsystem.setSpeed(SpindexerConstants.spindexerSpeed);
     m_IntakeSubsystem.setSpeed(IntakeConstants.intakeSpeed);
 
+    m_Drivetrain.setX();
 
   //   if(m_ShooterSubsystem.shooterSpeed()){
   //     m_IndexerSubsystem.setSpeed(IndexerConstants.indexerSpeed);

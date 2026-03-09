@@ -3,48 +3,53 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.074295774647888,
-        "y": 4.035
+        "x": 7.9028809523809525,
+        "y": 5.708630952380952
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.074295774647888,
-        "y": 4.035
+        "x": 7.481773809523811,
+        "y": 6.270107142857143
       },
       "isLocked": false,
-      "linkedName": "BM Start"
+      "linkedName": "Gather Position BL"
     },
     {
       "anchor": {
-        "x": 2.903583333333334,
-        "y": 4.035
+        "x": 6.369619047619048,
+        "y": 7.344470238095238
       },
       "prevControl": {
-        "x": 2.2718995476333896,
-        "y": 4.035
+        "x": 7.3683988095238115,
+        "y": 7.360666666666667
       },
       "nextControl": {
-        "x": 3.610847986795423,
-        "y": 4.035
+        "x": 5.369750504527321,
+        "y": 7.328256153612669
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.074295774647888,
-        "y": 4.035
+        "x": 3.540642857142858,
+        "y": 7.344470238095238
       },
       "prevControl": {
-        "x": 2.6763598683972276,
-        "y": 4.035
+        "x": 4.0838333333333345,
+        "y": 7.3093779761904765
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "BL Trench Shoot"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 1.0257261410788494,
+      "rotationDegrees": -90.0
+    }
+  ],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],
@@ -58,13 +63,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": -89.40319054877095
   },
   "reversed": false,
-  "folder": "Blue Middle",
+  "folder": "Blue Left",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": -50.0
   },
   "useDefaultConstraints": true
 }

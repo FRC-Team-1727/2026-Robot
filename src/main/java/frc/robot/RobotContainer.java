@@ -102,6 +102,7 @@ public class RobotContainer {
         autoChooser.addOption("BM Gather Left", new PathPlannerAuto("BM Gather Left"));
         autoChooser.addOption("BR Gather", new PathPlannerAuto("BR Gather"));
         autoChooser.addOption("Move Forward", new PathPlannerAuto("Move Forward"));
+        autoChooser.addOption("Test", new PathPlannerAuto("Test"));
 
         
         SmartDashboard.putData("Auto Chooser", autoChooser);
@@ -153,9 +154,9 @@ public class RobotContainer {
         //     .Reverse(false)
         //     .RunOnce(false)); 
         joystick.rightBumper().whileTrue(new ShooterAlignCommand(drivetrain, m_ShooterSubsystem, m_LedSubsystem, driveRequest, this)); //xbox X = PS5 square
-        joystick.rightTrigger().whileTrue(new ShootCommand(m_ShooterSubsystem, m_IndexerSubsystem, m_SpindexerSubsystem, m_IntakeSubsystem, ShooterConstants.shooterSpeedClose));
+        joystick.rightTrigger().whileTrue(new ShootCommand(m_ShooterSubsystem, m_IndexerSubsystem, m_SpindexerSubsystem, m_IntakeSubsystem, drivetrain, ShooterConstants.shooterSpeedClose));
         //joystick.leftTrigger().whileTrue(new ShootCommand(m_ShooterSubsystem, m_IndexerSubsystem, m_SpindexerSubsystem, ShooterConstants.shooterSpeedTower));
-        joystick.x().whileTrue(new ShootCommand(m_ShooterSubsystem, m_IndexerSubsystem, m_SpindexerSubsystem, m_IntakeSubsystem, ShooterConstants.shooterSpeedOutpost));
+        joystick.x().whileTrue(drivetrain.setX());
         joystick.povUp().onTrue(new ClimbCommand(m_ClimbSubsystem));
     
     }
@@ -163,7 +164,7 @@ public class RobotContainer {
      private void configureNamedCommands(){
         NamedCommands.registerCommand("Intake", new IntakeCommand(m_IntakeSubsystem).withTimeout(2.5));
         NamedCommands.registerCommand("Align", new ShooterAlignCommand(drivetrain, m_ShooterSubsystem, m_LedSubsystem, driveRequest, this));
-        NamedCommands.registerCommand("Shoot", new ShootCommand(m_ShooterSubsystem, m_IndexerSubsystem, m_SpindexerSubsystem, m_IntakeSubsystem, ShooterConstants.shooterSpeedClose).withTimeout(2.5));
+        NamedCommands.registerCommand("Shoot", new ShootCommand(m_ShooterSubsystem, m_IndexerSubsystem, m_SpindexerSubsystem, m_IntakeSubsystem, drivetrain, ShooterConstants.shooterSpeedClose).withTimeout(2.5));
         NamedCommands.registerCommand("Climb", new ClimbCommand(m_ClimbSubsystem).withTimeout(2.5));
     
     }
