@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.0,
+        "x": 1.5124645892351278,
         "y": 7.0
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.0,
+        "x": 2.512464589235128,
         "y": 7.0
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "BL Intake"
     },
     {
       "anchor": {
-        "x": 3.0,
-        "y": 4.913257042253522
+        "x": 3.3894761904761905,
+        "y": 5.849
       },
       "prevControl": {
-        "x": 2.9840320666368254,
-        "y": 5.631830994281971
+        "x": 2.779410714285715,
+        "y": 6.145934523809524
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "BL Shoot Position"
+      "linkedName": "BL Bump Shoot"
     }
   ],
   "rotationTargets": [],
@@ -42,7 +42,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -38.65980825409017
+    "rotation": -90.51616422976474
   },
   "reversed": false,
   "folder": "Blue Left",

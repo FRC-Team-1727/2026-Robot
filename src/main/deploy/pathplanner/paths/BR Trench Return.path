@@ -3,78 +3,58 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.6331866197183103,
-        "y": 3.0609330985915495
-      },
-      "prevControl": null,
-      "nextControl": {
-        "x": 2.9046478873239443,
-        "y": 2.326390845070423
-      },
-      "isLocked": false,
-      "linkedName": "BR Shoot Position"
-    },
-    {
-      "anchor": {
-        "x": 2.840774647887325,
-        "y": 0.63375
-      },
-      "prevControl": {
-        "x": 2.1860739436619725,
-        "y": 0.6656866197183106
-      },
-      "nextControl": {
-        "x": 3.495475352112677,
-        "y": 0.6018133802816895
-      },
-      "isLocked": false,
-      "linkedName": null
-    },
-    {
-      "anchor": {
-        "x": 6.018468309859156,
-        "y": 0.63375
-      },
-      "prevControl": {
-        "x": 5.769264490225124,
-        "y": 0.6138136944292771
-      },
-      "nextControl": {
-        "x": 6.417676056338029,
-        "y": 0.6656866197183104
-      },
-      "isLocked": false,
-      "linkedName": null
-    },
-    {
-      "anchor": {
         "x": 7.697726190476192,
         "y": 2.361369047619048
       },
+      "prevControl": null,
+      "nextControl": {
+        "x": 7.154803655264925,
+        "y": 1.91425637156271
+      },
+      "isLocked": false,
+      "linkedName": "BR Gather Position"
+    },
+    {
+      "anchor": {
+        "x": 6.060311614730879,
+        "y": 0.6947733711048147
+      },
       "prevControl": {
-        "x": 7.451423251771274,
-        "y": 2.3185337539312365
+        "x": 7.060047483717289,
+        "y": 0.6717909373350126
+      },
+      "nextControl": {
+        "x": 4.6710686569844,
+        "y": 0.7267099908231239
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 3.5298452380952394,
+        "y": 0.5905595238095236
+      },
+      "prevControl": {
+        "x": 3.7704603103211713,
+        "y": 0.5227038901619805
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "BR Gather Position"
+      "linkedName": "BR Trench Shoot"
     }
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 1.0294117647058807,
-      "rotationDegrees": 0.0
-    },
-    {
-      "waypointRelativePos": 1.9215686274509758,
-      "rotationDegrees": 0.0
+      "waypointRelativePos": 1.0,
+      "rotationDegrees": 93.94862155894866
     }
   ],
   "constraintZones": [
     {
       "name": "Constraints Zone",
-      "minWaypointRelativePos": 0.7595445411922235,
-      "maxWaypointRelativePos": 1.945077026121899,
+      "minWaypointRelativePos": 0.7434695244474296,
+      "maxWaypointRelativePos": 1.3,
       "constraints": {
         "maxVelocity": 2.0,
         "maxAcceleration": 3.0,
@@ -97,13 +77,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 43.60281897270362
+    "rotation": 91.98183342666366
   },
   "reversed": false,
   "folder": "Blue Right",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 32.660912721673796
+    "rotation": 43.60281897270362
   },
   "useDefaultConstraints": true
 }

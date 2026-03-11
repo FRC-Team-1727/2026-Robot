@@ -41,7 +41,7 @@
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Gather Position BL"
+      "linkedName": "BL Gather Position"
     }
   ],
   "rotationTargets": [

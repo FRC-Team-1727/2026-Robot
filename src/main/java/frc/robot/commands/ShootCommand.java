@@ -11,18 +11,20 @@ import frc.robot.constants.OtherConstants.SpindexerConstants;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 import frc.robot.subsystems.IndexerSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
+import frc.robot.subsystems.LEDSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.SpindexerSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 
 /** An example command that uses an example subsystem. */
 public class ShootCommand extends Command {
-  @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
+  @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
   private final ShooterSubsystem m_ShooterSubsystem;
   private final IndexerSubsystem m_IndexerSubsystem;
   private final SpindexerSubsystem m_SpindexerSubsystem;
   private final IntakeSubsystem m_IntakeSubsystem;
   private final CommandSwerveDrivetrain m_Drivetrain;
+  private final LEDSubsystem m_LedSubsystem;
   private final double shootSpeed;
 
   /**
@@ -30,13 +32,16 @@ public class ShootCommand extends Command {
    *
    * @param subsystem The subsystem used by this command.
    */
-  public ShootCommand(ShooterSubsystem shooterSubsystem, IndexerSubsystem indexerSubsystem, SpindexerSubsystem spindexerSubsystem, 
-  IntakeSubsystem intakeSubsystem, CommandSwerveDrivetrain drivetrain, double shootSpeed) {
+  public ShootCommand(ShooterSubsystem shooterSubsystem, IndexerSubsystem indexerSubsystem,
+      SpindexerSubsystem spindexerSubsystem,
+      IntakeSubsystem intakeSubsystem, CommandSwerveDrivetrain drivetrain, LEDSubsystem ledSubsystem,
+      double shootSpeed) {
     m_ShooterSubsystem = shooterSubsystem;
     m_IndexerSubsystem = indexerSubsystem;
     m_SpindexerSubsystem = spindexerSubsystem;
     m_IntakeSubsystem = intakeSubsystem;
     m_Drivetrain = drivetrain;
+    m_LedSubsystem = ledSubsystem;
     this.shootSpeed = shootSpeed;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(shooterSubsystem, indexerSubsystem, spindexerSubsystem, drivetrain, intakeSubsystem);
@@ -45,7 +50,7 @@ public class ShootCommand extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-     
+
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -58,15 +63,15 @@ public class ShootCommand extends Command {
 
     m_Drivetrain.setX();
 
-  //   if(m_ShooterSubsystem.shooterSpeed()){
-  //     m_IndexerSubsystem.setSpeed(IndexerConstants.indexerSpeed);
-  //     m_SpindexerSubsystem.setSpeed(SpindexerConstants.spindexerSpeed);
-  // } else {
-  //   m_IndexerSubsystem.setSpeed(IndexerConstants.passiveIndexerSpeed);
-  //   m_SpindexerSubsystem.setSpeed(SpindexerConstants.passiveSpindexerSpeed);
-  // }
-  
-  
+    // if(m_ShooterSubsystem.shooterSpeed()){
+    // m_IndexerSubsystem.setSpeed(IndexerConstants.indexerSpeed);
+    // m_SpindexerSubsystem.setSpeed(SpindexerConstants.spindexerSpeed);
+    // } else {
+    // m_IndexerSubsystem.setSpeed(IndexerConstants.passiveIndexerSpeed);
+    // m_SpindexerSubsystem.setSpeed(SpindexerConstants.passiveSpindexerSpeed);
+    // }
+
+    // m_LedSubsystem.PARTYMODE();
   }
 
   // Called once the command ends or is interrupted.

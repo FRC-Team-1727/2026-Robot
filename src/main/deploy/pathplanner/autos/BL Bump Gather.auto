@@ -7,13 +7,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "BR Intake out"
+            "pathName": "BL Intake out"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "BR Move"
+            "pathName": "BL Bump Shoot "
           }
         },
         {
@@ -35,7 +35,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "BR Collect"
+                  "pathName": "BL Bump Collect"
                 }
               },
               {
@@ -63,7 +63,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "BR Return"
+            "pathName": "BL Bump Return"
           }
         },
         {
@@ -82,6 +82,6 @@
     }
   },
   "resetOdom": true,
-  "folder": "BR",
+  "folder": "BL",
   "choreoAuto": false
 }

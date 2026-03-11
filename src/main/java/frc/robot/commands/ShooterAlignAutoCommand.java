@@ -30,7 +30,7 @@ import frc.robot.subsystems.LEDSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 
 /** An example command that uses an example subsystem. */
-public class ShooterAlignCommand extends Command {
+public class ShooterAlignAutoCommand extends Command {
   @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
   private final CommandSwerveDrivetrain m_Drivetrain;
   private final ShooterSubsystem m_ShooterSubsystem;
@@ -57,7 +57,7 @@ public class ShooterAlignCommand extends Command {
    *
    * @param subsystem The subsystem used by this command.
    */
-  public ShooterAlignCommand(CommandSwerveDrivetrain drivetrain, ShooterSubsystem shooterSubsystem,
+  public ShooterAlignAutoCommand(CommandSwerveDrivetrain drivetrain, ShooterSubsystem shooterSubsystem,
       LEDSubsystem led, SwerveRequest.FieldCentric drive, RobotContainer robotContainer) {
     m_Drivetrain = drivetrain;
     m_ShooterSubsystem = shooterSubsystem;
@@ -104,6 +104,7 @@ public class ShooterAlignCommand extends Command {
     m_Drivetrain.setControl(turnCommand);
 
     m_ShooterSubsystem.setSpeed(ShooterConstants.shooterSpeedClose);
+    System.out.println("aligning");
     // System.out.println(m_ShooterSubsystem.getSpeed());
     // m_leds.leds.SetAnimation(Animation.Fill)
     // .ForZone("2")
@@ -114,16 +115,7 @@ public class ShooterAlignCommand extends Command {
     // //System.out.println(m_leds.IsConnected());
 
     // // m_leds.leds.SetAnimationSequence("front", "Test");
-    // double currentAngle =
-    // m_Drivetrain.getState().Pose.getRotation().getDegrees();
-    // double targetAngle = direction.getDegrees();
-    // double error = Math
-    // .abs(Rotation2d.fromDegrees(targetAngle).minus(Rotation2d.fromDegrees(currentAngle)).getDegrees());
-    // if (error <= 2.0) {
-    // m_LedSubsystem.aligned();
-    // } else {
     // m_LedSubsystem.aligning();
-    // }
   }
 
   // Called once the command ends or is interruRpted.
@@ -143,14 +135,13 @@ public class ShooterAlignCommand extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    // double currentAngle =
-    // m_Drivetrain.getState().Pose.getRotation().getDegrees();
-    // double targetAngle = direction.getDegrees();
-    // double error =
-    // Math.abs(Rotation2d.fromDegrees(targetAngle).minus(Rotation2d.fromDegrees(currentAngle)).getDegrees());
-    // if(error<=2.0){
-    // return true;
-    // }
+    double currentAngle = m_Drivetrain.getState().Pose.getRotation().getDegrees();
+    double targetAngle = direction.getDegrees();
+    double error = Math
+        .abs(Rotation2d.fromDegrees(targetAngle).minus(Rotation2d.fromDegrees(currentAngle)).getDegrees());
+    if (error <= 2.0) {
+      return true;
+    }
     return false;
   }
 

@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.0,
-        "y": 7.0
+        "x": 7.9028809523809525,
+        "y": 5.708630952380952
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.0,
-        "y": 7.0
+        "x": 8.556136904761907,
+        "y": 4.968994047619048
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "BL Gather Position"
     },
     {
       "anchor": {
-        "x": 3.0,
-        "y": 4.913257042253522
+        "x": 7.794904761904762,
+        "y": 4.353529761904762
       },
       "prevControl": {
-        "x": 2.9840320666368254,
-        "y": 5.631830994281971
+        "x": 7.800303571428573,
+        "y": 5.04997619047619
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "BL Shoot Position"
+      "linkedName": "BL Gather Deep"
     }
   ],
   "rotationTargets": [],
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -38.65980825409017
+    "rotation": -90.0
   },
   "reversed": false,
   "folder": "Blue Left",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": -50.0
   },
   "useDefaultConstraints": true
 }

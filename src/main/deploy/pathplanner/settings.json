@@ -5,9 +5,15 @@
   "pathFolders": [
     "Blue Left",
     "Blue Middle",
-    "Blue Right"
+    "Blue Right",
+    "Hook Collects"
   ],
-  "autoFolders": [],
+  "autoFolders": [
+    "BL",
+    "BM Left",
+    "BR",
+    "BM Right"
+  ],
   "defaultMaxVel": 3.0,
   "defaultMaxAccel": 3.0,
   "defaultMaxAngVel": 540.0,

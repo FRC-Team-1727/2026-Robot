@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.439647887323944,
-        "y": 1.8313732394366196
+        "x": 7.697726190476192,
+        "y": 2.361369047619048
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.896725352112677,
-        "y": 1.3842605633802814
+        "x": 7.154803655264925,
+        "y": 1.91425637156271
       },
       "isLocked": false,
-      "linkedName": "Gather Position BR"
+      "linkedName": "BR Gather Position"
     },
     {
       "anchor": {
@@ -57,7 +57,7 @@
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "Shoot Position BR"
+      "linkedName": "BR Shoot Position"
     }
   ],
   "rotationTargets": [

@@ -89,6 +89,6 @@
     }
   },
   "resetOdom": true,
-  "folder": null,
+  "folder": "BM Right",
   "choreoAuto": false
 }

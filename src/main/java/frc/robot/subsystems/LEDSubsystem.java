@@ -27,16 +27,15 @@ public class LEDSubsystem extends SubsystemBase {
     private LEDMode mode;
     private int animStart;
 
-
     public LEDSubsystem() {
         mode = LEDMode.kDefault;
         pattern = LEDPattern.solid(Color.kRed);
-        led = new AddressableLED(0);
-        buffer = new AddressableLEDBuffer(48);
+        led = new AddressableLED(1);
+        buffer = new AddressableLEDBuffer(24);
         led.setLength(buffer.getLength());
         led.setData(buffer);
         led.start();
-        
+
         animStart = 0;
         sim = AddressableLEDSim.createForChannel(0);
         pattern = LEDPattern.rainbow(255, 128);
@@ -55,7 +54,7 @@ public class LEDSubsystem extends SubsystemBase {
         } else if (mode == LEDMode.kPartyTime) {
             oldPartyMode();
         } else if (mode == LEDMode.kDefault) {
-            //defaultColor();
+            // defaultColor();
         } else if (mode == LEDMode.kAligning) {
             aligning();
         } else if (mode == LEDMode.kAligned) {
@@ -80,7 +79,7 @@ public class LEDSubsystem extends SubsystemBase {
         pattern.applyTo(buffer);
     }
 
-    public void blinkColor(Color color,double time) {
+    public void blinkColor(Color color, double time) {
         LEDPattern base = LEDPattern.solid(color);
         pattern = base.blink(Seconds.of(time));
         pattern.applyTo(buffer);
@@ -93,8 +92,7 @@ public class LEDSubsystem extends SubsystemBase {
     }
 
     public void PARTYMODE() {
-
-        pattern.scrollAtAbsoluteSpeed(MetersPerSecond.of(1), Meters.of(1 / 120.0));
+        pattern = LEDPattern.rainbow(255, 128).scrollAtAbsoluteSpeed(MetersPerSecond.of(0.16), Meters.of(.406 / 24));
         pattern.applyTo(buffer);
     }
 

@@ -7,13 +7,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "BR Intake out"
+            "pathName": "BM Intake out"
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "BR Move"
+            "pathName": "BM Bump L"
           }
         },
         {
@@ -35,7 +35,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "BR Collect"
+                  "pathName": "BL Bump Collect"
                 }
               },
               {
@@ -63,7 +63,20 @@
         {
           "type": "path",
           "data": {
-            "pathName": "BR Return"
+            "pathName": "BL Deep Collect"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "L to R Hook"
+                }
+              }
+            ]
           }
         },
         {
@@ -82,6 +95,6 @@
     }
   },
   "resetOdom": true,
-  "folder": "BR",
+  "folder": "BM Left",
   "choreoAuto": false
 }

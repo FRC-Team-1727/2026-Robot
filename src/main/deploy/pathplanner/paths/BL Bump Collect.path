@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.0,
-        "y": 4.913257042253522
+        "x": 3.3894761904761905,
+        "y": 5.849
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.0,
-        "y": 4.913257042253522
+        "x": 4.3894761904761905,
+        "y": 5.849
       },
       "isLocked": false,
-      "linkedName": "BL Shoot Position"
+      "linkedName": "BL Bump Shoot"
     },
     {
       "anchor": {
-        "x": 3.351760563380282,
-        "y": 7.34044014084507
+        "x": 5.629982142857143,
+        "y": 5.849
       },
       "prevControl": {
-        "x": 2.4579581795303436,
-        "y": 7.244675599718291
+        "x": 4.742788684010561,
+        "y": 5.860089918235583
       },
       "nextControl": {
-        "x": 4.245985915492957,
-        "y": 7.436249999999999
+        "x": 6.493791666666667,
+        "y": 5.838202380952381
       },
       "isLocked": false,
       "linkedName": null
@@ -36,8 +36,8 @@
         "y": 5.708630952380952
       },
       "prevControl": {
-        "x": 6.958089285714284,
-        "y": 6.85857738095238
+        "x": 6.175261904761904,
+        "y": 6.772196428571428
       },
       "nextControl": null,
       "isLocked": false,
@@ -46,8 +46,12 @@
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 1.3875518672199185,
-      "rotationDegrees": 0.0
+      "waypointRelativePos": 0.1377593360995726,
+      "rotationDegrees": -90.0
+    },
+    {
+      "waypointRelativePos": 0.9941908713692856,
+      "rotationDegrees": -90.0
     }
   ],
   "constraintZones": [],
@@ -69,7 +73,7 @@
   "folder": "Blue Left",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -38.65980825409017
+    "rotation": -90.51616422976474
   },
   "useDefaultConstraints": true
 }

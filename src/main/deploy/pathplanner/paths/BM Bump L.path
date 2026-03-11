@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.0,
-        "y": 7.0
+        "x": 1.7629815864022662,
+        "y": 4.035
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.0,
-        "y": 7.0
+        "x": 2.762981586402266,
+        "y": 4.035
       },
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "BM Start"
     },
     {
       "anchor": {
-        "x": 3.0,
-        "y": 4.913257042253522
+        "x": 3.3894761904761905,
+        "y": 5.849
       },
       "prevControl": {
-        "x": 2.9840320666368254,
-        "y": 5.631830994281971
+        "x": 2.3894761904761905,
+        "y": 5.849
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "BL Shoot Position"
+      "linkedName": "BL Bump Shoot"
     }
   ],
   "rotationTargets": [],
@@ -42,10 +42,10 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -38.65980825409017
+    "rotation": -90.51616422976474
   },
   "reversed": false,
-  "folder": "Blue Left",
+  "folder": "Blue Middle",
   "idealStartingState": {
     "velocity": 0,
     "rotation": 0.0

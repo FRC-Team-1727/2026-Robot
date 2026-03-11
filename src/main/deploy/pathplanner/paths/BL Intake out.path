@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.0,
-        "y": 7.0
+        "x": 4.030481586402267,
+        "y": 7.400920679886685
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.0,
-        "y": 7.0
+        "x": 3.3560127478753548,
+        "y": 7.278873937677053
       },
       "isLocked": false,
       "linkedName": null
@@ -32,20 +32,66 @@
     },
     {
       "anchor": {
-        "x": 2.0,
+        "x": 1.5124645892351278,
         "y": 7.0
       },
       "prevControl": {
-        "x": 2.500615724200036,
+        "x": 2.013080313435164,
         "y": 7.0
+      },
+      "nextControl": {
+        "x": 1.0118488650350916,
+        "y": 7.0
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 3.0027195467422105,
+        "y": 7.0
+      },
+      "prevControl": {
+        "x": 2.7536067915113764,
+        "y": 6.97895635057072
+      },
+      "nextControl": {
+        "x": 3.2518323019730446,
+        "y": 7.02104364942928
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 1.5124645892351278,
+        "y": 7.0
+      },
+      "prevControl": {
+        "x": 1.7610531469912143,
+        "y": 6.973472109907706
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": null
+      "linkedName": "BL Intake"
     }
   ],
   "rotationTargets": [],
-  "constraintZones": [],
+  "constraintZones": [
+    {
+      "name": "Constraints Zone",
+      "minWaypointRelativePos": 0,
+      "maxWaypointRelativePos": 1.2806430006698075,
+      "constraints": {
+        "maxVelocity": 2.0,
+        "maxAcceleration": 3.0,
+        "maxAngularVelocity": 540.0,
+        "maxAngularAcceleration": 720.0,
+        "nominalVoltage": 12.0,
+        "unlimited": false
+      }
+    }
+  ],
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {

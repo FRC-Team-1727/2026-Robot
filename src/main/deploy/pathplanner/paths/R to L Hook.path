@@ -3,51 +3,51 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.0,
-        "y": 4.913257042253522
+        "x": 7.908279761904764,
+        "y": 3.613892857142857
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.0,
-        "y": 4.913257042253522
+        "x": 6.607166666666667,
+        "y": 3.6732797619047624
       },
       "isLocked": false,
-      "linkedName": "BL Shoot Position"
+      "linkedName": "BR Gather Deep"
     },
     {
       "anchor": {
-        "x": 3.351760563380282,
-        "y": 7.34044014084507
+        "x": 6.207654761904763,
+        "y": 5.735625
       },
       "prevControl": {
-        "x": 2.4579581795303436,
-        "y": 7.244675599718291
+        "x": 7.2059291350797565,
+        "y": 5.676902978048529
       },
       "nextControl": {
-        "x": 4.245985915492957,
-        "y": 7.436249999999999
+        "x": 4.739178571428572,
+        "y": 5.822005952380953
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 7.9028809523809525,
-        "y": 5.708630952380952
+        "x": 3.3894761904761905,
+        "y": 5.849
       },
       "prevControl": {
-        "x": 6.958089285714284,
-        "y": 6.85857738095238
+        "x": 3.8894761904761905,
+        "y": 5.849
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "BL Gather Position"
+      "linkedName": "BL Bump Shoot"
     }
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 1.3875518672199185,
-      "rotationDegrees": 0.0
+      "waypointRelativePos": 1.1253112033195138,
+      "rotationDegrees": -90.0
     }
   ],
   "constraintZones": [],
@@ -63,13 +63,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -50.0
+    "rotation": -90.51616422976474
   },
   "reversed": false,
-  "folder": "Blue Left",
+  "folder": "Hook Collects",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -38.65980825409017
+    "rotation": 90.60309119438033
   },
   "useDefaultConstraints": true
 }
