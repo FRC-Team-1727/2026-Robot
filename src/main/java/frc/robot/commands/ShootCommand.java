@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import frc.robot.constants.FieldConstants.Hub;
 import frc.robot.constants.OtherConstants.IndexerConstants;
 import frc.robot.constants.OtherConstants.IntakeConstants;
 import frc.robot.constants.OtherConstants.ShooterConstants;
@@ -14,6 +15,8 @@ import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.LEDSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.SpindexerSubsystem;
+import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Command;
 
 /** An example command that uses an example subsystem. */
@@ -26,6 +29,10 @@ public class ShootCommand extends Command {
   private final CommandSwerveDrivetrain m_Drivetrain;
   private final LEDSubsystem m_LedSubsystem;
   private final double shootSpeed;
+
+  private boolean isRed = false;
+  Translation2d target = Hub.topCenterPointBlue.toTranslation2d();
+  float difference;
 
   /**
    * Creates a new ExampleCommand.
@@ -44,24 +51,32 @@ public class ShootCommand extends Command {
     m_LedSubsystem = ledSubsystem;
     this.shootSpeed = shootSpeed;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(shooterSubsystem, indexerSubsystem, spindexerSubsystem, drivetrain, intakeSubsystem);
+    addRequirements(shooterSubsystem, indexerSubsystem, spindexerSubsystem, intakeSubsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    isRed = DriverStation.getAlliance()
+        .orElse(DriverStation.Alliance.Blue) == DriverStation.Alliance.Red;
+    target = Hub.topCenterPointBlue.toTranslation2d();
 
+    if (isRed) {
+      target = Hub.topCenterPointRed.toTranslation2d();
+    }
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_ShooterSubsystem.setSpeed(shootSpeed);
+    // m_ShooterSubsystem.setSpeed(shootSpeed);
+    difference = (float) m_Drivetrain.getState().Pose.getTranslation().getDistance(target);
+    m_ShooterSubsystem.setSpeed(m_ShooterSubsystem.getShooterPower(difference));
     m_IndexerSubsystem.setSpeed(IndexerConstants.indexerSpeed);
     m_SpindexerSubsystem.setSpeed(SpindexerConstants.spindexerSpeed);
     m_IntakeSubsystem.setSpeed(IntakeConstants.intakeSpeed);
 
-    m_Drivetrain.setX();
+    // m_Drivetrain.setX();
 
     // if(m_ShooterSubsystem.shooterSpeed()){
     // m_IndexerSubsystem.setSpeed(IndexerConstants.indexerSpeed);

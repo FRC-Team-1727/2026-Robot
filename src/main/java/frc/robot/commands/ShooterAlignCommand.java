@@ -45,6 +45,7 @@ public class ShooterAlignCommand extends Command {
   private boolean isRed = false;
   Translation2d target = Hub.topCenterPointBlue.toTranslation2d();
   Rotation2d direction = null;
+  float difference;
 
   // private final ConnectorX m_leds;
   private final PIDController pid;
@@ -103,7 +104,10 @@ public class ShooterAlignCommand extends Command {
         .withVelocityY(MaxSpeed * -joystick.getLeftX());
     m_Drivetrain.setControl(turnCommand);
 
-    m_ShooterSubsystem.setSpeed(ShooterConstants.shooterSpeedClose);
+    difference = (float) m_Drivetrain.getState().Pose.getTranslation().getDistance(target);
+    m_ShooterSubsystem.setSpeed(m_ShooterSubsystem.getShooterPower(difference));
+    // m_ShooterSubsystem.setSpeed(ShooterConstants.shooterSpeedClose);
+
     // System.out.println(m_ShooterSubsystem.getSpeed());
     // m_leds.leds.SetAnimation(Animation.Fill)
     // .ForZone("2")

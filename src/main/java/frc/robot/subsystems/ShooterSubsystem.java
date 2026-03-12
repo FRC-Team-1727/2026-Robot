@@ -7,8 +7,6 @@ package frc.robot.subsystems;
 import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
 import com.ctre.phoenix6.configs.FeedbackConfigs;
 import com.ctre.phoenix6.configs.Slot0Configs;
-import com.ctre.phoenix6.controls.DutyCycleOut;
-import com.ctre.phoenix6.controls.VelocityDutyCycle;
 import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
@@ -27,10 +25,11 @@ public class ShooterSubsystem extends SubsystemBase {
     FeedbackConfigs fConfigs = new FeedbackConfigs();
     configs.kS = ShooterConstants.kShooterS;
     configs.kV = ShooterConstants.kShooterV;
+    configs.kA = ShooterConstants.kShooterA;
     configs.kP = ShooterConstants.kShooterP;
     configs.kI = ShooterConstants.kShooterI;
     configs.kD = ShooterConstants.kShooterD;
-    fConfigs.RotorToSensorRatio = 15 / 36;
+    fConfigs.RotorToSensorRatio = 1.0;
 
     shooterR.getConfigurator().apply(configs);
     shooterL.getConfigurator().apply(configs);
@@ -49,7 +48,6 @@ public class ShooterSubsystem extends SubsystemBase {
 
     shooterR.getConfigurator().apply(configLimit);
     shooterL.getConfigurator().apply(configLimit);
-
   }
 
   @Override
@@ -67,18 +65,18 @@ public class ShooterSubsystem extends SubsystemBase {
   }
 
   public void setSpeed(double speed) {
-    // shooterL.setControl(m_request.withVelocity(-speed).withFeedForward(0.5));
-    // shooterR.setControl(m_request.withVelocity(speed).withFeedForward(0.5));
+    shooterL.setControl(m_request.withVelocity(-speed).withFeedForward(0).withEnableFOC(false));
+    shooterR.setControl(m_request.withVelocity(speed).withFeedForward(0).withEnableFOC(false));
 
-    // double appliedVoltage = shooterL.getMotorVoltage().getValueAsDouble();
-    // double theoreticalVelocityRPS = appliedVoltage * ShooterConstants.kShooterV;
+    double appliedVoltage = shooterL.getMotorVoltage().getValueAsDouble();
+    double theoreticalVelocityRPS = appliedVoltage * ShooterConstants.kShooterV;
     // System.out.println(theoreticalVelocityRPS + " " +
     // shooterL.getVelocity().getValueAsDouble());
 
-    shooterL.setControl(new DutyCycleOut(-speed));
-    shooterR.setControl(new DutyCycleOut(speed));
+    // shooterL.setControl(new DutyCycleOut(-speed));
+    // shooterR.setControl(new DutyCycleOut(speed));
 
-    System.out.println(shooterR.getDutyCycle().getValueAsDouble());
+    // System.out.println(shooterR.getDutyCycle().getValueAsDouble());
   }
 
   public double getSpeed() {
@@ -91,10 +89,6 @@ public class ShooterSubsystem extends SubsystemBase {
     final double shooterHeightMeters = 0.476758; // Height of your shooter exit
     final double angleDegrees = 62.0;
     final double g = 9.81;
-    // RPM * Radius * 2PI / 60
-    final double maxVelBottom = 30.0;
-    final double maxVelTop = 30.0;
-    final double maxVelocity = (maxVelBottom + maxVelTop) / 2; // Max m/s your shooter can actually hit
 
     double x = distanceToTargetMeters;
     double y = targetHeightMeters - shooterHeightMeters;
@@ -109,10 +103,10 @@ public class ShooterSubsystem extends SubsystemBase {
 
     double requiredVelocity = Math.sqrt(velocitySquared);
 
-    // Normalize to a 0.0 - 1.0 range for motor output
-    double power = requiredVelocity / maxVelocity;
+    double RPS = requiredVelocity / (Math.PI * .1016);
+    RPS *= ShooterConstants.variableShootingMult;
 
-    // Clamp the output between 0 and 1
-    return Math.max(0, Math.min(1, power));
+    System.out.println(RPS);
+    return RPS;
   }
 }

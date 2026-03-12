@@ -81,9 +81,6 @@ public class Robot extends TimedRobot {
     public void robotInit() {
         // Connect to the device on USB port 1
         boolean connected = m_leds.Connect(USBPort.kUSB2);
-        for (int i = 0; i < 50; i++) {
-            System.out.println("ConnectorX connected: " + connected);
-        }
     }
 
     @Override

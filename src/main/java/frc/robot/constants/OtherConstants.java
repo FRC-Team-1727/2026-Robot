@@ -21,16 +21,18 @@ public final class OtherConstants {
 
         public static final double kShooterV = 0.19;
         public static final double kShooterS = 0.1;
-        public static final double kShooterP = 0.2;
+        public static final double kShooterP = 0.48;
         public static final double kShooterI = 0;
         public static final double kShooterD = 0;
+        public static final double kShooterA = 1.03;
 
-        public static double shooterSpeedClose = 1;
-        public static double shooterSpeedTower = .4;
-        public static double shooterSpeedOutpost = .4;
-        public static double passiveShooterSpeed = .1;
+        public static double shooterSpeedClose = 25;
+        public static double shooterSpeedTower = 30;
+        public static double shooterSpeedOutpost = 35;
+        public static double passiveShooterSpeed = 5;
 
         public static double shooterRPSMinimum = 400;
+        public static double variableShootingMult = 1.35;
     }
 
     public static class ClimbConstants {
