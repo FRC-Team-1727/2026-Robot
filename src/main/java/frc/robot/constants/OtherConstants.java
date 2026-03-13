@@ -33,6 +33,8 @@ public final class OtherConstants {
 
         public static double shooterRPSMinimum = 400;
         public static double variableShootingMult = 1.35;
+
+        public static double shooterSpeedChange = .25;
     }
 
     public static class ClimbConstants {

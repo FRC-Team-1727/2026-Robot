@@ -42,6 +42,11 @@ public class Robot extends TimedRobot {
 
     public Robot() {
         m_robotContainer = new RobotContainer(m_leds, m_LedSubsystem);
+        if (DriverStation.getAlliance().get() == DriverStation.Alliance.Red) {
+            m_robotContainer.drivetrain.seedFieldCentric(Rotation2d.fromDegrees(180.0));
+        } else {
+            m_robotContainer.drivetrain.seedFieldCentric(Rotation2d.fromDegrees(0.0));
+        }
     }
 
     @Override
@@ -96,17 +101,16 @@ public class Robot extends TimedRobot {
         if (m_autonomousCommand != null) {
             CommandScheduler.getInstance().cancel(m_autonomousCommand);
         }
-        m_robotContainer.drivetrain.resetPose(new Pose2d());
         m_leds.leds.SetAnimation(Animation.Fill)
                 .ForZone("2")
                 .WithColor(new Color(new Color8Bit(0, 255, 0)))
                 .WithDelay(Seconds.of(0.1))
                 .RunOnce(false);
-        if (DriverStation.getAlliance().get() == DriverStation.Alliance.Red) {
-            m_robotContainer.drivetrain.seedFieldCentric(Rotation2d.fromDegrees(180.0));
-        } else {
-            m_robotContainer.drivetrain.seedFieldCentric(Rotation2d.fromDegrees(0.0));
-        }
+        // if (DriverStation.getAlliance().get() == DriverStation.Alliance.Red) {
+        // m_robotContainer.drivetrain.seedFieldCentric(Rotation2d.fromDegrees(180.0));
+        // } else {
+        // m_robotContainer.drivetrain.seedFieldCentric(Rotation2d.fromDegrees(0.0));
+        // }
     }
 
     @Override

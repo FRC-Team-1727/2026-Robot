@@ -11,6 +11,7 @@ import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.constants.OtherConstants.ShooterConstants;
 
@@ -18,6 +19,8 @@ public class ShooterSubsystem extends SubsystemBase {
   private TalonFX shooterR = new TalonFX(ShooterConstants.kShooterRID);
   private TalonFX shooterL = new TalonFX(ShooterConstants.kShooterLID);
   final VelocityVoltage m_request = new VelocityVoltage(0).withSlot(0);
+
+  private float speedChange = 0;
 
   /** Creates a new ExampleSubsystem. */
   public ShooterSubsystem() {
@@ -53,6 +56,8 @@ public class ShooterSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    SmartDashboard.putNumber("Shooter RPS", getSpeed());
+    SmartDashboard.putNumber("Shooter Additive", speedChange);
   }
 
   @Override
@@ -83,6 +88,14 @@ public class ShooterSubsystem extends SubsystemBase {
     return shooterR.getVelocity().getValueAsDouble();
   }
 
+  public void changeSpeed(double s) {
+    speedChange += s;
+  }
+
+  public void resetSpeed() {
+    speedChange = 0;
+  }
+
   public double getShooterPower(double distanceToTargetMeters) {
     // Constants - Adjust these to your robot's physical dimensions
     final double targetHeightMeters = 1.8288; // Height of the hoop
@@ -105,6 +118,7 @@ public class ShooterSubsystem extends SubsystemBase {
 
     double RPS = requiredVelocity / (Math.PI * .1016);
     RPS *= ShooterConstants.variableShootingMult;
+    RPS += speedChange;
 
     System.out.println(RPS);
     return RPS;

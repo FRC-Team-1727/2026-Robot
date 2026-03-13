@@ -20,6 +20,8 @@ import com.ctre.phoenix6.swerve.SwerveRequest;
 import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 
+import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.cscore.HttpCamera;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.units.Units;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -29,6 +31,7 @@ import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj.util.Color8Bit;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
@@ -64,6 +67,7 @@ public class RobotContainer {
     private final Telemetry logger = new Telemetry(MaxSpeed);
 
     private final CommandXboxController joystick = new CommandXboxController(0);
+    private final CommandXboxController joystick2 = new CommandXboxController(1);
 
     private final IntakeSubsystem m_IntakeSubsystem = new IntakeSubsystem();
     private final ShooterSubsystem m_ShooterSubsystem = new ShooterSubsystem();
@@ -103,6 +107,8 @@ public class RobotContainer {
         autoChooser.addOption("Test", new PathPlannerAuto("Test"));
 
         SmartDashboard.putData("Auto Chooser", autoChooser);
+        HttpCamera limelightFeed = new HttpCamera("limelight", "http://10.17.27.11:5800/stream.mjpg");
+        CameraServer.startAutomaticCapture(limelightFeed);
 
         m_LedSubsystem.PARTYMODE();
 
@@ -169,6 +175,12 @@ public class RobotContainer {
         joystick.a().whileTrue(drivetrain.setX());
         joystick.povUp().onTrue(new ClimbCommand(m_ClimbSubsystem));
 
+        joystick2.rightBumper().onTrue(new InstantCommand(
+                () -> m_ShooterSubsystem.changeSpeed(ShooterConstants.shooterSpeedChange), m_ShooterSubsystem));
+        joystick2.leftBumper().onTrue(new InstantCommand(
+                () -> m_ShooterSubsystem.changeSpeed(0 - ShooterConstants.shooterSpeedChange), m_ShooterSubsystem));
+        joystick2.y().onTrue(new InstantCommand(
+                () -> m_ShooterSubsystem.resetSpeed(), m_ShooterSubsystem));
     }
 
     private void configureNamedCommands() {
