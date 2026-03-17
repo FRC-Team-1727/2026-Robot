@@ -4,28 +4,27 @@
 
 package frc.robot.commands;
 
-import frc.robot.constants.OtherConstants.IntakeConstants;
+import frc.robot.subsystems.CommandSwerveDrivetrain;
 import frc.robot.subsystems.ExampleSubsystem;
-import frc.robot.subsystems.IntakeSubsystem;
-import frc.robot.subsystems.LEDSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
 /** An example command that uses an example subsystem. */
-public class IntakeCommand extends Command {
+public class BrakeCommand extends Command {
   @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
-  private final IntakeSubsystem m_IntakeSubsystem;
-  private final LEDSubsystem m_LedSubsystem;
+  private final CommandSwerveDrivetrain m_drivetrain;
+  private final CommandXboxController joystick;
 
   /**
    * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
-  public IntakeCommand(IntakeSubsystem intakeSubsystem, LEDSubsystem ledSubsystem) {
-    m_IntakeSubsystem = intakeSubsystem;
-    m_LedSubsystem = ledSubsystem;
+  public BrakeCommand(CommandSwerveDrivetrain drivetrain, CommandXboxController joysick) {
+    m_drivetrain = drivetrain;
+    this.joystick = joysick;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(intakeSubsystem, ledSubsystem);
+    addRequirements(drivetrain);
   }
 
   // Called when the command is initially scheduled.
@@ -36,21 +35,26 @@ public class IntakeCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-
-    m_IntakeSubsystem.setSpeed(IntakeConstants.intakeSpeed);
-    m_LedSubsystem.intake();
-
+    m_drivetrain.setX();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_IntakeSubsystem.setSpeed(IntakeConstants.passiveIntakeSpeed);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+    if (joystick.getLeftX() > .1 || joystick.getLeftX() < -.1) {
+      return true;
+    }
+    if (joystick.getLeftY() > .1 || joystick.getLeftY() < -.1) {
+      return true;
+    }
+    if (joystick.getRightX() > .1 || joystick.getRightX() < -.1) {
+      return true;
+    }
     return false;
   }
 }

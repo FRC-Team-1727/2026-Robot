@@ -105,7 +105,9 @@ public class ShooterAlignCommand extends Command {
     m_Drivetrain.setControl(turnCommand);
 
     difference = (float) m_Drivetrain.getState().Pose.getTranslation().getDistance(target);
-    m_ShooterSubsystem.setSpeed(m_ShooterSubsystem.getShooterPower(difference));
+    double power = m_ShooterSubsystem.getShooterPower(difference);
+    m_ShooterSubsystem.setSpeed(power);
+
     // m_ShooterSubsystem.setSpeed(ShooterConstants.shooterSpeedClose);
 
     // System.out.println(m_ShooterSubsystem.getSpeed());
@@ -118,16 +120,17 @@ public class ShooterAlignCommand extends Command {
     // //System.out.println(m_leds.IsConnected());
 
     // // m_leds.leds.SetAnimationSequence("front", "Test");
-    // double currentAngle =
-    // m_Drivetrain.getState().Pose.getRotation().getDegrees();
-    // double targetAngle = direction.getDegrees();
-    // double error = Math
-    // .abs(Rotation2d.fromDegrees(targetAngle).minus(Rotation2d.fromDegrees(currentAngle)).getDegrees());
-    // if (error <= 2.0) {
-    // m_LedSubsystem.aligned();
-    // } else {
-    // m_LedSubsystem.aligning();
-    // }
+    double currentAngle = m_Drivetrain.getState().Pose.getRotation().getDegrees();
+    double targetAngle = direction.getDegrees();
+    double error = Math
+        .abs(Rotation2d.fromDegrees(targetAngle).minus(Rotation2d.fromDegrees(currentAngle)).getDegrees());
+    double speedError = Math.abs(power - m_ShooterSubsystem.getSpeed());
+    if (error <= 5.0 && speedError <= 3.5) {
+      m_LedSubsystem.aligned();
+    } else {
+      m_LedSubsystem.aligning();
+      System.out.println(error + " " + speedError);
+    }
   }
 
   // Called once the command ends or is interruRpted.

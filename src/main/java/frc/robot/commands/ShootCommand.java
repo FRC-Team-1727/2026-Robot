@@ -18,6 +18,7 @@ import frc.robot.subsystems.SpindexerSubsystem;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
 /** An example command that uses an example subsystem. */
 public class ShootCommand extends Command {
@@ -28,6 +29,7 @@ public class ShootCommand extends Command {
   private final IntakeSubsystem m_IntakeSubsystem;
   private final CommandSwerveDrivetrain m_Drivetrain;
   private final LEDSubsystem m_LedSubsystem;
+  private final CommandXboxController joystick;
   private final double shootSpeed;
 
   private boolean isRed = false;
@@ -42,6 +44,7 @@ public class ShootCommand extends Command {
   public ShootCommand(ShooterSubsystem shooterSubsystem, IndexerSubsystem indexerSubsystem,
       SpindexerSubsystem spindexerSubsystem,
       IntakeSubsystem intakeSubsystem, CommandSwerveDrivetrain drivetrain, LEDSubsystem ledSubsystem,
+      CommandXboxController joystick,
       double shootSpeed) {
     m_ShooterSubsystem = shooterSubsystem;
     m_IndexerSubsystem = indexerSubsystem;
@@ -49,9 +52,10 @@ public class ShootCommand extends Command {
     m_IntakeSubsystem = intakeSubsystem;
     m_Drivetrain = drivetrain;
     m_LedSubsystem = ledSubsystem;
+    this.joystick = joystick;
     this.shootSpeed = shootSpeed;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(shooterSubsystem, indexerSubsystem, spindexerSubsystem, intakeSubsystem);
+    addRequirements(shooterSubsystem, indexerSubsystem, spindexerSubsystem, intakeSubsystem, ledSubsystem);
   }
 
   // Called when the command is initially scheduled.
@@ -86,7 +90,7 @@ public class ShootCommand extends Command {
     // m_SpindexerSubsystem.setSpeed(SpindexerConstants.passiveSpindexerSpeed);
     // }
 
-    // m_LedSubsystem.PARTYMODE();
+    m_LedSubsystem.PARTYMODE();
   }
 
   // Called once the command ends or is interrupted.

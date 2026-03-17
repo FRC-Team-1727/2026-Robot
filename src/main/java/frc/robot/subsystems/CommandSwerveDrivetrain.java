@@ -12,6 +12,7 @@ import com.ctre.phoenix6.hardware.Pigeon2;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 import com.ctre.phoenix6.swerve.SwerveDrivetrainConstants;
 import com.ctre.phoenix6.swerve.SwerveModule;
+import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.swerve.SwerveModuleConstants;
 import com.ctre.phoenix6.swerve.SwerveRequest;
 import com.pathplanner.lib.auto.AutoBuilder;
@@ -405,8 +406,8 @@ public class CommandSwerveDrivetrain extends TunerSwerveDrivetrain implements Su
         getPigeon2().setYaw(pose.getRotation().getDegrees());
     }
 
-    public Command setX() {
-        return this.run(() -> this.setControl(brakeRequest));
+    public void setX() {
+        setControl(brakeRequest);
     }
 
 }

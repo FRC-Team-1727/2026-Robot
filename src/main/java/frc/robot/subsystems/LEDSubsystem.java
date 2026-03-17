@@ -112,4 +112,8 @@ public class LEDSubsystem extends SubsystemBase {
     public void aligned() {
         setColor(Color.kGreen);
     }
+
+    public void intake() {
+        setColor(Color.kAquamarine);
+    }
 }

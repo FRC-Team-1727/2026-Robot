@@ -35,6 +35,7 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
+import frc.robot.commands.BrakeCommand;
 import frc.robot.commands.ClimbCommand;
 import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.OuttakeCommand;
@@ -74,8 +75,9 @@ public class RobotContainer {
     private final IndexerSubsystem m_IndexerSubsystem = new IndexerSubsystem();
     private final SpindexerSubsystem m_SpindexerSubsystem = new SpindexerSubsystem();
     private final ClimbSubsystem m_ClimbSubsystem = new ClimbSubsystem();
+
+    private LEDSubsystem m_LedSubsystem = new LEDSubsystem();
     // private final ConnectorX m_leds;
-    private final LEDSubsystem m_LedSubsystem;
 
     // private final LumynDevice mCx = new LumynDevice(3);
     private boolean aligning;
@@ -86,7 +88,9 @@ public class RobotContainer {
 
     SendableChooser<Command> autoChooser = new SendableChooser<>();
 
-    public RobotContainer(ConnectorX leds, LEDSubsystem m_leds) {
+    private static double speedChange = 0;
+
+    public RobotContainer(ConnectorX leds) {
 
         configureBindings();
         configureNamedCommands();
@@ -95,7 +99,6 @@ public class RobotContainer {
         // configureLEDS();
 
         m_ShooterSubsystem.setSpeed(ShooterConstants.passiveShooterSpeed);
-        m_LedSubsystem = m_leds;
 
         autoChooser = new SendableChooser<>();
         autoChooser.setDefaultOption("None", Commands.none());
@@ -153,7 +156,7 @@ public class RobotContainer {
 
         drivetrain.registerTelemetry(logger::telemeterize);
 
-        joystick.leftBumper().toggleOnTrue(new IntakeCommand(m_IntakeSubsystem));
+        joystick.leftBumper().toggleOnTrue(new IntakeCommand(m_IntakeSubsystem, m_LedSubsystem));
         joystick.leftTrigger().whileTrue(new OuttakeCommand(m_IntakeSubsystem));
         // joystick.leftTrigger().onFalse(m_leds.leds.SetAnimation(Animation.RainbowRoll)
         // .ForZone("front")
@@ -168,28 +171,29 @@ public class RobotContainer {
                                                                                                                          // PS5
                                                                                                                          // square
         joystick.rightTrigger().whileTrue(new ShootCommand(m_ShooterSubsystem, m_IndexerSubsystem, m_SpindexerSubsystem,
-                m_IntakeSubsystem, drivetrain, m_LedSubsystem, ShooterConstants.shooterSpeedClose));
+                m_IntakeSubsystem, drivetrain, m_LedSubsystem, joystick, ShooterConstants.shooterSpeedClose));
+        joystick.rightTrigger().whileTrue(new BrakeCommand(drivetrain, joystick));
         // joystick.leftTrigger().whileTrue(new ShootCommand(m_ShooterSubsystem,
         // m_IndexerSubsystem, m_SpindexerSubsystem,
         // ShooterConstants.shooterSpeedTower));
-        joystick.a().whileTrue(drivetrain.setX());
+        joystick.a().whileTrue(new BrakeCommand(drivetrain, joystick));
         joystick.povUp().onTrue(new ClimbCommand(m_ClimbSubsystem));
 
         joystick2.rightBumper().onTrue(new InstantCommand(
-                () -> m_ShooterSubsystem.changeSpeed(ShooterConstants.shooterSpeedChange), m_ShooterSubsystem));
+                () -> changeSpeed(ShooterConstants.shooterSpeedChange)));
         joystick2.leftBumper().onTrue(new InstantCommand(
-                () -> m_ShooterSubsystem.changeSpeed(0 - ShooterConstants.shooterSpeedChange), m_ShooterSubsystem));
+                () -> changeSpeed(0 - ShooterConstants.shooterSpeedChange)));
         joystick2.y().onTrue(new InstantCommand(
-                () -> m_ShooterSubsystem.resetSpeed(), m_ShooterSubsystem));
+                () -> resetSpeed()));
     }
 
     private void configureNamedCommands() {
-        NamedCommands.registerCommand("Intake", new IntakeCommand(m_IntakeSubsystem).withTimeout(2.5));
+        NamedCommands.registerCommand("Intake", new IntakeCommand(m_IntakeSubsystem, m_LedSubsystem).withTimeout(2.5));
         NamedCommands.registerCommand("Align",
                 new ShooterAlignAutoCommand(drivetrain, m_ShooterSubsystem, m_LedSubsystem, driveRequest, this));
         NamedCommands.registerCommand("Shoot",
                 new ShootCommand(m_ShooterSubsystem, m_IndexerSubsystem, m_SpindexerSubsystem, m_IntakeSubsystem,
-                        drivetrain, m_LedSubsystem, ShooterConstants.shooterSpeedClose).withTimeout(2.5));
+                        drivetrain, m_LedSubsystem, joystick, ShooterConstants.shooterSpeedClose).withTimeout(2.5));
         NamedCommands.registerCommand("Climb", new ClimbCommand(m_ClimbSubsystem).withTimeout(2.5));
     }
 
@@ -242,5 +246,17 @@ public class RobotContainer {
 
     public void setAligning(boolean a) {
         aligning = a;
+    }
+
+    public void changeSpeed(double s) {
+        speedChange += s;
+    }
+
+    public void resetSpeed() {
+        speedChange = 0;
+    }
+
+    public static double getSpeedChange() {
+        return speedChange;
     }
 }

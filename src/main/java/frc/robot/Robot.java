@@ -31,7 +31,6 @@ import static edu.wpi.first.units.Units.Seconds;
 public class Robot extends TimedRobot {
     private Command m_autonomousCommand;
     private ConnectorX m_leds = new ConnectorX();
-    private LEDSubsystem m_LedSubsystem = new LEDSubsystem();
 
     private final RobotContainer m_robotContainer;
 
@@ -41,7 +40,7 @@ public class Robot extends TimedRobot {
             .withJoystickReplay();
 
     public Robot() {
-        m_robotContainer = new RobotContainer(m_leds, m_LedSubsystem);
+        m_robotContainer = new RobotContainer(m_leds);
         if (DriverStation.getAlliance().get() == DriverStation.Alliance.Red) {
             m_robotContainer.drivetrain.seedFieldCentric(Rotation2d.fromDegrees(180.0));
         } else {
