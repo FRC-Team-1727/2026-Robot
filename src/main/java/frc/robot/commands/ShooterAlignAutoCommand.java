@@ -70,7 +70,7 @@ public class ShooterAlignAutoCommand extends Command {
     this.joystick = robo.getJoystick();
     pid = new PIDController(1, 0, 1);
     pid.enableContinuousInput(-180, 180);
-    addRequirements(drivetrain, shooterSubsystem);
+    addRequirements(drivetrain, shooterSubsystem, m_LedSubsystem);
   }
 
   // Called when the command is initially scheduled.
@@ -103,8 +103,10 @@ public class ShooterAlignAutoCommand extends Command {
         .withVelocityY(MaxSpeed * -joystick.getLeftX());
     m_Drivetrain.setControl(turnCommand);
 
-    m_ShooterSubsystem.setSpeed(ShooterConstants.shooterSpeedClose);
-    System.out.println("aligning");
+    double difference = (float) m_Drivetrain.getState().Pose.getTranslation().getDistance(target);
+    double power = m_ShooterSubsystem.getShooterPower(difference);
+    m_ShooterSubsystem.setSpeed(power);
+    m_LedSubsystem.aligning();
     // System.out.println(m_ShooterSubsystem.getSpeed());
     // m_leds.leds.SetAnimation(Animation.Fill)
     // .ForZone("2")
@@ -129,6 +131,7 @@ public class ShooterAlignAutoCommand extends Command {
     // .RunOnce(false);
     // //System.out.println(m_ShooterSubsystem.getSpeed());
     // m_LedSubsystem.aligned();
+    m_LedSubsystem.aligned();
 
   }
 
@@ -139,7 +142,10 @@ public class ShooterAlignAutoCommand extends Command {
     double targetAngle = direction.getDegrees();
     double error = Math
         .abs(Rotation2d.fromDegrees(targetAngle).minus(Rotation2d.fromDegrees(currentAngle)).getDegrees());
-    if (error <= 2.0) {
+    double difference = (float) m_Drivetrain.getState().Pose.getTranslation().getDistance(target);
+    double power = m_ShooterSubsystem.getShooterPower(difference);
+    double speedError = Math.abs(power - m_ShooterSubsystem.getSpeed());
+    if (error <= 5.0 && speedError <= 3.5) {
       return true;
     }
     return false;

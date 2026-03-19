@@ -21,15 +21,14 @@ public class SpindexerSubsystem extends SubsystemBase {
   private TalonFX spindexer = new TalonFX(SpindexerConstants.kSpindexerID);
   final VelocityVoltage m_request = new VelocityVoltage(0).withSlot(0);
 
-
   /** Creates a new ExampleSubsystem. */
   public SpindexerSubsystem() {
     Slot0Configs configs = new Slot0Configs();
     CurrentLimitsConfigs configLimit = new CurrentLimitsConfigs();
 
     configLimit.StatorCurrentLimit = 80;
-    configLimit.SupplyCurrentLimit = 40;
-  
+    configLimit.SupplyCurrentLimit = 30;
+
     configs.kS = SpindexerConstants.kSpindexerS;
     configs.kV = SpindexerConstants.kSpindexerV;
     configs.kP = SpindexerConstants.kSpindexerP;
@@ -51,8 +50,8 @@ public class SpindexerSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run during simulation
   }
 
-  public void setSpeed(double speed){
+  public void setSpeed(double speed) {
     // spindexer.setControl(m_request.withVelocity(speed).withFeedForward(0.5));
-      spindexer.setControl(new DutyCycleOut(speed));
+    spindexer.setControl(new DutyCycleOut(speed));
   }
 }

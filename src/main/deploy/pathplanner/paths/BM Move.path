@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.7629815864022662,
+        "x": 3.5422946175637398,
         "y": 4.035
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.762981586402266,
-        "y": 4.035
+        "x": 2.7843201133144477,
+        "y": 4.034999999999999
       },
       "isLocked": false,
       "linkedName": "BM Start"
@@ -20,8 +20,8 @@
         "y": 4.035
       },
       "prevControl": {
-        "x": 1.952552816901409,
-        "y": 4.035
+        "x": 3.5294475920679895,
+        "y": 4.041423512747874
       },
       "nextControl": null,
       "isLocked": false,
@@ -29,7 +29,21 @@
     }
   ],
   "rotationTargets": [],
-  "constraintZones": [],
+  "constraintZones": [
+    {
+      "name": "Constraints Zone",
+      "minWaypointRelativePos": 0,
+      "maxWaypointRelativePos": 1.0,
+      "constraints": {
+        "maxVelocity": 1.0,
+        "maxAcceleration": 3.0,
+        "maxAngularVelocity": 540.0,
+        "maxAngularAcceleration": 720.0,
+        "nominalVoltage": 12.0,
+        "unlimited": false
+      }
+    }
+  ],
   "pointTowardsZones": [],
   "eventMarkers": [],
   "globalConstraints": {

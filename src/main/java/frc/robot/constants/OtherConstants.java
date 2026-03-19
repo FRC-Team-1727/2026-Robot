@@ -13,6 +13,7 @@ public final class OtherConstants {
         public static double intakeSpeed = -.55;
         public static double outtakeSpeed = .5;
         public static double passiveIntakeSpeed = 0;
+        public static double shootingIntakeSpeed = -.3;
     }
 
     public static class ShooterConstants {
@@ -30,11 +31,12 @@ public final class OtherConstants {
         public static double shooterSpeedTower = 30;
         public static double shooterSpeedOutpost = 35;
         public static double passiveShooterSpeed = 5;
+        public static double outreachShooterSpeed = 25;
 
         public static double shooterRPSMinimum = 400;
-        public static double variableShootingMult = 1.35;
+        public static double variableShootingMult = 1.33;
 
-        public static double shooterSpeedChange = .25;
+        public static double shooterSpeedChange = .1;
     }
 
     public static class ClimbConstants {

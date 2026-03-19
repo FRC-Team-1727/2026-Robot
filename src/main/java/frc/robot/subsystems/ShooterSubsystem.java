@@ -11,6 +11,8 @@ import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 
+import edu.wpi.first.math.interpolation.InterpolatingDoubleTreeMap;
+import edu.wpi.first.math.interpolation.InterpolatingTreeMap;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.RobotContainer;
@@ -20,6 +22,9 @@ public class ShooterSubsystem extends SubsystemBase {
   private TalonFX shooterR = new TalonFX(ShooterConstants.kShooterRID);
   private TalonFX shooterL = new TalonFX(ShooterConstants.kShooterLID);
   final VelocityVoltage m_request = new VelocityVoltage(0).withSlot(0);
+  private double distanceS;
+
+  private final InterpolatingDoubleTreeMap table;
 
   /** Creates a new ExampleSubsystem. */
   public ShooterSubsystem() {
@@ -42,7 +47,7 @@ public class ShooterSubsystem extends SubsystemBase {
     shooterL.getConfigurator().apply(fConfigs);
 
     configLimit.StatorCurrentLimit = 80;
-    configLimit.SupplyCurrentLimit = 60;
+    configLimit.SupplyCurrentLimit = 50;
 
     shooterR.setNeutralMode(NeutralModeValue.Coast);
 
@@ -50,6 +55,14 @@ public class ShooterSubsystem extends SubsystemBase {
 
     shooterR.getConfigurator().apply(configLimit);
     shooterL.getConfigurator().apply(configLimit);
+
+    table = new InterpolatingDoubleTreeMap();
+    table.put(1.802564382553, 25.93359375);
+    table.put(2.61259273556, 28.060546375);
+    table.put(2.99853897094, 29.61328425);
+    table.put(3.4036731719979793, 31.2578125);
+    table.put(5.164938449859619, 38.8828125);
+    distanceS = 0;
   }
 
   @Override
@@ -57,6 +70,9 @@ public class ShooterSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run
     SmartDashboard.putNumber("Shooter RPS", getSpeed());
     SmartDashboard.putNumber("Shooter Additive", RobotContainer.getSpeedChange());
+    SmartDashboard.putNumber("Interpolating", table.get(1.802564382553) + RobotContainer.getSpeedChange());
+    SmartDashboard.putNumber("Formula", getShooterPower(distanceS));
+
   }
 
   @Override
@@ -87,6 +103,11 @@ public class ShooterSubsystem extends SubsystemBase {
     return shooterR.getVelocity().getValueAsDouble();
   }
 
+  public double interpolatingShooterPower(double distance) {
+    distanceS = distance;
+    return table.get(distance) + RobotContainer.getSpeedChange() - 2;
+  }
+
   public double getShooterPower(double distanceToTargetMeters) {
     // Constants - Adjust these to your robot's physical dimensions
     final double targetHeightMeters = 1.8288; // Height of the hoop
@@ -111,6 +132,7 @@ public class ShooterSubsystem extends SubsystemBase {
     RPS *= ShooterConstants.variableShootingMult;
     RPS += RobotContainer.getSpeedChange();
 
-    return RPS;
+    distanceS = distanceToTargetMeters;
+    return RPS - 2.0;
   }
 }

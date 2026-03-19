@@ -23,6 +23,7 @@ import com.pathplanner.lib.commands.PathPlannerAuto;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.HttpCamera;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.units.Units;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -38,11 +39,13 @@ import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 import frc.robot.commands.BrakeCommand;
 import frc.robot.commands.ClimbCommand;
 import frc.robot.commands.IntakeCommand;
+import frc.robot.commands.IntakeDeployCommand;
 import frc.robot.commands.OuttakeCommand;
 import frc.robot.commands.ShooterAlignCommand;
 import frc.robot.commands.ShootCommand;
 import frc.robot.commands.ShooterAlignAutoCommand;
 import frc.robot.constants.TunerConstants;
+import frc.robot.constants.FieldConstants.Hub;
 import frc.robot.constants.OtherConstants.ShooterConstants;
 import frc.robot.subsystems.ClimbSubsystem;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
@@ -77,6 +80,9 @@ public class RobotContainer {
     private final ClimbSubsystem m_ClimbSubsystem = new ClimbSubsystem();
 
     private LEDSubsystem m_LedSubsystem = new LEDSubsystem();
+
+    private final boolean isRed;
+    private Translation2d target;
     // private final ConnectorX m_leds;
 
     // private final LumynDevice mCx = new LumynDevice(3);
@@ -105,9 +111,18 @@ public class RobotContainer {
         autoChooser.addOption("BM Gather Right", new PathPlannerAuto("BM Gather Right"));
         autoChooser.addOption("BL Gather", new PathPlannerAuto("BL Gather"));
         autoChooser.addOption("BM Gather Left", new PathPlannerAuto("BM Gather Left"));
+        autoChooser.addOption("BM Trench Right", new PathPlannerAuto("BM Trench Right"));
         autoChooser.addOption("BR Gather", new PathPlannerAuto("BR Gather"));
         autoChooser.addOption("Move Forward", new PathPlannerAuto("Move Forward"));
         autoChooser.addOption("Test", new PathPlannerAuto("Test"));
+
+        isRed = DriverStation.getAlliance()
+                .orElse(DriverStation.Alliance.Blue) == DriverStation.Alliance.Red;
+        target = Hub.topCenterPointBlue.toTranslation2d();
+
+        if (isRed) {
+            target = Hub.topCenterPointRed.toTranslation2d();
+        }
 
         SmartDashboard.putData("Auto Chooser", autoChooser);
         HttpCamera limelightFeed = new HttpCamera("limelight", "http://10.17.27.11:5800/stream.mjpg");
@@ -188,13 +203,16 @@ public class RobotContainer {
     }
 
     private void configureNamedCommands() {
-        NamedCommands.registerCommand("Intake", new IntakeCommand(m_IntakeSubsystem, m_LedSubsystem).withTimeout(2.5));
+        NamedCommands.registerCommand("Intake", new IntakeCommand(m_IntakeSubsystem, m_LedSubsystem).withTimeout(4));
         NamedCommands.registerCommand("Align",
                 new ShooterAlignAutoCommand(drivetrain, m_ShooterSubsystem, m_LedSubsystem, driveRequest, this));
         NamedCommands.registerCommand("Shoot",
                 new ShootCommand(m_ShooterSubsystem, m_IndexerSubsystem, m_SpindexerSubsystem, m_IntakeSubsystem,
                         drivetrain, m_LedSubsystem, joystick, ShooterConstants.shooterSpeedClose).withTimeout(2.5));
         NamedCommands.registerCommand("Climb", new ClimbCommand(m_ClimbSubsystem).withTimeout(2.5));
+        NamedCommands.registerCommand("Intake Deploy",
+                new IntakeDeployCommand(m_IndexerSubsystem, m_ShooterSubsystem).withTimeout(1));
+        NamedCommands.registerCommand("Brake", new BrakeCommand(drivetrain, joystick));
     }
 
     public Command getAutonomousCommand() {

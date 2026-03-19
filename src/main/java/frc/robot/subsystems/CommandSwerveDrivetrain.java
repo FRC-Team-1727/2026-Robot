@@ -36,6 +36,7 @@ import edu.wpi.first.wpilibj2.command.Subsystem;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import frc.robot.constants.TunerConstants;
+import frc.robot.constants.FieldConstants.Hub;
 import frc.robot.constants.TunerConstants.TunerSwerveDrivetrain;
 
 /**
@@ -272,6 +273,9 @@ public class CommandSwerveDrivetrain extends TunerSwerveDrivetrain implements Su
         }
 
         SmartDashboard.putNumber("Gyro Heading:", getPigeon2().getYaw().getValueAsDouble());
+
+        SmartDashboard.putNumber("Distance to Hub",
+                (float) getState().Pose.getTranslation().getDistance(Hub.topCenterPointBlue.toTranslation2d()));
     }
 
     private void startSimThread() {

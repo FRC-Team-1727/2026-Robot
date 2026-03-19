@@ -4,28 +4,28 @@
 
 package frc.robot.commands;
 
-import frc.robot.constants.OtherConstants.IntakeConstants;
+import frc.robot.constants.OtherConstants.IndexerConstants;
 import frc.robot.subsystems.ExampleSubsystem;
-import frc.robot.subsystems.IntakeSubsystem;
-import frc.robot.subsystems.LEDSubsystem;
+import frc.robot.subsystems.IndexerSubsystem;
+import frc.robot.subsystems.ShooterSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 
 /** An example command that uses an example subsystem. */
-public class IntakeCommand extends Command {
+public class IntakeDeployCommand extends Command {
   @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
-  private final IntakeSubsystem m_IntakeSubsystem;
-  private final LEDSubsystem m_LedSubsystem;
+  private final IndexerSubsystem m_IndexerSubsystem;
+  private final ShooterSubsystem m_ShooterSubsystem;
 
   /**
    * Creates a new ExampleCommand.
    *
    * @param subsystem The subsystem used by this command.
    */
-  public IntakeCommand(IntakeSubsystem intakeSubsystem, LEDSubsystem ledSubsystem) {
-    m_IntakeSubsystem = intakeSubsystem;
-    m_LedSubsystem = ledSubsystem;
+  public IntakeDeployCommand(IndexerSubsystem indexerSubsystem, ShooterSubsystem shooterSubsystem) {
+    m_IndexerSubsystem = indexerSubsystem;
+    m_ShooterSubsystem = shooterSubsystem;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(intakeSubsystem, ledSubsystem);
+    addRequirements(indexerSubsystem, shooterSubsystem);
   }
 
   // Called when the command is initially scheduled.
@@ -36,17 +36,13 @@ public class IntakeCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-
-    m_IntakeSubsystem.setSpeed(IntakeConstants.intakeSpeed);
-    m_LedSubsystem.intake();
-
+    m_IndexerSubsystem.setSpeed(IndexerConstants.indexerSpeed);
+    m_ShooterSubsystem.setSpeed(25);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_IntakeSubsystem.setSpeed(IntakeConstants.passiveIntakeSpeed);
-    m_LedSubsystem.PARTYMODE();
   }
 
   // Returns true when the command should end.

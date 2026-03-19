@@ -8,8 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.0,
-        "y": 4.913257042253522
+        "x": 2.9127903682719545,
+        "y": 5.615184135977335
       },
       "isLocked": false,
       "linkedName": "BL Shoot Position"
@@ -32,6 +32,22 @@
     },
     {
       "anchor": {
+        "x": 6.728356940509915,
+        "y": 7.137556657223796
+      },
+      "prevControl": {
+        "x": 6.047170703294959,
+        "y": 7.359834579968599
+      },
+      "nextControl": {
+        "x": 7.4095431777248715,
+        "y": 6.915278734478994
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
         "x": 7.9028809523809525,
         "y": 5.708630952380952
       },
@@ -46,7 +62,11 @@
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 1.3875518672199185,
+      "waypointRelativePos": 0.9374999999999969,
+      "rotationDegrees": 0.0
+    },
+    {
+      "waypointRelativePos": 1.8,
       "rotationDegrees": 0.0
     }
   ],

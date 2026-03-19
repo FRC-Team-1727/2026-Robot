@@ -7,19 +7,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "BM Intake out"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
             "pathName": "BM Move"
           }
         },
         {
           "type": "named",
           "data": {
-            "name": "Align"
+            "name": "Intake Deploy"
           }
         },
         {
@@ -45,7 +39,7 @@
                     {
                       "type": "wait",
                       "data": {
-                        "waitTime": 2.0
+                        "waitTime": 7.0
                       }
                     },
                     {
@@ -80,9 +74,22 @@
           }
         },
         {
-          "type": "named",
+          "type": "parallel",
           "data": {
-            "name": "Shoot"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "Shoot"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Brake"
+                }
+              }
+            ]
           }
         }
       ]

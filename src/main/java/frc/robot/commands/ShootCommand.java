@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import frc.robot.constants.OtherConstants;
 import frc.robot.constants.FieldConstants.Hub;
 import frc.robot.constants.OtherConstants.IndexerConstants;
 import frc.robot.constants.OtherConstants.IntakeConstants;
@@ -17,6 +18,7 @@ import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.SpindexerSubsystem;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
@@ -68,6 +70,7 @@ public class ShootCommand extends Command {
     if (isRed) {
       target = Hub.topCenterPointRed.toTranslation2d();
     }
+    difference = (float) m_Drivetrain.getState().Pose.getTranslation().getDistance(target);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -76,9 +79,13 @@ public class ShootCommand extends Command {
     // m_ShooterSubsystem.setSpeed(shootSpeed);
     difference = (float) m_Drivetrain.getState().Pose.getTranslation().getDistance(target);
     m_ShooterSubsystem.setSpeed(m_ShooterSubsystem.getShooterPower(difference));
+
+    SmartDashboard.putNumber("Distance to Hub",
+        (float) m_Drivetrain.getState().Pose.getTranslation().getDistance(target));
+
     m_IndexerSubsystem.setSpeed(IndexerConstants.indexerSpeed);
     m_SpindexerSubsystem.setSpeed(SpindexerConstants.spindexerSpeed);
-    m_IntakeSubsystem.setSpeed(IntakeConstants.intakeSpeed);
+    m_IntakeSubsystem.setSpeed(IntakeConstants.shootingIntakeSpeed);
 
     // m_Drivetrain.setX();
 

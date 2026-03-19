@@ -26,7 +26,7 @@ public class IndexerSubsystem extends SubsystemBase {
     CurrentLimitsConfigs configLimit = new CurrentLimitsConfigs();
 
     configLimit.StatorCurrentLimit = 80;
-    configLimit.SupplyCurrentLimit = 40;
+    configLimit.SupplyCurrentLimit = 30;
 
     configs.kS = IndexerConstants.kIndexerS;
     configs.kV = IndexerConstants.kIndexerV;
@@ -49,9 +49,9 @@ public class IndexerSubsystem extends SubsystemBase {
     // This method will be called once per scheduler run during simulation
   }
 
-  public void setSpeed(double speed){
-      //indexer.setControl(m_request.withVelocity(speed).withFeedForward(0.5));
+  public void setSpeed(double speed) {
+    // indexer.setControl(m_request.withVelocity(speed).withFeedForward(0.5));
 
-      indexer.setControl(new DutyCycleOut(speed));
+    indexer.setControl(new DutyCycleOut(speed));
   }
 }
