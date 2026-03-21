@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.9028809523809525,
-        "y": 5.708630952380952
+        "x": 7.8542916666666684,
+        "y": 4.7746369047619055
       },
       "prevControl": null,
       "nextControl": {
-        "x": 8.556136904761907,
-        "y": 4.968994047619048
+        "x": 8.507547619047623,
+        "y": 4.035000000000001
       },
       "isLocked": false,
       "linkedName": "BL Gather Position"
@@ -48,7 +48,7 @@
   "folder": "Blue Left",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -50.0
+    "rotation": -84.72610404264843
   },
   "useDefaultConstraints": true
 }

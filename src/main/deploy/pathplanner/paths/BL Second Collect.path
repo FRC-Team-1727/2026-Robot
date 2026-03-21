@@ -3,71 +3,59 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.0,
-        "y": 4.913257042253522
+        "x": 3.2113154761904767,
+        "y": 7.069130952380952
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.9127903682719545,
-        "y": 5.615184135977335
+        "x": 3.6378214285714296,
+        "y": 7.6468035714285705
       },
       "isLocked": false,
-      "linkedName": "BL Shoot Position"
+      "linkedName": "BL Trench Shoot"
     },
     {
       "anchor": {
-        "x": 3.351760563380282,
-        "y": 7.34044014084507
+        "x": 5.45182142857143,
+        "y": 7.44164880952381
       },
       "prevControl": {
-        "x": 2.4579581795303436,
-        "y": 7.244675599718291
+        "x": 4.45182142857143,
+        "y": 7.44164880952381
       },
       "nextControl": {
-        "x": 4.245985915492957,
-        "y": 7.436249999999999
+        "x": 6.45182142857143,
+        "y": 7.44164880952381
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 6.728356940509915,
-        "y": 7.137556657223796
+        "x": 5.6731726190476195,
+        "y": 3.9000297619047624
       },
       "prevControl": {
-        "x": 6.047170703294959,
-        "y": 7.359834579968599
-      },
-      "nextControl": {
-        "x": 7.4095431777248715,
-        "y": 6.915278734478994
-      },
-      "isLocked": false,
-      "linkedName": null
-    },
-    {
-      "anchor": {
-        "x": 7.8542916666666684,
-        "y": 4.7746369047619055
-      },
-      "prevControl": {
-        "x": 6.9095,
-        "y": 5.9245833333333335
+        "x": 5.608386904761906,
+        "y": 4.407517857142858
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "BL Gather Position"
+      "linkedName": "BL Hub Collect"
     }
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 0.9374999999999969,
+      "waypointRelativePos": 0.41327800829875383,
       "rotationDegrees": 0.0
     },
     {
-      "waypointRelativePos": 1.8,
+      "waypointRelativePos": 0.914522821576762,
       "rotationDegrees": 0.0
+    },
+    {
+      "waypointRelativePos": 1.3012448132780199,
+      "rotationDegrees": -90.0
     }
   ],
   "constraintZones": [],
@@ -83,13 +71,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -84.72610404264843
+    "rotation": -88.79395122077989
   },
   "reversed": false,
   "folder": "Blue Left",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -38.65980825409017
+    "rotation": -69.17144420979318
   },
   "useDefaultConstraints": true
 }

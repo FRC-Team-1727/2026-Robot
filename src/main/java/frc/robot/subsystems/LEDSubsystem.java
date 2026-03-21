@@ -22,7 +22,7 @@ import frc.robot.RobotContainer;
 public class LEDSubsystem extends SubsystemBase {
     private final AddressableLED led;
     private final AddressableLEDBuffer buffer;
-    private final AddressableLEDSim sim;
+    // private final AddressableLEDSim sim;
     private LEDPattern pattern;
     private LEDMode mode;
     private int animStart;
@@ -37,7 +37,7 @@ public class LEDSubsystem extends SubsystemBase {
         led.start();
 
         animStart = 0;
-        sim = AddressableLEDSim.createForChannel(0);
+        // sim = AddressableLEDSim.createForChannel(0);
         pattern = LEDPattern.rainbow(255, 128);
     }
 

@@ -3,16 +3,16 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.304624645892352,
-        "y": 7.344470238095238
+        "x": 3.923958333333334,
+        "y": 7.382261904761905
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.304624645892352,
-        "y": 7.344470238095238
+        "x": 4.923958333333331,
+        "y": 7.382261904761905
       },
       "isLocked": false,
-      "linkedName": "BL Trench Shoot"
+      "linkedName": null
     },
     {
       "anchor": {
@@ -32,12 +32,28 @@
     },
     {
       "anchor": {
-        "x": 7.9028809523809525,
-        "y": 5.708630952380952
+        "x": 7.519565476190477,
+        "y": 7.085327380952381
       },
       "prevControl": {
-        "x": 7.514166666666668,
-        "y": 6.048755952380951
+        "x": 7.142292774672678,
+        "y": 7.193119581386039
+      },
+      "nextControl": {
+        "x": 7.897482142857143,
+        "y": 6.97735119047619
+      },
+      "isLocked": false,
+      "linkedName": null
+    },
+    {
+      "anchor": {
+        "x": 7.8542916666666684,
+        "y": 4.7746369047619055
+      },
+      "prevControl": {
+        "x": 7.762511904761908,
+        "y": 5.471083333333334
       },
       "nextControl": null,
       "isLocked": false,
@@ -47,6 +63,10 @@
   "rotationTargets": [
     {
       "waypointRelativePos": 0.9991701244813412,
+      "rotationDegrees": 180.0
+    },
+    {
+      "waypointRelativePos": 1.8970954356846557,
       "rotationDegrees": -90.0
     }
   ],
@@ -63,13 +83,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -50.0
+    "rotation": -84.72610404264843
   },
   "reversed": false,
   "folder": "Blue Left",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -89.40319054877095
+    "rotation": 180.0
   },
   "useDefaultConstraints": true
 }

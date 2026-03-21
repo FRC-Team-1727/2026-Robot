@@ -17,7 +17,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "BR Collect"
+                  "pathName": "BL Trench Collect"
                 }
               },
               {
@@ -45,7 +45,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "BR Trench Return"
+            "pathName": "BL Trench Return"
           }
         },
         {
@@ -67,7 +67,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "BR Second Collect"
+                  "pathName": "BL Second Collect"
                 }
               },
               {
@@ -95,7 +95,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "BR Second Return B"
+            "pathName": "BL Second Return"
           }
         },
         {
@@ -114,6 +114,6 @@
     }
   },
   "resetOdom": true,
-  "folder": "BR",
+  "folder": "BL",
   "choreoAuto": false
 }

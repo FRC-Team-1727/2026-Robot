@@ -17,8 +17,10 @@ import com.lumynlabs.devices.ConnectorX;
 import com.lumynlabs.devices.ConnectorXAnimate;
 import com.lumynlabs.domain.led.Animation;
 import com.ctre.phoenix6.swerve.SwerveRequest;
+import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
+import com.pathplanner.lib.path.PathPlannerPath;
 
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.HttpCamera;
@@ -26,6 +28,7 @@ import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.units.Units;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.util.Color;
@@ -83,6 +86,9 @@ public class RobotContainer {
 
     private final boolean isRed;
     private Translation2d target;
+    private Field2d autoField = new Field2d();
+    private String newAutoName;
+    private String autoName;
     // private final ConnectorX m_leds;
 
     // private final LumynDevice mCx = new LumynDevice(3);
@@ -117,6 +123,7 @@ public class RobotContainer {
         autoChooser.addOption("Test", new PathPlannerAuto("Test"));
         autoChooser.addOption("BR Trench Gather", new PathPlannerAuto("BR Trench Gather"));
         autoChooser.addOption("BR Trench Gather B", new PathPlannerAuto("BR Trench Gather B"));
+        autoChooser.addOption("BL Trench Gather B", new PathPlannerAuto("BL Trench Gather B"));
 
         isRed = DriverStation.getAlliance()
                 .orElse(DriverStation.Alliance.Blue) == DriverStation.Alliance.Red;
@@ -208,10 +215,11 @@ public class RobotContainer {
         NamedCommands.registerCommand("Intake",
                 new IntakeCommand(m_IntakeSubsystem, m_LedSubsystem, -.8).withTimeout(2.2));
         NamedCommands.registerCommand("Align",
-                new ShooterAlignAutoCommand(drivetrain, m_ShooterSubsystem, m_LedSubsystem, driveRequest, this));
+                new ShooterAlignAutoCommand(drivetrain, m_ShooterSubsystem, m_LedSubsystem, driveRequest, this)
+                        .withTimeout(1));
         NamedCommands.registerCommand("Shoot",
                 new ShootCommand(m_ShooterSubsystem, m_IndexerSubsystem, m_SpindexerSubsystem, m_IntakeSubsystem,
-                        drivetrain, m_LedSubsystem, joystick, ShooterConstants.shooterSpeedClose).withTimeout(2.5));
+                        drivetrain, m_LedSubsystem, joystick, ShooterConstants.shooterSpeedClose).withTimeout(8));
         NamedCommands.registerCommand("Climb", new ClimbCommand(m_ClimbSubsystem).withTimeout(2.5));
         NamedCommands.registerCommand("Intake Deploy",
                 new IntakeDeployCommand(m_IndexerSubsystem, m_ShooterSubsystem).withTimeout(1));
@@ -256,6 +264,10 @@ public class RobotContainer {
     // .Reverse(false)
     // .RunOnce(false);
     // }
+
+    public void disabledPeriodic() {
+
+    }
 
     public void configureAuto() {
 
