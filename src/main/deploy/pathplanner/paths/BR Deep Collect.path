@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.697726190476192,
-        "y": 2.361369047619048
+        "x": 7.929553824362609,
+        "y": 3.334837110481585
       },
       "prevControl": null,
       "nextControl": {
-        "x": 8.350982142857143,
-        "y": 2.955238095238095
+        "x": 8.58280977674356,
+        "y": 3.928706158100632
       },
       "isLocked": false,
       "linkedName": "BR Gather Position"
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 90.60309119438033
+    "rotation": 90.60309119438034
   },
   "reversed": false,
   "folder": "Blue Right",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 43.60281897270362
+    "rotation": 91.39718102729633
   },
   "useDefaultConstraints": true
 }

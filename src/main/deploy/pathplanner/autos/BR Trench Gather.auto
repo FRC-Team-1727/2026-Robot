@@ -5,15 +5,47 @@
     "data": {
       "commands": [
         {
-          "type": "path",
+          "type": "named",
           "data": {
-            "pathName": "BR Intake out"
+            "name": "Intake Deploy"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "BR Collect"
+                }
+              },
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 1.5
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "Intake"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "BR Move"
+            "pathName": "BR Trench Return"
           }
         },
         {
@@ -35,7 +67,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "BR Collect"
+                  "pathName": "BR Second Collect"
                 }
               },
               {
@@ -45,7 +77,7 @@
                     {
                       "type": "wait",
                       "data": {
-                        "waitTime": 2.0
+                        "waitTime": 2.4
                       }
                     },
                     {
@@ -63,7 +95,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "BR Trench Return"
+            "pathName": "BR Second Return"
           }
         },
         {

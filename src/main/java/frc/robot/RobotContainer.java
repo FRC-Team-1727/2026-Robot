@@ -115,6 +115,8 @@ public class RobotContainer {
         autoChooser.addOption("BR Gather", new PathPlannerAuto("BR Gather"));
         autoChooser.addOption("Move Forward", new PathPlannerAuto("Move Forward"));
         autoChooser.addOption("Test", new PathPlannerAuto("Test"));
+        autoChooser.addOption("BR Trench Gather", new PathPlannerAuto("BR Trench Gather"));
+        autoChooser.addOption("BR Trench Gather B", new PathPlannerAuto("BR Trench Gather B"));
 
         isRed = DriverStation.getAlliance()
                 .orElse(DriverStation.Alliance.Blue) == DriverStation.Alliance.Red;
@@ -203,7 +205,8 @@ public class RobotContainer {
     }
 
     private void configureNamedCommands() {
-        NamedCommands.registerCommand("Intake", new IntakeCommand(m_IntakeSubsystem, m_LedSubsystem).withTimeout(4));
+        NamedCommands.registerCommand("Intake",
+                new IntakeCommand(m_IntakeSubsystem, m_LedSubsystem, -.8).withTimeout(2.2));
         NamedCommands.registerCommand("Align",
                 new ShooterAlignAutoCommand(drivetrain, m_ShooterSubsystem, m_LedSubsystem, driveRequest, this));
         NamedCommands.registerCommand("Shoot",
@@ -220,13 +223,13 @@ public class RobotContainer {
         // final var idle = new SwerveRequest.Idle();
         // return Commands.sequence(
         // // Reset our field centric heading to match the robot
-        // drivetrain.runOnce(() -> {
-        // if(DriverStation.getAlliance().get() == DriverStation.Alliance.Red){
-        // drivetrain.seedFieldCentric(Rotation2d.fromDegrees(180.0));
-        // } else {
-        // drivetrain.seedFieldCentric(Rotation2d.fromDegrees(0.0));
-        // }
-        // }),
+        drivetrain.runOnce(() -> {
+            if (DriverStation.getAlliance().get() == DriverStation.Alliance.Red) {
+                drivetrain.seedFieldCentric(Rotation2d.fromDegrees(180.0));
+            } else {
+                drivetrain.seedFieldCentric(Rotation2d.fromDegrees(0.0));
+            }
+        });
         // // Then slowly drive forward (away from us) for 5 seconds.
         // drivetrain.applyRequest(() ->
         // driveRequest.withVelocityX(0.5)

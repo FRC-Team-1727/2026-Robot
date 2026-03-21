@@ -15,6 +15,7 @@ public class IntakeCommand extends Command {
   @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
   private final IntakeSubsystem m_IntakeSubsystem;
   private final LEDSubsystem m_LedSubsystem;
+  private double speed = 0;
 
   /**
    * Creates a new ExampleCommand.
@@ -22,6 +23,13 @@ public class IntakeCommand extends Command {
    * @param subsystem The subsystem used by this command.
    */
   public IntakeCommand(IntakeSubsystem intakeSubsystem, LEDSubsystem ledSubsystem) {
+    m_IntakeSubsystem = intakeSubsystem;
+    m_LedSubsystem = ledSubsystem;
+    // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(intakeSubsystem, ledSubsystem);
+  }
+
+  public IntakeCommand(IntakeSubsystem intakeSubsystem, LEDSubsystem ledSubsystem, Double speed) {
     m_IntakeSubsystem = intakeSubsystem;
     m_LedSubsystem = ledSubsystem;
     // Use addRequirements() here to declare subsystem dependencies.
@@ -36,8 +44,11 @@ public class IntakeCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-
-    m_IntakeSubsystem.setSpeed(IntakeConstants.intakeSpeed);
+    if (speed != 0) {
+      m_IntakeSubsystem.setSpeed(speed);
+    } else {
+      m_IntakeSubsystem.setSpeed(IntakeConstants.intakeSpeed);
+    }
     m_LedSubsystem.intake();
 
   }

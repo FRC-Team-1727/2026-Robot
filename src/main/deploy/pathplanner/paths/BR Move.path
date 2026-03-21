@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.3839943342776204,
-        "y": 1.3523239436619725
+        "x": 4.011211048158641,
+        "y": 0.6755028328611876
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.7672337708973387,
-        "y": 1.9750880281690135
+        "x": 2.989872521246459,
+        "y": 0.6819263456090631
       },
       "isLocked": false,
       "linkedName": "BR Start"
     },
     {
       "anchor": {
-        "x": 2.6331866197183103,
-        "y": 3.0609330985915495
+        "x": 2.9770254957507087,
+        "y": 0.6755028328611876
       },
       "prevControl": {
-        "x": 2.2499471830985924,
-        "y": 2.4860739436619723
+        "x": 3.420247875354108,
+        "y": 0.6947733711048147
       },
       "nextControl": null,
       "isLocked": false,
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 32.660912721673796
+    "rotation": -0.36727560733828357
   },
   "reversed": false,
   "folder": "Blue Right",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": -178.46943502108877
   },
   "useDefaultConstraints": true
 }

@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.3839943342776204,
-        "y": 1.3523239436619725
+        "x": 4.011211048158641,
+        "y": 0.6755028328611876
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.7672337708973387,
-        "y": 1.9750880281690133
+        "x": 4.39445048477836,
+        "y": 1.2982669173682284
       },
       "isLocked": false,
       "linkedName": "BR Start"
@@ -48,7 +48,7 @@
   "folder": "Blue Right",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": -178.46943502108877
   },
   "useDefaultConstraints": true
 }
