@@ -3,73 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 4.030481586402267,
-        "y": 7.400920679886685
+        "x": 0.0,
+        "y": 3.759
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.3560127478753548,
-        "y": 7.278873937677053
+        "x": 0.700162889518414,
+        "y": 3.7616628895184134
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.83339880952381,
-        "y": 7.0
+        "x": 0.89535,
+        "y": 3.759
       },
       "prevControl": {
-        "x": 3.3354880952380954,
-        "y": 6.998946428571428
-      },
-      "nextControl": {
-        "x": 1.833401011104621,
-        "y": 7.0020983700290484
-      },
-      "isLocked": false,
-      "linkedName": null
-    },
-    {
-      "anchor": {
-        "x": 1.5124645892351278,
-        "y": 7.0
-      },
-      "prevControl": {
-        "x": 2.013080313435164,
-        "y": 7.0
-      },
-      "nextControl": {
-        "x": 1.0118488650350916,
-        "y": 7.0
-      },
-      "isLocked": false,
-      "linkedName": null
-    },
-    {
-      "anchor": {
-        "x": 3.0027195467422105,
-        "y": 7.0
-      },
-      "prevControl": {
-        "x": 2.7536067915113764,
-        "y": 6.97895635057072
-      },
-      "nextControl": {
-        "x": 3.2518323019730446,
-        "y": 7.02104364942928
-      },
-      "isLocked": false,
-      "linkedName": null
-    },
-    {
-      "anchor": {
-        "x": 1.5124645892351278,
-        "y": 7.0
-      },
-      "prevControl": {
-        "x": 1.7610531469912143,
-        "y": 6.973472109907706
+        "x": 0.38146898016997177,
+        "y": 3.7616628895184134
       },
       "nextControl": null,
       "isLocked": false,
@@ -81,7 +33,7 @@
     {
       "name": "Constraints Zone",
       "minWaypointRelativePos": 0,
-      "maxWaypointRelativePos": 1.2806430006698075,
+      "maxWaypointRelativePos": 0.35,
       "constraints": {
         "maxVelocity": 2.0,
         "maxAcceleration": 3.0,

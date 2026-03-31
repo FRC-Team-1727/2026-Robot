@@ -12,8 +12,8 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
-import org.littletonrobotics.junction.LoggedRobot;
-import org.littletonrobotics.junction.Logger;
+// import org.littletonrobotics.junction.LoggedRobot;
+// import org.littletonrobotics.junction.Logger;
 
 import com.ctre.phoenix6.HootAutoReplay;
 import com.ctre.phoenix6.SignalLogger;
@@ -44,7 +44,7 @@ import static edu.wpi.first.units.Units.Degrees;
 import static edu.wpi.first.units.Units.Second;
 import static edu.wpi.first.units.Units.Seconds;
 
-public class Robot extends LoggedRobot {
+public class Robot extends TimedRobot {
     private Command m_autonomousCommand;
     private ConnectorX m_leds = new ConnectorX();
 
@@ -60,20 +60,18 @@ public class Robot extends LoggedRobot {
 
     public Robot() {
         m_robotContainer = new RobotContainer(m_leds);
-        if (DriverStation.getAlliance().get() == DriverStation.Alliance.Red) {
-            m_robotContainer.drivetrain.seedFieldCentric(Rotation2d.fromDegrees(180.0));
-        } else {
-            m_robotContainer.drivetrain.seedFieldCentric(Rotation2d.fromDegrees(0.0));
-        }
-        Logger.start();
+        // Logger.start();
         SignalLogger.start();
+
+        SmartDashboard.putData("Auto Field", autoField);
     }
 
     @Override
     public void robotPeriodic() {
         m_timeAndJoystickReplay.update();
         CommandScheduler.getInstance().run();
-        SmartDashboard.putData("Auto Field", autoField);
+        autoField.setRobotPose(RobotContainer.getDrivetrain().getState().Pose);
+        m_robotContainer.periodic();
     }
 
     @Override
@@ -83,7 +81,7 @@ public class Robot extends LoggedRobot {
     @Override
     public void disabledPeriodic() {
         newAutoName = m_robotContainer.getAutonomousCommand().getName();
-        if (autoName != newAutoName) {
+        if (newAutoName != null && autoName != newAutoName) {
             autoName = newAutoName;
             if (AutoBuilder.getAllAutoNames().contains(autoName)) {
                 System.out.println("displaying" + autoName);

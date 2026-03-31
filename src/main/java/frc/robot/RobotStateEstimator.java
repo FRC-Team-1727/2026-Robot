@@ -19,10 +19,10 @@ public class RobotStateEstimator extends SubsystemBase {
     doRejectUpdate = false;
     LimelightHelpers.SetRobotOrientation("limelight", m_SwerveDriveTrain.getPigeon2().getYaw().getValueAsDouble(), 0, 0,
         0, 0, 0);
-    LimelightHelpers.PoseEstimate mt1 = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight");
+    LimelightHelpers.PoseEstimate mt2 = LimelightHelpers.getBotPoseEstimate_wpiBlue_MegaTag2("limelight");
     // LimelightHelpers.PoseEstimate mt1 =
     // LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight");
-    if (mt1 == null) {
+    if (mt2 == null) {
       return;
     }
     if (Math.abs(m_SwerveDriveTrain.getPigeon2().getAngularVelocityZWorld().getValueAsDouble()) > 720) // if our angular
@@ -35,14 +35,14 @@ public class RobotStateEstimator extends SubsystemBase {
     {
       doRejectUpdate = true;
     }
-    if (mt1.tagCount == 0) {
+    if (mt2.tagCount == 0) {
       doRejectUpdate = true;
     }
     if (!doRejectUpdate) {
       m_SwerveDriveTrain.setVisionMeasurementStdDevs(VecBuilder.fill(.7, .7, 9999999));
       m_SwerveDriveTrain.addVisionMeasurement(
-          mt1.pose,
-          mt1.timestampSeconds);
+          mt2.pose,
+          mt2.timestampSeconds);
     }
 
     // System.out.println("dog");

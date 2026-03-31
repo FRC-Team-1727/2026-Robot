@@ -80,7 +80,7 @@ public class TunerConstants {
                                                         // impacting performance.
                                                         .withStatorCurrentLimit(Amps.of(120))
                                                         .withStatorCurrentLimitEnable(true)
-                                                        .withSupplyCurrentLimit(Amps.of(60))
+                                                        .withSupplyCurrentLimit(Amps.of(25))
                                                         .withSupplyCurrentLimitEnable(true));
         private static final CANcoderConfiguration encoderInitialConfigs = new CANcoderConfiguration();
         // Configs for the Pigeon 2; leave this null to skip applying Pigeon 2 configs
@@ -92,7 +92,7 @@ public class TunerConstants {
 
         // Theoretical free speed (m/s) at 12 V applied output;
         // This needs to be tuned to your individual robot
-        public static final LinearVelocity kSpeedAt12Volts = MetersPerSecond.of(5.07);
+        public static final LinearVelocity kSpeedAt12Volts = MetersPerSecond.of(4.80);
 
         // Every 1 rotation of the azimuth results in kCoupleRatio drive motor turns;
         // This may need to be tuned to your individual robot

@@ -87,7 +87,6 @@ public class ShooterAlignCommand extends Command {
     if (isRed) {
       target = Hub.topCenterPointRed.toTranslation2d();
     }
-    m_Drivetrain.drivetrainTestPublisher1.set(new Pose2d(target, new Rotation2d()));
   }
 
   // Called every time the scheduler runs while the command is scheduled.

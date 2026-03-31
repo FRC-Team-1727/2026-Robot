@@ -8,24 +8,24 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.54229461756374,
-        "y": 4.035
+        "x": 3.2059166666666674,
+        "y": 3.3439523809523815
       },
       "isLocked": false,
       "linkedName": "BM Start"
     },
     {
       "anchor": {
-        "x": 3.3516845238095248,
-        "y": 2.5503273809523805
+        "x": 3.589232142857143,
+        "y": 2.6097142857142854
       },
       "prevControl": {
-        "x": 2.3516845238095248,
-        "y": 2.5503273809523805
+        "x": 3.29229761904762,
+        "y": 3.4249345238095237
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "BR Bump Shoot"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 89.57313536845166
+    "rotation": 90.0
   },
   "reversed": false,
   "folder": "Blue Middle",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": 180.0
   },
   "useDefaultConstraints": true
 }

@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.3516845238095248,
-        "y": 2.5503273809523805
+        "x": 3.17352380952381,
+        "y": 2.523333333333334
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.886166666666667,
-        "y": 2.5503273809523805
+        "x": 3.7080059523809523,
+        "y": 2.523333333333334
       },
       "isLocked": false,
       "linkedName": "BR Bump Shoot"
@@ -32,12 +32,12 @@
     },
     {
       "anchor": {
-        "x": 7.929553824362609,
-        "y": 3.334837110481585
+        "x": 7.8165,
+        "y": 3.8136488095238095
       },
       "prevControl": {
-        "x": 7.060345491029275,
-        "y": 2.25507520571968
+        "x": 6.947291666666666,
+        "y": 2.7338869047619045
       },
       "nextControl": null,
       "isLocked": false,
@@ -81,13 +81,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 91.39718102729633
+    "rotation": 91.39718102729634
   },
   "reversed": false,
   "folder": "Blue Right",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 89.57313536845166
+    "rotation": 89.25594079711128
   },
   "useDefaultConstraints": true
 }

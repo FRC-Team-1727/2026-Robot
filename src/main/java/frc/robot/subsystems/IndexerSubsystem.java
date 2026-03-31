@@ -26,7 +26,10 @@ public class IndexerSubsystem extends SubsystemBase {
     CurrentLimitsConfigs configLimit = new CurrentLimitsConfigs();
 
     configLimit.StatorCurrentLimit = 80;
-    configLimit.SupplyCurrentLimit = 30;
+    configLimit.SupplyCurrentLimit = 40;
+
+    configLimit.StatorCurrentLimitEnable = true;
+    configLimit.SupplyCurrentLimitEnable = true;
 
     configs.kS = IndexerConstants.kIndexerS;
     configs.kV = IndexerConstants.kIndexerV;

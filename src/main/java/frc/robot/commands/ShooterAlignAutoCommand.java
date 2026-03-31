@@ -13,6 +13,7 @@ import com.lumynlabs.devices.ConnectorXAnimate;
 import com.lumynlabs.domain.led.Animation;
 
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -83,7 +84,7 @@ public class ShooterAlignAutoCommand extends Command {
     if (isRed) {
       target = Hub.topCenterPointRed.toTranslation2d();
     }
-
+    m_Drivetrain.drivetrainTestPublisher1.set(new Pose2d(target, new Rotation2d()));
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -105,7 +106,7 @@ public class ShooterAlignAutoCommand extends Command {
 
     double difference = (float) m_Drivetrain.getState().Pose.getTranslation().getDistance(target);
     double power = m_ShooterSubsystem.getShooterPower(difference);
-    m_ShooterSubsystem.setSpeed(power);
+    m_ShooterSubsystem.setSpeed(power + .6);
     m_LedSubsystem.aligning();
     // System.out.println(m_ShooterSubsystem.getSpeed());
     // m_leds.leds.SetAnimation(Animation.Fill)

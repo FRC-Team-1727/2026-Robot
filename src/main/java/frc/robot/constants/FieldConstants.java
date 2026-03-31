@@ -97,7 +97,7 @@ public class FieldConstants {
                 height);
 
         public static final Translation3d topCenterPointRed = new Translation3d(
-                AprilTagLayoutType.OFFICIAL.getLayout().getTagPose(10).get().getX() - 1.5 + width / 2.0,
+                AprilTagLayoutType.OFFICIAL.getLayout().getTagPose(10).get().getX() - width / 2.0,
                 fieldWidth / 2.0,
                 height);
         public static final Translation3d innerCenterPoint = new Translation3d(

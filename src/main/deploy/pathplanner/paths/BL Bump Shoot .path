@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.5124645892351278,
-        "y": 7.0
+        "x": 0.89535,
+        "y": 3.759
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.512464589235128,
-        "y": 7.0
+        "x": 1.89535,
+        "y": 3.759
       },
       "isLocked": false,
       "linkedName": "BL Intake"

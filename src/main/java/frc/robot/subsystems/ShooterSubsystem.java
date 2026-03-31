@@ -44,10 +44,11 @@ public class ShooterSubsystem extends SubsystemBase {
     shooterL.getConfigurator().apply(fConfigs);
     CurrentLimitsConfigs configLimit = new CurrentLimitsConfigs();
 
-    shooterL.getConfigurator().apply(fConfigs);
-
     configLimit.StatorCurrentLimit = 80;
-    configLimit.SupplyCurrentLimit = 50;
+    configLimit.SupplyCurrentLimit = 40;
+
+    configLimit.StatorCurrentLimitEnable = true;
+    configLimit.SupplyCurrentLimitEnable = true;
 
     shooterR.setNeutralMode(NeutralModeValue.Coast);
 
@@ -58,9 +59,13 @@ public class ShooterSubsystem extends SubsystemBase {
 
     table = new InterpolatingDoubleTreeMap();
     table.put(1.802564382553, 25.93359375);
+    table.put(2.04767760299, 27.425781225);
     table.put(2.61259273556, 28.060546375);
+    table.put(2.7183398813842256, 29.37109275);
     table.put(2.99853897094, 29.61328425);
+    table.put(3.170593738555908, 30.889475125);
     table.put(3.4036731719979793, 31.2578125);
+    table.put(4.0192394256, 34.0937638125);
     table.put(5.164938449859619, 38.8828125);
     distanceS = 0;
   }
@@ -131,6 +136,8 @@ public class ShooterSubsystem extends SubsystemBase {
     double RPS = requiredVelocity / (Math.PI * .1016);
     RPS *= ShooterConstants.variableShootingMult;
     RPS += RobotContainer.getSpeedChange();
+    RPS += 0.65; // speedChange usually at 0.4 at Bethesda, set here at request of Dhruv
+    // Will show 0.0 on Elastic with 0.4 applied
 
     distanceS = distanceToTargetMeters;
     return RPS - 2.0;

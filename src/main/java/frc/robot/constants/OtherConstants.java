@@ -3,6 +3,7 @@ package frc.robot.constants;
 public final class OtherConstants {
     public static class IntakeConstants {
         public static int kIntakeID = 16;
+        public static int kIntakeID2 = 17;
 
         public static final double kIntakeV = 0.12;
         public static final double kIntakeS = 0.1;
@@ -10,10 +11,13 @@ public final class OtherConstants {
         public static final double kIntakeI = 0;
         public static final double kIntakeD = 0;
 
-        public static double intakeSpeed = -.55;
+        public static double intakeSpeed = -.8;
         public static double outtakeSpeed = .5;
         public static double passiveIntakeSpeed = 0;
         public static double shootingIntakeSpeed = -.3;
+        public static double intakeSlowShootSpeed = -.1;
+        public static double intakeFastShootSpeed = -.55;
+        public static double intakeChangeSpeed = .02;
     }
 
     public static class ShooterConstants {
@@ -31,12 +35,12 @@ public final class OtherConstants {
         public static double shooterSpeedTower = 30;
         public static double shooterSpeedOutpost = 35;
         public static double passiveShooterSpeed = 5;
-        public static double outreachShooterSpeed = 25;
+        public static double outreachShooterSpeed = 26;
 
         public static double shooterRPSMinimum = 400;
         public static double variableShootingMult = 1.33;
 
-        public static double shooterSpeedChange = .1;
+        public static double shooterSpeedChange = .5;
     }
 
     public static class ClimbConstants {

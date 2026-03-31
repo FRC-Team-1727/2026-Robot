@@ -18,6 +18,7 @@ import com.ctre.phoenix6.signals.NeutralModeValue;
 
 public class IntakeSubsystem extends SubsystemBase {
   private TalonFX intake = new TalonFX(IntakeConstants.kIntakeID);
+  private TalonFX intake2 = new TalonFX(IntakeConstants.kIntakeID2);
   final VelocityVoltage m_request = new VelocityVoltage(0).withSlot(0);
 
   /** Creates a new ExampleSubsystem. */
@@ -26,7 +27,10 @@ public class IntakeSubsystem extends SubsystemBase {
     CurrentLimitsConfigs configLimit = new CurrentLimitsConfigs();
 
     configLimit.StatorCurrentLimit = 80;
-    configLimit.SupplyCurrentLimit = 30;
+    configLimit.SupplyCurrentLimit = 40;
+
+    configLimit.StatorCurrentLimitEnable = true;
+    configLimit.SupplyCurrentLimitEnable = true;
 
     configs.kS = IntakeConstants.kIntakeS;
     configs.kV = IntakeConstants.kIntakeV;
@@ -37,6 +41,10 @@ public class IntakeSubsystem extends SubsystemBase {
     intake.getConfigurator().apply(configs);
     intake.setNeutralMode(NeutralModeValue.Coast);
     intake.getConfigurator().apply(configLimit);
+
+    intake2.getConfigurator().apply(configs);
+    intake2.setNeutralMode(NeutralModeValue.Coast);
+    intake2.getConfigurator().apply(configLimit);
 
   }
 
@@ -53,5 +61,6 @@ public class IntakeSubsystem extends SubsystemBase {
   public void setSpeed(double speed) {
     // intake.setControl(m_request.withVelocity(speed).withFeedForward(0.5));
     intake.setControl(new DutyCycleOut(speed));
+    // intake2.setControl(new DutyCycleOut(speed));
   }
 }

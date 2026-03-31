@@ -3,57 +3,48 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.3894761904761905,
-        "y": 5.849
+        "x": 3.17352380952381,
+        "y": 2.523333333333334
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.3894761904761905,
-        "y": 5.849
+        "x": 4.173523809523809,
+        "y": 2.5233333333333334
       },
       "isLocked": false,
-      "linkedName": "BL Bump Shoot"
+      "linkedName": "BR Bump Shoot"
     },
     {
       "anchor": {
-        "x": 5.629982142857143,
-        "y": 5.849
+        "x": 6.558577380952382,
+        "y": 2.037440476190476
       },
       "prevControl": {
-        "x": 4.742788684010561,
-        "y": 5.860089918235583
+        "x": 6.067285714285716,
+        "y": 2.086029761904762
       },
       "nextControl": {
-        "x": 6.493791666666667,
-        "y": 5.838202380952381
+        "x": 6.926433612575677,
+        "y": 2.001059090645315
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 7.821898809523809,
-        "y": 4.396720238095239
+        "x": 7.346803571428572,
+        "y": 4.402119047619047
       },
       "prevControl": {
-        "x": 6.094279761904761,
-        "y": 5.460285714285715
+        "x": 7.147047619047619,
+        "y": 3.9162261904761904
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "BL Gather Position"
+      "linkedName": "BR Bump Second Collect"
     }
   ],
-  "rotationTargets": [
-    {
-      "waypointRelativePos": 0.1377593360995726,
-      "rotationDegrees": -90.0
-    },
-    {
-      "waypointRelativePos": 0.9941908713692856,
-      "rotationDegrees": -90.0
-    }
-  ],
+  "rotationTargets": [],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],
@@ -67,13 +58,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -84.72610404264844
+    "rotation": 91.7714697400341
   },
   "reversed": false,
-  "folder": "Blue Left",
+  "folder": "Blue Right",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -90.51616422976474
+    "rotation": 89.25594079711128
   },
   "useDefaultConstraints": true
 }

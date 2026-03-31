@@ -69,7 +69,7 @@
   "folder": "Hook Collects",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 90.60309119438033
+    "rotation": 90.60309119438034
   },
   "useDefaultConstraints": true
 }

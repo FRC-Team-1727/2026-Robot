@@ -3,55 +3,51 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 3.3894761904761905,
-        "y": 5.849
+        "x": 3.589232142857143,
+        "y": 2.6097142857142854
       },
       "prevControl": null,
       "nextControl": {
-        "x": 4.3894761904761905,
-        "y": 5.849
+        "x": 4.589232142857142,
+        "y": 2.6097142857142854
       },
       "isLocked": false,
-      "linkedName": "BL Bump Shoot"
+      "linkedName": "BR Bump Start"
     },
     {
       "anchor": {
-        "x": 5.629982142857143,
-        "y": 5.849
+        "x": 7.470976190476191,
+        "y": 1.8268869047619045
       },
       "prevControl": {
-        "x": 4.742788684010561,
-        "y": 5.860089918235583
+        "x": 7.098458333333333,
+        "y": 1.4813630952380947
       },
       "nextControl": {
-        "x": 6.493791666666667,
-        "y": 5.838202380952381
+        "x": 7.883793917225198,
+        "y": 2.209790303485621
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 7.821898809523809,
-        "y": 4.396720238095239
+        "x": 7.8165,
+        "y": 3.8136488095238095
       },
       "prevControl": {
-        "x": 6.094279761904761,
-        "y": 5.460285714285715
+        "x": 7.971218056650878,
+        "y": 4.010021727580694
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "BL Gather Position"
+      "linkedName": "BR Gather Position"
     }
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 0.1377593360995726,
-      "rotationDegrees": -90.0
-    },
-    {
-      "waypointRelativePos": 0.9941908713692856,
-      "rotationDegrees": -90.0
+      "waypointRelativePos": 0.6887966804979258,
+      "rotationDegrees": 34.50319031260232
     }
   ],
   "constraintZones": [],
@@ -67,13 +63,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -84.72610404264844
+    "rotation": 91.39718102729634
   },
   "reversed": false,
-  "folder": "Blue Left",
+  "folder": "Blue Right",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -90.51616422976474
+    "rotation": 180.0
   },
   "useDefaultConstraints": true
 }
