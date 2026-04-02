@@ -1,7 +1,6 @@
 package frc.robot;
 
 import edu.wpi.first.math.VecBuilder;
-import edu.wpi.first.wpilibj.RobotState;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 

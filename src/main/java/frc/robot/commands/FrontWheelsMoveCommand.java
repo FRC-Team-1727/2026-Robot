@@ -4,32 +4,25 @@
 
 package frc.robot.commands;
 
-import frc.robot.constants.TunerConstants;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 
 import com.ctre.phoenix6.controls.DutyCycleOut;
-import com.ctre.phoenix6.hardware.TalonFX;
-import com.ctre.phoenix6.signals.ControlModeValue;
+import com.ctre.phoenix6.controls.PositionVoltage;
 import com.ctre.phoenix6.swerve.SwerveRequest;
 
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj2.command.Command;
 
 /** An example command that uses an example subsystem. */
-public class BackwardCommand extends Command {
+public class FrontWheelsMoveCommand extends Command {
   @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
   private final CommandSwerveDrivetrain m_Drivetrain;
-  private SwerveRequest.FieldCentric drive;
+  private int startingRotation;
+  private final SwerveRequest.SwerveDriveBrake brakeRequest = new SwerveRequest.SwerveDriveBrake();
 
-  /**
-   * Creates a new ExampleCommand.
-   *
-   * @param subsystem The subsystem used by this command.
-   */
-  public BackwardCommand(CommandSwerveDrivetrain drivetrain) {
+  public FrontWheelsMoveCommand(CommandSwerveDrivetrain drivetrain) {
     m_Drivetrain = drivetrain;
-
-    drive = new SwerveRequest.FieldCentric();
-    System.out.println("backward");
+    startingRotation = 0;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(drivetrain);
   }
@@ -42,11 +35,20 @@ public class BackwardCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    drive.withDesaturateWheelSpeeds(true)
-        .withVelocityX(-3.0)
-        .withVelocityY(-1.75);
-    m_Drivetrain.setControl(drive);
-    System.out.println("backward e");
+    // m_Drivetrain.getModule(2).apply();
+    if (startingRotation < 10) {
+      m_Drivetrain.getModule(0).getSteerMotor().setControl(new PositionVoltage(.05));
+      m_Drivetrain.getModule(1).getSteerMotor().setControl(new PositionVoltage(.05));
+      startingRotation++;
+      System.out.println("not rotate enough");
+    } else if (startingRotation < 20) {
+      m_Drivetrain.getModule(0).getDriveMotor().setControl(new DutyCycleOut(.5));
+      m_Drivetrain.getModule(1).getDriveMotor().setControl(new DutyCycleOut(.5));
+      System.out.println(" rotate");
+      startingRotation++;
+    } else {
+      startingRotation = 0;
+    }
   }
 
   // Called once the command ends or is interrupted.

@@ -11,10 +11,7 @@ import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 
-import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.constants.OtherConstants.IntakeConstants;
-import frc.robot.constants.OtherConstants.ShooterConstants;
 import frc.robot.constants.OtherConstants.SpindexerConstants;
 
 public class SpindexerSubsystem extends SubsystemBase {

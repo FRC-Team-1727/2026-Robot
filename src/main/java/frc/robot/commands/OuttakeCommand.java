@@ -5,13 +5,12 @@
 package frc.robot.commands;
 
 import frc.robot.constants.OtherConstants.IntakeConstants;
-import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
 
 /** An example command that uses an example subsystem. */
 public class OuttakeCommand extends Command {
-  @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
+  @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
   private final IntakeSubsystem m_IntakeSubsystem;
 
   public OuttakeCommand(IntakeSubsystem intakeSubsystem) {
@@ -22,7 +21,8 @@ public class OuttakeCommand extends Command {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override

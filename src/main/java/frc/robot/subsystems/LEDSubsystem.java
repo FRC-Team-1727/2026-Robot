@@ -5,19 +5,11 @@ import static edu.wpi.first.units.Units.Meters;
 import static edu.wpi.first.units.Units.MetersPerSecond;
 import static edu.wpi.first.units.Units.Seconds;
 
-import edu.wpi.first.math.geometry.Pose2d;
-import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
-import edu.wpi.first.wpilibj.AddressableLEDBufferView;
 import edu.wpi.first.wpilibj.LEDPattern;
-import edu.wpi.first.wpilibj.simulation.AddressableLEDSim;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.LimelightHelpers;
-import frc.robot.subsystems.LEDMode;
-import frc.robot.Robot;
-import frc.robot.RobotContainer;
 
 public class LEDSubsystem extends SubsystemBase {
     private final AddressableLED led;
@@ -31,7 +23,7 @@ public class LEDSubsystem extends SubsystemBase {
         mode = LEDMode.kDefault;
         pattern = LEDPattern.solid(Color.kRed);
         led = new AddressableLED(1);
-        buffer = new AddressableLEDBuffer(24);
+        buffer = new AddressableLEDBuffer(48);
         led.setLength(buffer.getLength());
         led.setData(buffer);
         led.start();

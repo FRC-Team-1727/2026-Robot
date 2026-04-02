@@ -4,7 +4,6 @@
 
 package frc.robot.commands;
 
-import frc.robot.constants.OtherConstants;
 import frc.robot.constants.FieldConstants.Hub;
 import frc.robot.constants.OtherConstants.IndexerConstants;
 import frc.robot.constants.OtherConstants.IntakeConstants;
@@ -37,6 +36,7 @@ public class FixedShootCommand extends Command {
   private boolean isRed = false;
   Translation2d target = Hub.topCenterPointBlue.toTranslation2d();
   float difference;
+  private boolean upToSpeed = false;
 
   /**
    * Creates a new ExampleCommand.
@@ -81,20 +81,15 @@ public class FixedShootCommand extends Command {
 
     SmartDashboard.putNumber("Distance to Hub",
         (float) m_Drivetrain.getState().Pose.getTranslation().getDistance(target));
-
-    m_IndexerSubsystem.setSpeed(IndexerConstants.indexerSpeed);
-    m_SpindexerSubsystem.setSpeed(SpindexerConstants.spindexerSpeed);
-    m_IntakeSubsystem.setSpeed(IntakeConstants.shootingIntakeSpeed);
-
-    // m_Drivetrain.setX();
-
-    // if(m_ShooterSubsystem.shooterSpeed()){
-    // m_IndexerSubsystem.setSpeed(IndexerConstants.indexerSpeed);
-    // m_SpindexerSubsystem.setSpeed(SpindexerConstants.spindexerSpeed);
-    // } else {
-    // m_IndexerSubsystem.setSpeed(IndexerConstants.passiveIndexerSpeed);
-    // m_SpindexerSubsystem.setSpeed(SpindexerConstants.passiveSpindexerSpeed);
-    // }
+    double speedError = Math.abs(ShooterConstants.outreachShooterSpeed - m_ShooterSubsystem.getSpeed());
+    if (speedError <= 3.5 && !upToSpeed) {
+      upToSpeed = true;
+    }
+    if (upToSpeed) {
+      m_IndexerSubsystem.setSpeed(IndexerConstants.indexerSpeed);
+      m_SpindexerSubsystem.setSpeed(SpindexerConstants.spindexerSpeed);
+      m_IntakeSubsystem.setSpeed(IntakeConstants.shootingIntakeSpeed);
+    }
 
     m_LedSubsystem.PARTYMODE();
   }

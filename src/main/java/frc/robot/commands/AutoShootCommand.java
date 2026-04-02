@@ -4,19 +4,23 @@
 
 package frc.robot.commands;
 
-import frc.robot.constants.OtherConstants;
 import frc.robot.RobotContainer;
 import frc.robot.constants.FieldConstants.Hub;
 import frc.robot.constants.OtherConstants.IndexerConstants;
 import frc.robot.constants.OtherConstants.IntakeConstants;
 import frc.robot.constants.OtherConstants.ShooterConstants;
 import frc.robot.constants.OtherConstants.SpindexerConstants;
-import frc.robot.subsystems.CommandSwerveDrivetrain;
+import frc.robot.constants.TunerConstants;
 import frc.robot.subsystems.IndexerSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.LEDSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.SpindexerSubsystem;
+
+import static edu.wpi.first.units.Units.MetersPerSecond;
+
+import com.ctre.phoenix6.swerve.SwerveRequest;
+
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -34,11 +38,19 @@ public class AutoShootCommand extends Command {
   private final CommandXboxController joystick;
   private final double shootSpeed;
 
+  private SwerveRequest.FieldCentricFacingAngle turnCommand;
+
   private boolean isRed = false;
   Translation2d target = Hub.topCenterPointBlue.toTranslation2d();
   float difference;
   private boolean intakeIncrease = false;
   private int counter = -1;
+  private boolean upToSpeed = false;
+
+  private int cycleCount = 0;
+  private static final int CYCLES_PER_DIRECTION = 5;
+  private static final double SHAKE_SPEED = 1;
+  private double MaxSpeed = 1.0 * TunerConstants.kSpeedAt12Volts.in(MetersPerSecond);
 
   /**
    * Creates a new ExampleCommand.
@@ -57,6 +69,8 @@ public class AutoShootCommand extends Command {
     m_LedSubsystem = ledSubsystem;
     this.joystick = joystick;
     this.shootSpeed = shootSpeed;
+
+    turnCommand = new SwerveRequest.FieldCentricFacingAngle();
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(shooterSubsystem, indexerSubsystem, spindexerSubsystem, intakeSubsystem, ledSubsystem);
   }
@@ -78,36 +92,39 @@ public class AutoShootCommand extends Command {
   @Override
   public void execute() {
     counter++;
+    cycleCount++;
+    double shake = (cycleCount / CYCLES_PER_DIRECTION) % 2 == 0 ? SHAKE_SPEED : -SHAKE_SPEED;
     // m_ShooterSubsystem.setSpeed(shootSpeed);
     difference = (float) RobotContainer.getDrivetrain().getState().Pose.getTranslation().getDistance(target);
-    m_ShooterSubsystem.setSpeed(m_ShooterSubsystem.getShooterPower(difference) + .4);
+    double power = m_ShooterSubsystem.getShooterPower(difference) + .4;
+    m_ShooterSubsystem.setSpeed(power);
+
+    turnCommand.withVelocityX(MaxSpeed * -joystick.getLeftY() + shake).withVelocityY(MaxSpeed * -joystick.getLeftX());
+    RobotContainer.getDrivetrain().setControl(turnCommand);
 
     SmartDashboard.putNumber("Distance to Hub",
         (float) RobotContainer.getDrivetrain().getState().Pose.getTranslation().getDistance(target));
 
-    m_IndexerSubsystem.setSpeed(IndexerConstants.indexerSpeed);
-    m_SpindexerSubsystem.setSpeed(SpindexerConstants.spindexerSpeed);
-    if (intakeIncrease) {
-      m_IntakeSubsystem.setSpeed(IntakeConstants.intakeSlowShootSpeed + IntakeConstants.intakeChangeSpeed * counter);
-      counter++;
-    } else {
-      m_IntakeSubsystem.setSpeed(IntakeConstants.intakeSlowShootSpeed + IntakeConstants.intakeChangeSpeed * counter);
-      counter--;
+    double speedError = Math.abs(power - m_ShooterSubsystem.getSpeed());
+    if (speedError <= 3.5 && !upToSpeed) {
+      upToSpeed = true;
     }
+    if (upToSpeed) {
+      m_IndexerSubsystem.setSpeed(IndexerConstants.indexerSpeed);
+      m_SpindexerSubsystem.setSpeed(SpindexerConstants.spindexerSpeed);
+      if (intakeIncrease) {
+        m_IntakeSubsystem.setSpeed(IntakeConstants.intakeSlowShootSpeed + IntakeConstants.intakeChangeSpeed * counter);
+        counter++;
+      } else {
+        m_IntakeSubsystem.setSpeed(IntakeConstants.intakeSlowShootSpeed + IntakeConstants.intakeChangeSpeed * counter);
+        counter--;
+      }
 
-    if (counter > 20) {
-      intakeIncrease = !intakeIncrease;
-      counter = 0;
+      if (counter > 20) {
+        intakeIncrease = !intakeIncrease;
+        counter = 0;
+      }
     }
-    // m_Drivetrain.setX();
-
-    // if(m_ShooterSubsystem.shooterSpeed()){
-    // m_IndexerSubsystem.setSpeed(IndexerConstants.indexerSpeed);
-    // m_SpindexerSubsystem.setSpeed(SpindexerConstants.spindexerSpeed);
-    // } else {
-    // m_IndexerSubsystem.setSpeed(IndexerConstants.passiveIndexerSpeed);
-    // m_SpindexerSubsystem.setSpeed(SpindexerConstants.passiveSpindexerSpeed);
-    // }
 
     m_LedSubsystem.PARTYMODE();
   }

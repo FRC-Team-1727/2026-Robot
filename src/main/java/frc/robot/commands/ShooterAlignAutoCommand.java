@@ -5,26 +5,18 @@
 package frc.robot.commands;
 
 import static edu.wpi.first.units.Units.MetersPerSecond;
-import static edu.wpi.first.units.Units.Seconds;
 
 import com.ctre.phoenix6.swerve.SwerveRequest;
-import com.lumynlabs.devices.ConnectorX;
-import com.lumynlabs.devices.ConnectorXAnimate;
-import com.lumynlabs.domain.led.Animation;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.util.Color;
-import edu.wpi.first.wpilibj.util.Color8Bit;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import frc.robot.RobotContainer;
-import frc.robot.constants.FieldConstants;
 import frc.robot.constants.FieldConstants.Hub;
-import frc.robot.constants.OtherConstants.ShooterConstants;
 import frc.robot.constants.TunerConstants;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 import frc.robot.subsystems.LEDSubsystem;
@@ -41,7 +33,6 @@ public class ShooterAlignAutoCommand extends Command {
   // private ProfiledPIDController rotationalPID;
   private CommandXboxController joystick;
   private final RobotContainer robo;
-  private final Rotation2d flip = new Rotation2d(Math.PI);
   private final LEDSubsystem m_LedSubsystem;
   private boolean isRed = false;
   Translation2d target = Hub.topCenterPointBlue.toTranslation2d();

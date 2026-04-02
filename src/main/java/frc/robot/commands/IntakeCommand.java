@@ -5,7 +5,6 @@
 package frc.robot.commands;
 
 import frc.robot.constants.OtherConstants.IntakeConstants;
-import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.LEDSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;

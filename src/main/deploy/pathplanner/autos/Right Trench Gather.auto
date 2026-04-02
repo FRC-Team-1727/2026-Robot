@@ -27,7 +27,7 @@
                     {
                       "type": "wait",
                       "data": {
-                        "waitTime": 2.2
+                        "waitTime": 1.3
                       }
                     },
                     {
@@ -97,7 +97,7 @@
                     {
                       "type": "wait",
                       "data": {
-                        "waitTime": 2.3
+                        "waitTime": 1.2
                       }
                     },
                     {
@@ -113,9 +113,22 @@
           }
         },
         {
-          "type": "path",
+          "type": "parallel",
           "data": {
-            "pathName": "BR Second Return B"
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "BR Second Return B"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Intake"
+                }
+              }
+            ]
           }
         },
         {

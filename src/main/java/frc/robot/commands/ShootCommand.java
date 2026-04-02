@@ -5,8 +5,6 @@
 package frc.robot.commands;
 
 import static edu.wpi.first.units.Units.MetersPerSecond;
-import static edu.wpi.first.units.Units.Seconds;
-import frc.robot.constants.OtherConstants;
 import frc.robot.constants.FieldConstants.Hub;
 import frc.robot.constants.OtherConstants.IndexerConstants;
 import frc.robot.constants.OtherConstants.IntakeConstants;
@@ -45,6 +43,7 @@ public class ShootCommand extends Command {
   Translation2d target = Hub.topCenterPointBlue.toTranslation2d();
   float difference;
   Rotation2d direction = null;
+  private boolean upToSpeed = true;
 
   private double MaxSpeed = 1.0 * TunerConstants.kSpeedAt12Volts.in(MetersPerSecond);
 
@@ -108,25 +107,20 @@ public class ShootCommand extends Command {
     m_Drivetrain.setControl(turnCommand);
     System.out.println("turned2");
     difference = (float) m_Drivetrain.getState().Pose.getTranslation().getDistance(target);
-    m_ShooterSubsystem.setSpeed(m_ShooterSubsystem.getShooterPower(difference));
+    double power = m_ShooterSubsystem.getShooterPower(difference);
+    m_ShooterSubsystem.setSpeed(power);
 
     SmartDashboard.putNumber("Distance to Hub",
         (float) m_Drivetrain.getState().Pose.getTranslation().getDistance(target));
-
-    m_IndexerSubsystem.setSpeed(IndexerConstants.indexerSpeed);
-    m_SpindexerSubsystem.setSpeed(SpindexerConstants.spindexerSpeed);
-    // m_IntakeSubsystem.setSpeed(IntakeConstants.shootingIntakeSpeed);
-
-    // m_Drivetrain.setX();
-
-    // if(m_ShooterSubsystem.shooterSpeed()){
-    // m_IndexerSubsystem.setSpeed(IndexerConstants.indexerSpeed);
-    // m_SpindexerSubsystem.setSpeed(SpindexerConstants.spindexerSpeed);
-    // } else {
-    // m_IndexerSubsystem.setSpeed(IndexerConstants.passiveIndexerSpeed);
-    // m_SpindexerSubsystem.setSpeed(SpindexerConstants.passiveSpindexerSpeed);
-    // }
-
+    double speedError = Math.abs(power - m_ShooterSubsystem.getSpeed());
+    if (speedError <= 3.5 && !upToSpeed) {
+      upToSpeed = true;
+    }
+    if (upToSpeed) {
+      m_IndexerSubsystem.setSpeed(IndexerConstants.indexerSpeed);
+      m_SpindexerSubsystem.setSpeed(SpindexerConstants.spindexerSpeed);
+      // m_IntakeSubsystem.setSpeed(IntakeConstants.shootingIntakeSpeed);
+    }
     m_LedSubsystem.PARTYMODE();
   }
 

@@ -4,27 +4,15 @@
 
 package frc.robot.commands;
 
-import static edu.wpi.first.units.Units.*;
-
-import frc.robot.constants.OtherConstants.IntakeConstants;
-import frc.robot.constants.TunerConstants;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
-import frc.robot.subsystems.ExampleSubsystem;
-import frc.robot.subsystems.IntakeSubsystem;
-import frc.robot.subsystems.LEDSubsystem;
-
-import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.swerve.SwerveRequest;
 
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.RunCommand;
-import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 
 /** An example command that uses an example subsystem. */
 public class ForwardCommand extends Command {
   @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
   private final CommandSwerveDrivetrain m_Drivetrain;
-  private double speed = 0;
   private SwerveRequest.FieldCentric drive;
 
   /**
@@ -49,7 +37,7 @@ public class ForwardCommand extends Command {
   public void execute() {
     drive.withDesaturateWheelSpeeds(true)
         .withVelocityX(3.0)
-        .withVelocityY(0.0);
+        .withVelocityY(1.75);
     m_Drivetrain.setControl(drive);
 
     System.out.println("foward e");

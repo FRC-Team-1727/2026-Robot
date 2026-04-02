@@ -6,33 +6,20 @@ package frc.robot;
 
 import static edu.wpi.first.units.Units.*;
 
-import com.lumynlabs.domain.config.ConfigBuilder;
-import com.lumynlabs.domain.config.LumynDeviceConfig;
-import com.lumynlabs.domain.config.NetworkType;
-import java.util.Optional;
-
 import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
-import com.lumynlabs.connection.usb.USBPort;
 import com.lumynlabs.devices.ConnectorX;
-import com.lumynlabs.devices.ConnectorXAnimate;
-import com.lumynlabs.domain.led.Animation;
 import com.ctre.phoenix6.swerve.SwerveRequest;
-import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
-import com.pathplanner.lib.path.PathPlannerPath;
 
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.cscore.HttpCamera;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
-import edu.wpi.first.units.Units;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.util.Color;
-import edu.wpi.first.wpilibj.util.Color8Bit;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -46,6 +33,7 @@ import frc.robot.commands.BrakeCommand;
 import frc.robot.commands.ClimbCommand;
 import frc.robot.commands.FixedShootCommand;
 import frc.robot.commands.ForwardCommand;
+import frc.robot.commands.FrontWheelsMoveCommand;
 import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.IntakeDeployCommand;
 import frc.robot.commands.OuttakeCommand;
@@ -110,8 +98,6 @@ public class RobotContainer {
 
         SendableChooser<Command> autoChooser = new SendableChooser<>();
 
-        private final PathPlannerAuto auto = new PathPlannerAuto("BR Trench Gather B");
-
         private static double speedChange = 0;
 
         public RobotContainer(ConnectorX leds) {
@@ -144,6 +130,7 @@ public class RobotContainer {
                 autoChooser.addOption("Middle Left Trench Gather", new PathPlannerAuto("Middle Left Trench Gather"));
                 autoChooser.addOption("Right Bump Start Gather", new PathPlannerAuto("Right Bump Start Gather"));
                 autoChooser.addOption("Middle Right Bump", new PathPlannerAuto("Middle Right Bump"));
+                autoChooser.addOption("Right Trench Shoot Gather", new PathPlannerAuto("Right Trench Shoot Gather"));
 
                 isRed = DriverStation.getAlliance()
                                 .orElse(DriverStation.Alliance.Blue) == DriverStation.Alliance.Red;
@@ -237,8 +224,8 @@ public class RobotContainer {
                                                 m_SpindexerSubsystem,
                                                 m_IntakeSubsystem, drivetrain, m_LedSubsystem, joystick,
                                                 ShooterConstants.outreachShooterSpeed));
-                joystick.b().onTrue(new ForwardCommand(drivetrain).withTimeout(.2)
-                                .andThen(new BackwardCommand(drivetrain).withTimeout(.2)));
+                joystick.b().onTrue(new AutoShootCommand(m_ShooterSubsystem, m_IndexerSubsystem, m_SpindexerSubsystem,
+                                m_IntakeSubsystem, m_LedSubsystem, joystick, MaxSpeed));
 
                 joystick2.rightBumper().onTrue(new InstantCommand(
                                 () -> changeSpeed(ShooterConstants.shooterSpeedChange)));
@@ -269,9 +256,9 @@ public class RobotContainer {
                 NamedCommands.registerCommand("Climb", new ClimbCommand(m_ClimbSubsystem).withTimeout(2.5));
                 NamedCommands.registerCommand("Intake Deploy",
                                 new IntakeDeployCommand(m_IndexerSubsystem, m_ShooterSubsystem).withTimeout(1.4));
-                NamedCommands.registerCommand("Rock", (new ForwardCommand(drivetrain).withTimeout(.4))
-                                .andThen(new BackwardCommand(drivetrain)).withTimeout(.4));
-                NamedCommands.registerCommand("Brake", new BrakeCommand(drivetrain, joystick));
+                NamedCommands.registerCommand("Rock", new ForwardCommand(drivetrain).withTimeout(.1)
+                                .andThen(new BackwardCommand(drivetrain).withTimeout(.185)));
+                NamedCommands.registerCommand("Brake", new BrakeCommand(drivetrain, joystick).withTimeout(.5));
         }
 
         public Command getAutonomousCommand() {
