@@ -80,7 +80,7 @@ public class ShootCommand extends Command {
 
     turnCommand = new SwerveRequest.FieldCentricFacingAngle();
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(shooterSubsystem, indexerSubsystem, spindexerSubsystem, intakeSubsystem, ledSubsystem);
+    addRequirements(shooterSubsystem, indexerSubsystem, spindexerSubsystem, intakeSubsystem, ledSubsystem, drivetrain);
   }
 
   // Called when the command is initially scheduled.
@@ -122,9 +122,9 @@ public class ShootCommand extends Command {
         joystick.getRightX() > .1 || joystick.getRightX() < -.1);
 
     if (isMoving) {
-      driveRequest.withVelocityX(-joystick.getLeftY() * MaxSpeed)
+      m_Drivetrain.setControl(driveRequest.withVelocityX(-joystick.getLeftY() * MaxSpeed)
           .withVelocityY(-joystick.getLeftX() * MaxSpeed)
-          .withRotationalRate(-joystick.getRightX() * MaxAngularRate);
+          .withRotationalRate(-joystick.getRightX() * MaxAngularRate));
     } else {
       m_Drivetrain.setX();
     }
