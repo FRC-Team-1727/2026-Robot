@@ -4,15 +4,33 @@
 
 package frc.robot.commands;
 
+import frc.robot.constants.TunerConstants;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
+
+import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
+import com.ctre.phoenix6.swerve.SwerveRequest;
+
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+
+import static edu.wpi.first.units.Units.*;
 
 /** An example command that uses an example subsystem. */
 public class BrakeCommand extends Command {
   @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
   private final CommandSwerveDrivetrain m_drivetrain;
   private final CommandXboxController joystick;
+  private boolean isMoving = false;
+  private double MaxSpeed = 1.0 * TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired
+                                                                                      // top
+                                                                                      // speed
+  private double MaxAngularRate = RotationsPerSecond.of(0.75).in(RadiansPerSecond); // 3/4 of a rotation per
+                                                                                    // second
+                                                                                    // max angular velocity
+
+  private final SwerveRequest.FieldCentric driveRequest = new SwerveRequest.FieldCentric()
+      .withDeadband(MaxSpeed * 0.1).withRotationalDeadband(MaxAngularRate * 0.1) // Add a 10% deadband
+      .withDriveRequestType(DriveRequestType.OpenLoopVoltage);
 
   /**
    * Creates a new ExampleCommand.
@@ -34,7 +52,18 @@ public class BrakeCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_drivetrain.setX();
+    isMoving = (joystick.getLeftX() > .1 || joystick.getLeftX() < -.1 ||
+        joystick.getLeftY() > .1 || joystick.getLeftY() < -.1 ||
+        joystick.getRightX() > .1 || joystick.getRightX() < -.1);
+
+    if (isMoving) {
+      driveRequest.withVelocityX(-joystick.getLeftY() * MaxSpeed)
+          .withVelocityY(-joystick.getLeftX() * MaxSpeed)
+          .withRotationalRate(-joystick.getRightX() * MaxAngularRate);
+    } else {
+
+      m_drivetrain.setX();
+    }
   }
 
   // Called once the command ends or is interrupted.

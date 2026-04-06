@@ -51,6 +51,6 @@ public class SpindexerSubsystem extends SubsystemBase {
 
   public void setSpeed(double speed) {
     // spindexer.setControl(m_request.withVelocity(speed).withFeedForward(0.5));
-    spindexer.setControl(new DutyCycleOut(speed));
+    spindexer.setControl(new DutyCycleOut(speed).withEnableFOC(false));
   }
 }

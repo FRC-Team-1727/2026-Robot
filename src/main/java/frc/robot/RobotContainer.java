@@ -23,6 +23,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.RepeatCommand;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
@@ -145,7 +146,7 @@ public class RobotContainer {
                 CameraServer.startAutomaticCapture(limelightFeed);
                 SmartDashboard.putData("Auto Field", autoField);
 
-                m_LedSubsystem.PARTYMODE();
+                // m_LedSubsystem.PARTYMODE();
 
         }
 
@@ -213,11 +214,12 @@ public class RobotContainer {
                                                 m_SpindexerSubsystem,
                                                 m_IntakeSubsystem, drivetrain, m_LedSubsystem, joystick,
                                                 ShooterConstants.shooterSpeedClose));
-                joystick.rightTrigger().whileTrue(new BrakeCommand(drivetrain, joystick));
+                // joystick.rightTrigger().whileTrue(new RepeatCommand(new
+                // BrakeCommand(drivetrain, joystick)));
                 // joystick.leftTrigger().whileTrue(new ShootCommand(m_ShooterSubsystem,
                 // m_IndexerSubsystem, m_SpindexerSubsystem,
                 // ShooterConstants.shooterSpeedTower));
-                joystick.a().whileTrue(new BrakeCommand(drivetrain, joystick));
+                joystick.a().onTrue(new BrakeCommand(drivetrain, joystick));
                 joystick.povUp().onTrue(new ClimbCommand(m_ClimbSubsystem));
                 joystick.x()
                                 .toggleOnTrue(new FixedShootCommand(m_ShooterSubsystem, m_IndexerSubsystem,

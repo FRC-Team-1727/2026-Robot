@@ -18,6 +18,9 @@ import frc.robot.subsystems.LEDSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.SpindexerSubsystem;
 
+import static edu.wpi.first.units.Units.*;
+
+import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.swerve.SwerveRequest;
 
 import edu.wpi.first.math.geometry.Rotation2d;
@@ -43,11 +46,18 @@ public class ShootCommand extends Command {
   Translation2d target = Hub.topCenterPointBlue.toTranslation2d();
   float difference;
   Rotation2d direction = null;
-  private boolean upToSpeed = true;
+  private boolean upToSpeed = false;
 
   private double MaxSpeed = 1.0 * TunerConstants.kSpeedAt12Volts.in(MetersPerSecond);
 
   private SwerveRequest.FieldCentricFacingAngle turnCommand;
+  private double MaxAngularRate = RotationsPerSecond.of(0.75).in(RadiansPerSecond); // 3/4 of a rotation per
+                                                                                    // second
+                                                                                    // max angular velocity
+
+  private final SwerveRequest.FieldCentric driveRequest = new SwerveRequest.FieldCentric()
+      .withDeadband(MaxSpeed * 0.1).withRotationalDeadband(MaxAngularRate * 0.1) // Add a 10% deadband
+      .withDriveRequestType(DriveRequestType.OpenLoopVoltage);
 
   /**
    * Creates a new ExampleCommand.
@@ -98,14 +108,26 @@ public class ShootCommand extends Command {
       direction = target.minus(m_Drivetrain.getState().Pose.getTranslation())
           .getAngle();
     }
-    turnCommand.withDesaturateWheelSpeeds(true)
-        .withHeadingPID(4.5, 0.0, 0.0)
-        .withTargetDirection(direction)
-        .withVelocityX(MaxSpeed * -joystick.getLeftY())
-        .withVelocityY(MaxSpeed * -joystick.getLeftX());
-    System.out.println("turned");
-    m_Drivetrain.setControl(turnCommand);
-    System.out.println("turned2");
+    // turnCommand.withDesaturateWheelSpeeds(true)
+    // .withHeadingPID(4.5, 0.0, 0.0)
+    // .withTargetDirection(direction)
+    // .withVelocityX(MaxSpeed * -joystick.getLeftY())
+    // .withVelocityY(MaxSpeed * -joystick.getLeftX());
+    // System.out.println("turned");
+    // m_Drivetrain.setControl(turnCommand);
+    // System.out.println("turned2");
+
+    boolean isMoving = (joystick.getLeftX() > .1 || joystick.getLeftX() < -.1 ||
+        joystick.getLeftY() > .1 || joystick.getLeftY() < -.1 ||
+        joystick.getRightX() > .1 || joystick.getRightX() < -.1);
+
+    if (isMoving) {
+      driveRequest.withVelocityX(-joystick.getLeftY() * MaxSpeed)
+          .withVelocityY(-joystick.getLeftX() * MaxSpeed)
+          .withRotationalRate(-joystick.getRightX() * MaxAngularRate);
+    } else {
+      m_Drivetrain.setX();
+    }
     difference = (float) m_Drivetrain.getState().Pose.getTranslation().getDistance(target);
     double power = m_ShooterSubsystem.getShooterPower(difference);
     m_ShooterSubsystem.setSpeed(power);
@@ -119,7 +141,7 @@ public class ShootCommand extends Command {
     if (upToSpeed) {
       m_IndexerSubsystem.setSpeed(IndexerConstants.indexerSpeed);
       m_SpindexerSubsystem.setSpeed(SpindexerConstants.spindexerSpeed);
-      // m_IntakeSubsystem.setSpeed(IntakeConstants.shootingIntakeSpeed);
+      m_IntakeSubsystem.setSpeed(IntakeConstants.shootingIntakeSpeed);
     }
     m_LedSubsystem.PARTYMODE();
   }
