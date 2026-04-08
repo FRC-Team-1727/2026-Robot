@@ -69,6 +69,7 @@ public class AutoShootCommand extends Command {
     m_LedSubsystem = ledSubsystem;
     this.joystick = joystick;
     this.shootSpeed = shootSpeed;
+    upToSpeed = false;
 
     turnCommand = new SwerveRequest.FieldCentricFacingAngle();
     // Use addRequirements() here to declare subsystem dependencies.
@@ -86,6 +87,7 @@ public class AutoShootCommand extends Command {
       target = Hub.topCenterPointRed.toTranslation2d();
     }
     difference = (float) RobotContainer.getDrivetrain().getState().Pose.getTranslation().getDistance(target);
+    upToSpeed = RobotContainer.fromAlign();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -99,14 +101,15 @@ public class AutoShootCommand extends Command {
     double power = m_ShooterSubsystem.getShooterPower(difference) + .4;
     m_ShooterSubsystem.setSpeed(power);
 
-    turnCommand.withVelocityX(MaxSpeed * -joystick.getLeftY() + shake).withVelocityY(MaxSpeed * -joystick.getLeftX());
-    RobotContainer.getDrivetrain().setControl(turnCommand);
+    // turnCommand.withVelocityX(MaxSpeed * -joystick.getLeftY() +
+    // shake).withVelocityY(MaxSpeed * -joystick.getLeftX());
+    // RobotContainer.getDrivetrain().setControl(turnCommand);
 
     SmartDashboard.putNumber("Distance to Hub",
         (float) RobotContainer.getDrivetrain().getState().Pose.getTranslation().getDistance(target));
 
     double speedError = Math.abs(power - m_ShooterSubsystem.getSpeed());
-    if (speedError <= 3.5 && !upToSpeed) {
+    if (speedError <= 1.5 && !upToSpeed) {
       upToSpeed = true;
     }
     if (upToSpeed) {
@@ -136,6 +139,8 @@ public class AutoShootCommand extends Command {
     m_IndexerSubsystem.setSpeed(IndexerConstants.passiveIndexerSpeed);
     m_SpindexerSubsystem.setSpeed(SpindexerConstants.passiveSpindexerSpeed);
     m_IntakeSubsystem.setSpeed(IntakeConstants.passiveIntakeSpeed);
+    upToSpeed = false;
+    RobotContainer.changeAlign(false);
   }
 
   // Returns true when the command should end.

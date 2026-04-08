@@ -66,7 +66,7 @@ public final class OtherConstants {
         public static final double kIndexerI = 0;
         public static final double kIndexerD = 0;
 
-        public static double indexerSpeed = .3;
+        public static double indexerSpeed = .4;
         public static double passiveIndexerSpeed = 0;
     }
 

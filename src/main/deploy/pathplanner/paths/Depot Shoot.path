@@ -1,0 +1,54 @@
+{
+  "version": "2025.0",
+  "waypoints": [
+    {
+      "anchor": {
+        "x": 0.8123016997167134,
+        "y": 7.0797450424929185
+      },
+      "prevControl": null,
+      "nextControl": {
+        "x": 1.8832083333333347,
+        "y": 7.015142857142857
+      },
+      "isLocked": false,
+      "linkedName": "Depot Ending"
+    },
+    {
+      "anchor": {
+        "x": 2.72650849858357,
+        "y": 6.893463172804531
+      },
+      "prevControl": {
+        "x": 1.7050476190476203,
+        "y": 7.015142857142857
+      },
+      "nextControl": null,
+      "isLocked": false,
+      "linkedName": "BL Trench Shoot"
+    }
+  ],
+  "rotationTargets": [],
+  "constraintZones": [],
+  "pointTowardsZones": [],
+  "eventMarkers": [],
+  "globalConstraints": {
+    "maxVelocity": 3.0,
+    "maxAcceleration": 3.0,
+    "maxAngularVelocity": 540.0,
+    "maxAngularAcceleration": 720.0,
+    "nominalVoltage": 12.0,
+    "unlimited": false
+  },
+  "goalEndState": {
+    "velocity": 0,
+    "rotation": -69.17144420979318
+  },
+  "reversed": false,
+  "folder": "Blue Middle",
+  "idealStartingState": {
+    "velocity": 0,
+    "rotation": 90.0
+  },
+  "useDefaultConstraints": true
+}

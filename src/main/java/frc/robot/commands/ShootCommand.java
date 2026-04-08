@@ -4,7 +4,7 @@
 
 package frc.robot.commands;
 
-import static edu.wpi.first.units.Units.MetersPerSecond;
+import frc.robot.RobotContainer;
 import frc.robot.constants.FieldConstants.Hub;
 import frc.robot.constants.OtherConstants.IndexerConstants;
 import frc.robot.constants.OtherConstants.IntakeConstants;
@@ -77,6 +77,7 @@ public class ShootCommand extends Command {
     m_LedSubsystem = ledSubsystem;
     this.joystick = joystick;
     this.shootSpeed = shootSpeed;
+    upToSpeed = false;
 
     turnCommand = new SwerveRequest.FieldCentricFacingAngle();
     // Use addRequirements() here to declare subsystem dependencies.
@@ -107,6 +108,7 @@ public class ShootCommand extends Command {
     } else {
       direction = target.minus(m_Drivetrain.getState().Pose.getTranslation())
           .getAngle();
+      upToSpeed = RobotContainer.fromAlign();
     }
     // turnCommand.withDesaturateWheelSpeeds(true)
     // .withHeadingPID(4.5, 0.0, 0.0)
@@ -135,7 +137,7 @@ public class ShootCommand extends Command {
     SmartDashboard.putNumber("Distance to Hub",
         (float) m_Drivetrain.getState().Pose.getTranslation().getDistance(target));
     double speedError = Math.abs(power - m_ShooterSubsystem.getSpeed());
-    if (speedError <= 3.5 && !upToSpeed) {
+    if (speedError <= 1.5 && !upToSpeed) {
       upToSpeed = true;
     }
     if (upToSpeed) {
@@ -143,6 +145,7 @@ public class ShootCommand extends Command {
       m_SpindexerSubsystem.setSpeed(SpindexerConstants.spindexerSpeed);
       m_IntakeSubsystem.setSpeed(IntakeConstants.shootingIntakeSpeed);
     }
+    System.out.println(upToSpeed);
     m_LedSubsystem.PARTYMODE();
   }
 
@@ -153,6 +156,8 @@ public class ShootCommand extends Command {
     m_IndexerSubsystem.setSpeed(IndexerConstants.passiveIndexerSpeed);
     m_SpindexerSubsystem.setSpeed(SpindexerConstants.passiveSpindexerSpeed);
     m_IntakeSubsystem.setSpeed(IntakeConstants.passiveIntakeSpeed);
+    upToSpeed = false;
+    RobotContainer.changeAlign(false);
   }
 
   // Returns true when the command should end.

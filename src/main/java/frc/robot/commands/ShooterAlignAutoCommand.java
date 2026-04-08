@@ -124,7 +124,7 @@ public class ShooterAlignAutoCommand extends Command {
     // //System.out.println(m_ShooterSubsystem.getSpeed());
     // m_LedSubsystem.aligned();
     m_LedSubsystem.aligned();
-
+    RobotContainer.changeAlign(true);
   }
 
   // Returns true when the command should end.

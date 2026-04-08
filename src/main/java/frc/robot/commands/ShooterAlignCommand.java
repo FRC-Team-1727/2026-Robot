@@ -14,6 +14,7 @@ import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import frc.robot.Robot;
 import frc.robot.RobotContainer;
 import frc.robot.constants.FieldConstants.Hub;
 import frc.robot.constants.TunerConstants;
@@ -134,6 +135,7 @@ public class ShooterAlignCommand extends Command {
     // .RunOnce(false);
     // //System.out.println(m_ShooterSubsystem.getSpeed());
     // m_LedSubsystem.aligned();
+    RobotContainer.changeAlign(true);
 
   }
 

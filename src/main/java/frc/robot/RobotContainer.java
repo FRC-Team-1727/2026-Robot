@@ -88,6 +88,7 @@ public class RobotContainer {
         private String newAutoName;
         private String autoName;
         private boolean shooter = false;
+        private static boolean fromAlign = false;
         // private final ConnectorX m_leds;
 
         // private final LumynDevice mCx = new LumynDevice(3);
@@ -132,6 +133,7 @@ public class RobotContainer {
                 autoChooser.addOption("Right Bump Start Gather", new PathPlannerAuto("Right Bump Start Gather"));
                 autoChooser.addOption("Middle Right Bump", new PathPlannerAuto("Middle Right Bump"));
                 autoChooser.addOption("Right Trench Shoot Gather", new PathPlannerAuto("Right Trench Shoot Gather"));
+                autoChooser.addOption("Middle Depot Collect", new PathPlannerAuto("Middle Depot Collect"));
 
                 isRed = DriverStation.getAlliance()
                                 .orElse(DriverStation.Alliance.Blue) == DriverStation.Alliance.Red;
@@ -146,7 +148,7 @@ public class RobotContainer {
                 CameraServer.startAutomaticCapture(limelightFeed);
                 SmartDashboard.putData("Auto Field", autoField);
 
-                // m_LedSubsystem.PARTYMODE();
+                m_LedSubsystem.PARTYMODE();
 
         }
 
@@ -254,7 +256,7 @@ public class RobotContainer {
                                 new AutoShootCommand(m_ShooterSubsystem, m_IndexerSubsystem, m_SpindexerSubsystem,
                                                 m_IntakeSubsystem,
                                                 m_LedSubsystem, joystick, ShooterConstants.shooterSpeedClose)
-                                                .withTimeout(4));
+                                                .withTimeout(6.5));
                 NamedCommands.registerCommand("Climb", new ClimbCommand(m_ClimbSubsystem).withTimeout(2.5));
                 NamedCommands.registerCommand("Intake Deploy",
                                 new IntakeDeployCommand(m_IndexerSubsystem, m_ShooterSubsystem).withTimeout(1.4));
@@ -347,5 +349,13 @@ public class RobotContainer {
 
         public static double getSpeedChange() {
                 return speedChange;
+        }
+
+        public static boolean fromAlign() {
+                return fromAlign;
+        }
+
+        public static void changeAlign(boolean a) {
+                fromAlign = a;
         }
 }
