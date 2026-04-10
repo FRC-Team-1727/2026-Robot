@@ -105,6 +105,7 @@ public class ShootCommand extends Command {
     if (isRed) {
       direction = (m_Drivetrain.getState().Pose.getTranslation()).minus(target)
           .getAngle();
+      upToSpeed = RobotContainer.fromAlign();
     } else {
       direction = target.minus(m_Drivetrain.getState().Pose.getTranslation())
           .getAngle();

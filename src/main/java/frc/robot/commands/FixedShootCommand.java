@@ -4,6 +4,7 @@
 
 package frc.robot.commands;
 
+import frc.robot.RobotContainer;
 import frc.robot.constants.FieldConstants.Hub;
 import frc.robot.constants.OtherConstants.IndexerConstants;
 import frc.robot.constants.OtherConstants.IntakeConstants;
@@ -71,6 +72,7 @@ public class FixedShootCommand extends Command {
       target = Hub.topCenterPointRed.toTranslation2d();
     }
     difference = (float) m_Drivetrain.getState().Pose.getTranslation().getDistance(target);
+    upToSpeed = RobotContainer.fromAlign();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -82,7 +84,7 @@ public class FixedShootCommand extends Command {
     SmartDashboard.putNumber("Distance to Hub",
         (float) m_Drivetrain.getState().Pose.getTranslation().getDistance(target));
     double speedError = Math.abs(ShooterConstants.outreachShooterSpeed - m_ShooterSubsystem.getSpeed());
-    if (speedError <= 3.5 && !upToSpeed) {
+    if (speedError <= 1.5 && !upToSpeed) {
       upToSpeed = true;
     }
     if (upToSpeed) {

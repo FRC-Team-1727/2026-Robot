@@ -18,6 +18,7 @@ import com.pathplanner.lib.controllers.PPHolonomicDriveController;
 import edu.wpi.first.math.Matrix;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.networktables.NetworkTableInstance;
@@ -268,9 +269,15 @@ public class CommandSwerveDrivetrain extends TunerSwerveDrivetrain implements Su
         }
 
         SmartDashboard.putNumber("Gyro Heading:", getPigeon2().getYaw().getValueAsDouble());
+        boolean isRed = DriverStation.getAlliance()
+                .orElse(DriverStation.Alliance.Blue) == DriverStation.Alliance.Red;
+        Translation2d target = Hub.topCenterPointBlue.toTranslation2d();
 
+        if (isRed) {
+            target = Hub.topCenterPointRed.toTranslation2d();
+        }
         SmartDashboard.putNumber("Distance to Hub",
-                (float) getState().Pose.getTranslation().getDistance(Hub.topCenterPointBlue.toTranslation2d()));
+                (float) getState().Pose.getTranslation().getDistance(target));
     }
 
     private void startSimThread() {
