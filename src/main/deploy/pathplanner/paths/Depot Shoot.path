@@ -3,29 +3,45 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.8123016997167134,
-        "y": 7.0797450424929185
+        "x": 1.1077832861189802,
+        "y": 7.111862606232294
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.8832083333333347,
-        "y": 7.015142857142857
+        "x": 1.4353824362606238,
+        "y": 6.193300283286117
       },
       "isLocked": false,
       "linkedName": "Depot Ending"
     },
     {
       "anchor": {
-        "x": 2.72650849858357,
-        "y": 6.893463172804531
+        "x": 2.700814447592068,
+        "y": 7.143980169971671
       },
       "prevControl": {
-        "x": 1.7050476190476203,
-        "y": 7.015142857142857
+        "x": 2.5463446434612527,
+        "y": 7.904446898000303
+      },
+      "nextControl": {
+        "x": 2.7843201133144477,
+        "y": 6.732875354107649
+      },
+      "isLocked": false,
+      "linkedName": "BL Trench Shoot"
+    },
+    {
+      "anchor": {
+        "x": 2.2318980169971674,
+        "y": 3.8230240793201116
+      },
+      "prevControl": {
+        "x": 1.6537818696883857,
+        "y": 4.478222379603398
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "BL Trench Shoot"
+      "linkedName": null
     }
   ],
   "rotationTargets": [],
@@ -42,7 +58,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -69.17144420979318
+    "rotation": 1.4144232114021997
   },
   "reversed": false,
   "folder": "Blue Middle",

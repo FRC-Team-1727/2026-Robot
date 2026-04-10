@@ -131,6 +131,7 @@ public class RobotContainer {
                 autoChooser.addOption("Middle Right Trench Gather", new PathPlannerAuto("Middle Right Trench Gather"));
                 autoChooser.addOption("Middle Left Trench Gather", new PathPlannerAuto("Middle Left Trench Gather"));
                 autoChooser.addOption("Right Bump Start Gather", new PathPlannerAuto("Right Bump Start Gather"));
+                autoChooser.addOption("Left Bump Start Gather", new PathPlannerAuto("Left Bump Start Gather"));
                 autoChooser.addOption("Middle Right Bump", new PathPlannerAuto("Middle Right Bump"));
                 autoChooser.addOption("Right Trench Shoot Gather", new PathPlannerAuto("Right Trench Shoot Gather"));
                 autoChooser.addOption("Middle Depot Collect", new PathPlannerAuto("Middle Depot Collect"));
@@ -259,7 +260,7 @@ public class RobotContainer {
                                                 .withTimeout(6.5));
                 NamedCommands.registerCommand("Climb", new ClimbCommand(m_ClimbSubsystem).withTimeout(2.5));
                 NamedCommands.registerCommand("Intake Deploy",
-                                new IntakeDeployCommand(m_IndexerSubsystem, m_ShooterSubsystem).withTimeout(1.4));
+                                new IntakeDeployCommand(m_IndexerSubsystem, m_ShooterSubsystem).withTimeout(.7));
                 NamedCommands.registerCommand("Rock", new ForwardCommand(drivetrain).withTimeout(.1)
                                 .andThen(new BackwardCommand(drivetrain).withTimeout(.185)));
                 NamedCommands.registerCommand("Brake", new BrakeCommand(drivetrain, joystick).withTimeout(.5));

@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import frc.robot.constants.OtherConstants.IndexerConstants;
+import frc.robot.constants.OtherConstants.ShooterConstants;
 import frc.robot.subsystems.IndexerSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -44,6 +45,8 @@ public class IntakeDeployCommand extends Command {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    m_IndexerSubsystem.setSpeed(IndexerConstants.passiveIndexerSpeed);
+    m_ShooterSubsystem.setSpeed(ShooterConstants.passiveShooterSpeed);
   }
 
   // Returns true when the command should end.

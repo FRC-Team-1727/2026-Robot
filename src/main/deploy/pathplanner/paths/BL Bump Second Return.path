@@ -3,16 +3,32 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.89535,
-        "y": 3.759
+        "x": 7.821898809523809,
+        "y": 4.396720238095239
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.89535,
-        "y": 3.759
+        "x": 7.2766190476190475,
+        "y": 5.27672619047619
       },
       "isLocked": false,
-      "linkedName": "BL Intake"
+      "linkedName": "BL Gather Position"
+    },
+    {
+      "anchor": {
+        "x": 5.921517857142858,
+        "y": 5.525071428571428
+      },
+      "prevControl": {
+        "x": 6.833916666666668,
+        "y": 5.368505952380953
+      },
+      "nextControl": {
+        "x": 5.018408591476095,
+        "y": 5.68004284102312
+      },
+      "isLocked": false,
+      "linkedName": null
     },
     {
       "anchor": {
@@ -20,15 +36,20 @@
         "y": 5.708630952380952
       },
       "prevControl": {
-        "x": 2.6552380952380967,
-        "y": 6.005565476190476
+        "x": 4.280279761904763,
+        "y": 5.746422619047618
       },
       "nextControl": null,
       "isLocked": false,
       "linkedName": "BL Bump Shoot"
     }
   ],
-  "rotationTargets": [],
+  "rotationTargets": [
+    {
+      "waypointRelativePos": 1.015767634854774,
+      "rotationDegrees": -90.0
+    }
+  ],
   "constraintZones": [],
   "pointTowardsZones": [],
   "eventMarkers": [],
@@ -48,7 +69,7 @@
   "folder": "Blue Left",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": -84.72610404264844
   },
   "useDefaultConstraints": true
 }

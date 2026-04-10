@@ -109,7 +109,7 @@ public class ShootCommand extends Command {
     } else {
       direction = target.minus(m_Drivetrain.getState().Pose.getTranslation())
           .getAngle();
-      upToSpeed = RobotContainer.fromAlign();
+      // upToSpeed = RobotContainer.fromAlign();
     }
     // turnCommand.withDesaturateWheelSpeeds(true)
     // .withHeadingPID(4.5, 0.0, 0.0)
@@ -132,12 +132,20 @@ public class ShootCommand extends Command {
       m_Drivetrain.setX();
     }
     difference = (float) m_Drivetrain.getState().Pose.getTranslation().getDistance(target);
+    double speedError;
+    // if(difference > 1.5 && difference < 3.5){
+    // double power = m_ShooterSubsystem.interpolatingShooterPower(difference);
+    // m_ShooterSubsystem.setSpeed(power);
+    // speedError = Math.abs(power - m_ShooterSubsystem.getSpeed());
+    // } else {
     double power = m_ShooterSubsystem.getShooterPower(difference);
     m_ShooterSubsystem.setSpeed(power);
+    speedError = power - m_ShooterSubsystem.getSpeed();
+    // }
 
     SmartDashboard.putNumber("Distance to Hub",
         (float) m_Drivetrain.getState().Pose.getTranslation().getDistance(target));
-    double speedError = Math.abs(power - m_ShooterSubsystem.getSpeed());
+
     if (speedError <= 1.5 && !upToSpeed) {
       upToSpeed = true;
     }
@@ -145,6 +153,7 @@ public class ShootCommand extends Command {
       m_IndexerSubsystem.setSpeed(IndexerConstants.indexerSpeed);
       m_SpindexerSubsystem.setSpeed(SpindexerConstants.spindexerSpeed);
       m_IntakeSubsystem.setSpeed(IntakeConstants.shootingIntakeSpeed);
+      System.out.println(" up to speed");
     }
     System.out.println(upToSpeed);
     m_LedSubsystem.PARTYMODE();

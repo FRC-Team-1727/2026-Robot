@@ -135,10 +135,9 @@ public class ShooterSubsystem extends SubsystemBase {
     double RPS = requiredVelocity / (Math.PI * .1016);
     RPS *= ShooterConstants.variableShootingMult;
     RPS += RobotContainer.getSpeedChange();
-    RPS += 0.65; // speedChange usually at 0.4 at Bethesda, set here at request of Dhruv
+    RPS += 0; // speedChange usually at 0.4 at Bethesda, set here at request of Dhruv
     // Will show 0.0 on Elastic with 0.4 applied
-
     distanceS = distanceToTargetMeters;
-    return RPS - 2.0;
+    return RPS;
   }
 }

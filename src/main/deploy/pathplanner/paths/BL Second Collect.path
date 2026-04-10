@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.72650849858357,
-        "y": 6.893463172804531
+        "x": 2.700814447592068,
+        "y": 7.143980169971671
       },
       "prevControl": null,
       "nextControl": {
-        "x": 3.153014450964523,
-        "y": 7.4711357918521495
+        "x": 3.127320399973021,
+        "y": 7.72165278901929
       },
       "isLocked": false,
       "linkedName": "BL Trench Shoot"
@@ -73,7 +73,7 @@
   "folder": "Blue Left",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -69.17144420979318
+    "rotation": -59.19855402386322
   },
   "useDefaultConstraints": true
 }
