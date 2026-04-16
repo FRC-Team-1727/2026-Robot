@@ -7,18 +7,6 @@
         {
           "type": "path",
           "data": {
-            "pathName": "BR Intake out"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "BR Move"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
             "pathName": "BR Collect"
           }
         },

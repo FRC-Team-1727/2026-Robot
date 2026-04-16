@@ -98,12 +98,12 @@ public class AutoShootCommand extends Command {
     double shake = (cycleCount / CYCLES_PER_DIRECTION) % 2 == 0 ? SHAKE_SPEED : -SHAKE_SPEED;
     // m_ShooterSubsystem.setSpeed(shootSpeed);
     difference = (float) RobotContainer.getDrivetrain().getState().Pose.getTranslation().getDistance(target);
-    double power = m_ShooterSubsystem.getShooterPower(difference) - .3;
+    double power = m_ShooterSubsystem.getShooterPower(difference) + .5;
     m_ShooterSubsystem.setSpeed(power);
 
-    // turnCommand.withVelocityX(MaxSpeed * -joystick.getLeftY() +
-    // shake).withVelocityY(MaxSpeed * -joystick.getLeftX());
-    // RobotContainer.getDrivetrain().setControl(turnCommand);
+    turnCommand.withVelocityX(MaxSpeed * -joystick.getLeftY() +
+        shake).withVelocityY(MaxSpeed * -joystick.getLeftX());
+    RobotContainer.getDrivetrain().setControl(turnCommand);
 
     SmartDashboard.putNumber("Distance to Hub",
         (float) RobotContainer.getDrivetrain().getState().Pose.getTranslation().getDistance(target));

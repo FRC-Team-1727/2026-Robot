@@ -5,21 +5,9 @@
     "data": {
       "commands": [
         {
-          "type": "path",
-          "data": {
-            "pathName": "BM Move"
-          }
-        },
-        {
           "type": "named",
           "data": {
             "name": "Intake Deploy"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Shoot"
           }
         },
         {
@@ -29,7 +17,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "BM Collect R"
+                  "pathName": "BL Trench Collect"
                 }
               },
               {
@@ -39,7 +27,7 @@
                     {
                       "type": "wait",
                       "data": {
-                        "waitTime": 7.0
+                        "waitTime": 1.2
                       }
                     },
                     {
@@ -61,7 +49,13 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "BR Trench Return"
+                  "pathName": "BL Bump Return"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Intake"
                 }
               }
             ]
@@ -82,11 +76,56 @@
                 "data": {
                   "name": "Shoot"
                 }
+              }
+            ]
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "BL Depot Collect"
+                }
               },
+              {
+                "type": "sequential",
+                "data": {
+                  "commands": [
+                    {
+                      "type": "wait",
+                      "data": {
+                        "waitTime": 0.6
+                      }
+                    },
+                    {
+                      "type": "named",
+                      "data": {
+                        "name": "Intake"
+                      }
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "Align"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
               {
                 "type": "named",
                 "data": {
-                  "name": "Brake"
+                  "name": "Shoot"
                 }
               }
             ]
@@ -96,6 +135,6 @@
     }
   },
   "resetOdom": true,
-  "folder": "BM Right",
+  "folder": "BL",
   "choreoAuto": false
 }

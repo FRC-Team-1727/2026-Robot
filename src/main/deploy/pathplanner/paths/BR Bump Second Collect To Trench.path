@@ -3,80 +3,80 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.821898809523809,
-        "y": 4.396720238095239
+        "x": 2.5145325779036822,
+        "y": 2.1079461756373927
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.4007916666666675,
-        "y": 4.95819642857143
+        "x": 3.5145325779036813,
+        "y": 2.1079461756373927
       },
       "isLocked": false,
-      "linkedName": "BL Gather Position"
+      "linkedName": "BR Bump Shoot"
     },
     {
       "anchor": {
-        "x": 6.387910764872522,
-        "y": 7.375226628895184
+        "x": 5.687747875354108,
+        "y": 2.1079461756373927
       },
       "prevControl": {
-        "x": 7.306515450421138,
-        "y": 7.241390184643068
+        "x": 5.422658120193799,
+        "y": 1.9842376232292482
       },
       "nextControl": {
-        "x": 5.417960339943344,
-        "y": 7.516543909348442
+        "x": 6.651274787535411,
+        "y": 2.5575920679886677
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 3.9020113314447595,
-        "y": 7.497273371104816
+        "x": 6.805439093484421,
+        "y": 3.9129532577903667
       },
       "prevControl": {
-        "x": 4.338810198300283,
-        "y": 7.555084985835695
+        "x": 5.958437339605832,
+        "y": 3.7384453587500546
       },
       "nextControl": {
-        "x": 3.494404831478505,
-        "y": 7.443325451991635
+        "x": 8.083718130311617,
+        "y": 4.176317280453256
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.700814447592068,
-        "y": 7.143980169971671
+        "x": 7.955247875354109,
+        "y": 2.3006515580736537
       },
       "prevControl": {
-        "x": 3.1440368271954675,
-        "y": 7.46515580736544
+        "x": 7.582684135977338,
+        "y": 2.88519121813031
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "BL Trench Shoot"
+      "linkedName": "BR Bump Gather"
     }
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 1.05,
-      "rotationDegrees": 0.0
+      "waypointRelativePos": 0.8961864406779669,
+      "rotationDegrees": 90.0
     },
     {
-      "waypointRelativePos": 2.418432203389825,
-      "rotationDegrees": 0.0
+      "waypointRelativePos": 2.0497881355932397,
+      "rotationDegrees": -90.0
     }
   ],
   "constraintZones": [
     {
       "name": "Constraints Zone",
-      "minWaypointRelativePos": 0,
-      "maxWaypointRelativePos": 1.7401205626255745,
+      "minWaypointRelativePos": 0.8992555831265511,
+      "maxWaypointRelativePos": 3.0,
       "constraints": {
-        "maxVelocity": 2.0,
+        "maxVelocity": 1.5,
         "maxAcceleration": 3.0,
         "maxAngularVelocity": 540.0,
         "maxAngularAcceleration": 720.0,
@@ -97,13 +97,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -59.19855402386322
+    "rotation": -108.80579011375006
   },
   "reversed": false,
-  "folder": "Blue Left",
+  "folder": "Blue Right",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": -84.72610404264844
+    "rotation": 87.9904461869788
   },
   "useDefaultConstraints": true
 }

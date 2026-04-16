@@ -33,7 +33,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 
 /** An example command that uses an example subsystem. */
-public class ShootCommand extends Command {
+public class PassCommand extends Command {
   @SuppressWarnings({ "PMD.UnusedPrivateField", "PMD.SingularField" })
   private final ShooterSubsystem m_ShooterSubsystem;
   private final IndexerSubsystem m_IndexerSubsystem;
@@ -66,7 +66,7 @@ public class ShootCommand extends Command {
    *
    * @param subsystem The subsystem used by this command.
    */
-  public ShootCommand(ShooterSubsystem shooterSubsystem, IndexerSubsystem indexerSubsystem,
+  public PassCommand(ShooterSubsystem shooterSubsystem, IndexerSubsystem indexerSubsystem,
       SpindexerSubsystem spindexerSubsystem,
       IntakeSubsystem intakeSubsystem, CommandSwerveDrivetrain drivetrain, LEDSubsystem ledSubsystem,
       CommandXboxController joystick,
@@ -114,34 +114,6 @@ public class ShootCommand extends Command {
       // upToSpeed = RobotContainer.fromAlign();
     }
 
-    boolean isMovingRotational = joystick.getRightX() > .1 || joystick.getRightX() < -.1;
-    boolean isMovingTranslation = (joystick.getLeftX() > .1 || joystick.getLeftX() < -.1 ||
-        joystick.getLeftY() > .1 || joystick.getLeftY() < -.1);
-    if (isMovingRotational) {
-      m_Drivetrain.setControl(driveRequest.withVelocityX(-joystick.getLeftY() * MaxSpeed)
-          .withVelocityY(-joystick.getLeftX() * MaxSpeed)
-          .withRotationalRate(-joystick.getRightX() * MaxAngularRate));
-    } else if (isMovingTranslation) {
-      turnCommand.withDesaturateWheelSpeeds(true)
-          .withHeadingPID(4.7, 0.0, 0.0)
-          .withTargetDirection(direction)
-          .withVelocityX(MaxSpeed * .5 * -joystick.getLeftY())
-          .withVelocityY(MaxSpeed * .5 * -joystick.getLeftX());
-      System.out.println("turned");
-      m_Drivetrain.setControl(turnCommand);
-      System.out.println("turned2");
-    } else if (xLocking.getAsBoolean()) {
-      m_Drivetrain.setX();
-    } else {
-      turnCommand.withDesaturateWheelSpeeds(true)
-          .withHeadingPID(4.5, 0.0, 0.0)
-          .withTargetDirection(direction)
-          .withVelocityX(MaxSpeed * -joystick.getLeftY())
-          .withVelocityY(MaxSpeed * -joystick.getLeftX());
-      System.out.println("turned");
-      m_Drivetrain.setControl(turnCommand);
-      System.out.println("turned2");
-    }
     difference = (float) m_Drivetrain.getState().Pose.getTranslation().getDistance(target);
     double speedError;
     // if(difference > 1.5 && difference < 3.5){

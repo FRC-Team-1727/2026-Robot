@@ -70,34 +70,38 @@ public class Robot extends TimedRobot {
 
     @Override
     public void disabledPeriodic() {
-        newAutoName = m_robotContainer.getAutonomousCommand().getName();
-        if (newAutoName != null && autoName != newAutoName) {
-            autoName = newAutoName;
-            if (AutoBuilder.getAllAutoNames().contains(autoName)) {
-                System.out.println("displaying" + autoName);
-                try {
-                    List<PathPlannerPath> pathPlannerPaths = PathPlannerAuto.getPathGroupFromAutoFile(autoName);
-                    List<Pose2d> poses = new ArrayList<>();
-                    if (DriverStation.getAlliance().get() == DriverStation.Alliance.Red) {
-                        for (PathPlannerPath path : pathPlannerPaths) {
-                            poses.addAll(path.getAllPathPoints().stream().map(
-                                    point -> new Pose2d(FieldConstants.fieldLength - point.position.getX(),
-                                            FieldConstants.fieldWidth - point.position.getY(), new Rotation2d(Math.PI)))
-                                    .collect(Collectors.toList()));
+        if (m_robotContainer.getAutonomousCommand() != null) {
+            newAutoName = m_robotContainer.getAutonomousCommand().getName();
+            if (newAutoName != null && autoName != newAutoName) {
+                autoName = newAutoName;
+                if (AutoBuilder.getAllAutoNames().contains(autoName)) {
+                    System.out.println("displaying" + autoName);
+                    try {
+                        List<PathPlannerPath> pathPlannerPaths = PathPlannerAuto.getPathGroupFromAutoFile(autoName);
+                        List<Pose2d> poses = new ArrayList<>();
+                        if (DriverStation.getAlliance().get() == DriverStation.Alliance.Red) {
+                            for (PathPlannerPath path : pathPlannerPaths) {
+                                poses.addAll(path.getAllPathPoints().stream().map(
+                                        point -> new Pose2d(FieldConstants.fieldLength - point.position.getX(),
+                                                FieldConstants.fieldWidth - point.position.getY(),
+                                                new Rotation2d(Math.PI)))
+                                        .collect(Collectors.toList()));
+                            }
+                        } else {
+                            for (PathPlannerPath path : pathPlannerPaths) {
+                                poses.addAll(
+                                        path.getAllPathPoints().stream().map(point -> new Pose2d(point.position.getX(),
+                                                point.position.getY(), new Rotation2d())).collect(Collectors.toList()));
+                            }
                         }
-                    } else {
-                        for (PathPlannerPath path : pathPlannerPaths) {
-                            poses.addAll(path.getAllPathPoints().stream().map(point -> new Pose2d(point.position.getX(),
-                                    point.position.getY(), new Rotation2d())).collect(Collectors.toList()));
-                        }
+                        autoField.getObject("path").setPoses(poses);
+                    } catch (IOException | org.json.simple.parser.ParseException e) {
+                        e.printStackTrace();
                     }
-                    autoField.getObject("path").setPoses(poses);
-                } catch (IOException | org.json.simple.parser.ParseException e) {
-                    e.printStackTrace();
+
                 }
 
             }
-
         }
     }
 

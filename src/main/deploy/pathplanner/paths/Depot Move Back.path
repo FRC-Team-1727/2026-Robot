@@ -3,29 +3,29 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.89535,
-        "y": 3.759
+        "x": 1.8464872521246463,
+        "y": 3.9707648725212463
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.89535,
-        "y": 3.759
+        "x": 1.6216643059490088,
+        "y": 4.870056657223795
       },
       "isLocked": false,
-      "linkedName": "BL Intake"
+      "linkedName": "Depot Shoot"
     },
     {
       "anchor": {
-        "x": 3.2653035714285723,
-        "y": 5.708630952380952
+        "x": 1.0692422096317282,
+        "y": 5.550949008498582
       },
       "prevControl": {
-        "x": 2.6552380952380967,
-        "y": 6.005565476190476
+        "x": 1.390417847025496,
+        "y": 5.178385269121812
       },
       "nextControl": null,
       "isLocked": false,
-      "linkedName": "BL Bump Shoot"
+      "linkedName": "Out of the Way Left"
     }
   ],
   "rotationTargets": [],
@@ -42,13 +42,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -90.0
+    "rotation": 0.0
   },
   "reversed": false,
-  "folder": "Blue Left",
+  "folder": "Blue Middle",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 0.0
+    "rotation": 0.7252242990591251
   },
   "useDefaultConstraints": true
 }

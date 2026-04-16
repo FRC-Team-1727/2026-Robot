@@ -36,9 +36,9 @@ public class IntakeDeployCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    // if (m_ShooterSubsystem.getSpeed() > 20) {
-    m_IndexerSubsystem.setSpeed(IndexerConstants.indexerSpeed);
-    // }
+    if (m_ShooterSubsystem.getSpeed() > 20) {
+      m_IndexerSubsystem.setSpeed(IndexerConstants.indexerSpeed);
+    }
     m_ShooterSubsystem.setSpeed(25);
   }
 

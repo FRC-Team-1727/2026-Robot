@@ -5,27 +5,15 @@
     "data": {
       "commands": [
         {
-          "type": "path",
-          "data": {
-            "pathName": "BM Intake out"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "BM Move"
-          }
-        },
-        {
           "type": "named",
           "data": {
-            "name": "Align"
+            "name": "Intake Deploy"
           }
         },
         {
-          "type": "named",
+          "type": "wait",
           "data": {
-            "name": "Shoot"
+            "waitTime": 0.0
           }
         },
         {
@@ -35,7 +23,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "BM Collect L"
+                  "pathName": "BL Trench Collect"
                 }
               },
               {
@@ -45,7 +33,7 @@
                     {
                       "type": "wait",
                       "data": {
-                        "waitTime": 2.0
+                        "waitTime": 1.2
                       }
                     },
                     {
@@ -67,28 +55,41 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "BL Trench Return"
+                  "pathName": "BL Bump Return"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Intake"
                 }
               }
             ]
           }
         },
         {
-          "type": "named",
+          "type": "parallel",
           "data": {
-            "name": "Align"
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "Shoot"
+                }
+              }
+            ]
           }
         },
         {
-          "type": "named",
+          "type": "path",
           "data": {
-            "name": "Shoot"
+            "pathName": "BL Move Back Bump"
           }
         }
       ]
     }
   },
   "resetOdom": true,
-  "folder": "BM Left",
+  "folder": "BL",
   "choreoAuto": false
 }

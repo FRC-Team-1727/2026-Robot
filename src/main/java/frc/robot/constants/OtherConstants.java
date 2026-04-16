@@ -35,7 +35,7 @@ public final class OtherConstants {
         public static double shooterSpeedTower = 30;
         public static double shooterSpeedOutpost = 35;
         public static double passiveShooterSpeed = 5;
-        public static double outreachShooterSpeed = 26;
+        public static double outreachShooterSpeed = 35;
 
         public static double shooterRPSMinimum = 400;
         public static double variableShootingMult = 1.33;

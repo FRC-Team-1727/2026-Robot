@@ -78,11 +78,12 @@ public class FixedShootCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    // m_ShooterSubsystem.setSpeed(shootSpeed);
+    // m_ShooterSubsystem.setSpeed(shootSpeed);ffffffffff
     m_ShooterSubsystem.setSpeed(ShooterConstants.outreachShooterSpeed);
 
-    SmartDashboard.putNumber("Distance to Hub",
-        (float) m_Drivetrain.getState().Pose.getTranslation().getDistance(target));
+    // SmartDashboard.putNumber("Distance to Hub",
+    // (float)
+    // m_Drivetrain.getState().Pose.getTranslation().getDistance(target));ffffffffffffffff
     double speedError = Math.abs(ShooterConstants.outreachShooterSpeed - m_ShooterSubsystem.getSpeed());
     if (speedError <= 1.5 && !upToSpeed) {
       upToSpeed = true;

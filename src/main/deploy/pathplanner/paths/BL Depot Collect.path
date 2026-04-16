@@ -3,57 +3,57 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.578952380952382,
-        "y": 4.294142857142857
+        "x": 2.880672804532578,
+        "y": 5.708630952380952
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.6113452380952396,
-        "y": 5.465684523809524
+        "x": 2.3346742209631732,
+        "y": 6.055500640766222
       },
       "isLocked": false,
-      "linkedName": "BR Hub Gather"
+      "linkedName": "BL Bump Shoot"
     },
     {
       "anchor": {
-        "x": 5.678571428571429,
-        "y": 7.447047619047619
+        "x": 0.7930311614730874,
+        "y": 7.375226628895184
       },
       "prevControl": {
-        "x": 6.256244047619048,
-        "y": 7.409255952380952
+        "x": 1.0328725368659046,
+        "y": 7.304685047897296
       },
       "nextControl": {
-        "x": 5.059552317645315,
-        "y": 7.487544196397926
+        "x": 0.3530271831010264,
+        "y": 7.504639563710499
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 3.3516845238095248,
-        "y": 7.447047619047619
+        "x": 0.7930311614730874,
+        "y": 5.268314447592068
       },
       "prevControl": {
-        "x": 4.598809523809525,
-        "y": 7.560422619047619
+        "x": 0.21937929832764425,
+        "y": 5.236444899639542
       },
       "nextControl": {
-        "x": 2.6807456232691793,
-        "y": 7.386053173543951
+        "x": 1.0426462497744404,
+        "y": 5.282181952497699
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 3.1681250000000007,
-        "y": 6.340291666666667
+        "x": 2.9320609065155803,
+        "y": 5.550949008498582
       },
       "prevControl": {
-        "x": 3.222113095238096,
-        "y": 6.793791666666667
+        "x": 2.077733711048158,
+        "y": 5.570219546742207
       },
       "nextControl": null,
       "isLocked": false,
@@ -62,12 +62,16 @@
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 0.9012448132780186,
-      "rotationDegrees": 0.0
+      "waypointRelativePos": 0.8802966101694931,
+      "rotationDegrees": -90.0
     },
     {
-      "waypointRelativePos": 2.00414937759337,
-      "rotationDegrees": 0.0
+      "waypointRelativePos": 1.6144067796610253,
+      "rotationDegrees": -90.0
+    },
+    {
+      "waypointRelativePos": 2.1864406779661216,
+      "rotationDegrees": 2.87628629125148
     }
   ],
   "constraintZones": [],
@@ -83,13 +87,13 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -61.8214098900408
+    "rotation": -55.84030545433031
   },
   "reversed": false,
-  "folder": "Blue Right",
+  "folder": "Blue Left",
   "idealStartingState": {
     "velocity": 0,
-    "rotation": 90.0
+    "rotation": -90.0
   },
   "useDefaultConstraints": true
 }

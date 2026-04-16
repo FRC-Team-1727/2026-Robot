@@ -89,8 +89,10 @@ public class ShooterSubsystem extends SubsystemBase {
   }
 
   public void setSpeed(double speed) {
-    shooterL.setControl(m_request.withVelocity(-speed).withFeedForward(0).withEnableFOC(false));
-    shooterR.setControl(m_request.withVelocity(speed).withFeedForward(0).withEnableFOC(false));
+    shooterL.setControl(
+        m_request.withVelocity(-speed).withFeedForward(0).withEnableFOC(false));
+    shooterR.setControl(
+        m_request.withVelocity(speed).withFeedForward(0).withEnableFOC(false));
 
     double appliedVoltage = shooterL.getMotorVoltage().getValueAsDouble();
     double theoreticalVelocityRPS = appliedVoltage * ShooterConstants.kShooterV;

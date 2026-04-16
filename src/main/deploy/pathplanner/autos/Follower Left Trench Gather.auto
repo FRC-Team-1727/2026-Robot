@@ -5,27 +5,15 @@
     "data": {
       "commands": [
         {
-          "type": "path",
-          "data": {
-            "pathName": "BL Intake out"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "BL Bump Shoot "
-          }
-        },
-        {
           "type": "named",
           "data": {
-            "name": "Align"
+            "name": "Intake Deploy"
           }
         },
         {
-          "type": "named",
+          "type": "wait",
           "data": {
-            "name": "Shoot"
+            "waitTime": 0.0
           }
         },
         {
@@ -35,7 +23,7 @@
               {
                 "type": "path",
                 "data": {
-                  "pathName": "BL Bump Collect"
+                  "pathName": "BL Trench Collect"
                 }
               },
               {
@@ -45,7 +33,7 @@
                     {
                       "type": "wait",
                       "data": {
-                        "waitTime": 2.0
+                        "waitTime": 1.2
                       }
                     },
                     {
@@ -61,21 +49,41 @@
           }
         },
         {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "BL Return"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "Intake"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "named",
+                "data": {
+                  "name": "Shoot"
+                }
+              }
+            ]
+          }
+        },
+        {
           "type": "path",
           "data": {
-            "pathName": "BL Bump Return"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Align"
-          }
-        },
-        {
-          "type": "named",
-          "data": {
-            "name": "Shoot"
+            "pathName": "BL Move Back Trench"
           }
         }
       ]

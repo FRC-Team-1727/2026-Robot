@@ -38,6 +38,7 @@ import frc.robot.commands.FrontWheelsMoveCommand;
 import frc.robot.commands.IntakeCommand;
 import frc.robot.commands.IntakeDeployCommand;
 import frc.robot.commands.OuttakeCommand;
+import frc.robot.commands.PassCommand;
 import frc.robot.commands.ShooterAlignCommand;
 import frc.robot.commands.ShootCommand;
 import frc.robot.commands.ShooterAlignAutoCommand;
@@ -135,6 +136,15 @@ public class RobotContainer {
                 autoChooser.addOption("Middle Right Bump", new PathPlannerAuto("Middle Right Bump"));
                 autoChooser.addOption("Right Trench Shoot Gather", new PathPlannerAuto("Right Trench Shoot Gather"));
                 autoChooser.addOption("Middle Depot Collect", new PathPlannerAuto("Middle Depot Collect"));
+                autoChooser.addOption("Follower Left Trench Gather",
+                                new PathPlannerAuto("Follower Left Trench Gather"));
+                autoChooser.addOption("Follower Left Bump Gather", new PathPlannerAuto("Follower Left Bump Gather"));
+                autoChooser.addOption("Left Trench + Depot Collect",
+                                new PathPlannerAuto("Left Trench + Depot Collect"));
+                autoChooser.addOption("Left Bump and Trench Circles",
+                                new PathPlannerAuto("Left Bump and Trench Circles"));
+                autoChooser.addOption("Right Trench and Bump Circles",
+                                new PathPlannerAuto("Right Trench and Bump Circles"));
 
                 isRed = DriverStation.getAlliance()
                                 .orElse(DriverStation.Alliance.Blue) == DriverStation.Alliance.Red;
@@ -216,21 +226,21 @@ public class RobotContainer {
                                 .whileTrue(new ShootCommand(m_ShooterSubsystem, m_IndexerSubsystem,
                                                 m_SpindexerSubsystem,
                                                 m_IntakeSubsystem, drivetrain, m_LedSubsystem, joystick,
-                                                ShooterConstants.shooterSpeedClose));
+                                                () -> joystick.a().getAsBoolean()));
                 // joystick.rightTrigger().whileTrue(new RepeatCommand(new
                 // BrakeCommand(drivetrain, joystick)));
                 // joystick.leftTrigger().whileTrue(new ShootCommand(m_ShooterSubsystem,
                 // m_IndexerSubsystem, m_SpindexerSubsystem,
                 // ShooterConstants.shooterSpeedTower));
-                joystick.a().onTrue(new BrakeCommand(drivetrain, joystick));
+                // joystick.a().onTrue(new BrakeCommand(drivetrain, joystick));
                 joystick.povUp().onTrue(new ClimbCommand(m_ClimbSubsystem));
                 joystick.x()
                                 .toggleOnTrue(new FixedShootCommand(m_ShooterSubsystem, m_IndexerSubsystem,
                                                 m_SpindexerSubsystem,
                                                 m_IntakeSubsystem, drivetrain, m_LedSubsystem, joystick,
                                                 ShooterConstants.outreachShooterSpeed));
-                joystick.b().onTrue(new AutoShootCommand(m_ShooterSubsystem, m_IndexerSubsystem, m_SpindexerSubsystem,
-                                m_IntakeSubsystem, m_LedSubsystem, joystick, MaxSpeed));
+                joystick.b().whileTrue(new PassCommand(m_ShooterSubsystem, m_IndexerSubsystem, m_SpindexerSubsystem,
+                                m_IntakeSubsystem, drivetrain, m_LedSubsystem, joystick, null));
 
                 joystick2.rightBumper().onTrue(new InstantCommand(
                                 () -> changeSpeed(ShooterConstants.shooterSpeedChange)));
