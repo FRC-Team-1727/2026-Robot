@@ -114,34 +114,33 @@ public class ShootCommand extends Command {
       // upToSpeed = RobotContainer.fromAlign();
     }
 
-    boolean isMovingRotational = joystick.getRightX() > .1 || joystick.getRightX() < -.1;
-    boolean isMovingTranslation = (joystick.getLeftX() > .1 || joystick.getLeftX() < -.1 ||
-        joystick.getLeftY() > .1 || joystick.getLeftY() < -.1);
-    if (isMovingRotational) {
+    // boolean isMovingRotational = joystick.getRightX() > .1 ||
+    // joystick.getRightX() < -.1;
+    // boolean isMovingTranslation = (joystick.getLeftX() > .1 ||
+    // joystick.getLeftX() < -.1 ||
+    // joystick.getLeftY() > .1 || joystick.getLeftY() < -.1);
+    // if (isMovingRotational) {
+    // m_Drivetrain.setControl(driveRequest.withVelocityX(-joystick.getLeftY() *
+    // MaxSpeed)
+    // .withVelocityY(-joystick.getLeftX() * MaxSpeed)
+    // .withRotationalRate(-joystick.getRightX() * MaxAngularRate));
+    // } else if (isMovingTranslation) {
+    if (xLocking.getAsBoolean()) {
+      m_Drivetrain.setX();
+    } else {
       m_Drivetrain.setControl(driveRequest.withVelocityX(-joystick.getLeftY() * MaxSpeed)
           .withVelocityY(-joystick.getLeftX() * MaxSpeed)
           .withRotationalRate(-joystick.getRightX() * MaxAngularRate));
-    } else if (isMovingTranslation) {
-      turnCommand.withDesaturateWheelSpeeds(true)
-          .withHeadingPID(4.7, 0.0, 0.0)
-          .withTargetDirection(direction)
-          .withVelocityX(MaxSpeed * .5 * -joystick.getLeftY())
-          .withVelocityY(MaxSpeed * .5 * -joystick.getLeftX());
-      System.out.println("turned");
-      m_Drivetrain.setControl(turnCommand);
-      System.out.println("turned2");
-    } else if (xLocking.getAsBoolean()) {
-      m_Drivetrain.setX();
-    } else {
-      turnCommand.withDesaturateWheelSpeeds(true)
-          .withHeadingPID(4.5, 0.0, 0.0)
-          .withTargetDirection(direction)
-          .withVelocityX(MaxSpeed * -joystick.getLeftY())
-          .withVelocityY(MaxSpeed * -joystick.getLeftX());
-      System.out.println("turned");
-      m_Drivetrain.setControl(turnCommand);
-      System.out.println("turned2");
     }
+    // } else {
+    // turnCommand.withDesaturateWheelSpeeds(true)
+    // .withHeadingPID(4.5, 0.0, 0.0)
+    // .withTargetDirection(direction)
+    // .withVelocityX(MaxSpeed * -joystick.getLeftY())
+    // .withVelocityY(MaxSpeed * -joystick.getLeftX());
+    // System.out.println("turned");
+    // m_Drivetrain.setControl(turnCommand);
+    // System.out.println("turned2");
     difference = (float) m_Drivetrain.getState().Pose.getTranslation().getDistance(target);
     double speedError;
     // if(difference > 1.5 && difference < 3.5){
@@ -157,7 +156,7 @@ public class ShootCommand extends Command {
     SmartDashboard.putNumber("Distance to Hub",
         (float) m_Drivetrain.getState().Pose.getTranslation().getDistance(target));
 
-    if (speedError <= 1.5 && !upToSpeed) {
+    if (speedError <= 0 && !upToSpeed) {
       upToSpeed = true;
     }
     if (upToSpeed) {

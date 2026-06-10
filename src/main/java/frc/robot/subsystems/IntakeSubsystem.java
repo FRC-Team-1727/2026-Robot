@@ -40,6 +40,9 @@ public class IntakeSubsystem extends SubsystemBase {
     intake.setNeutralMode(NeutralModeValue.Coast);
     intake.getConfigurator().apply(configLimit);
 
+    configLimit.StatorCurrentLimit = 80;
+    configLimit.SupplyCurrentLimit = 30;
+
     intake2.getConfigurator().apply(configs);
     intake2.setNeutralMode(NeutralModeValue.Coast);
     intake2.getConfigurator().apply(configLimit);
@@ -58,7 +61,12 @@ public class IntakeSubsystem extends SubsystemBase {
 
   public void setSpeed(double speed) {
     // intake.setControl(m_request.withVelocity(speed).withFeedForward(0.5));
-    intake.setControl(new DutyCycleOut(speed).withEnableFOC(false));
-    intake2.setControl(new DutyCycleOut(speed).withEnableFOC(false));
+    if (Math.abs(speed) != 1) {
+      intake.setControl(new DutyCycleOut(speed).withEnableFOC(false));
+      intake2.setControl(new DutyCycleOut(speed).withEnableFOC(false));
+    } else {
+      intake.setControl(new DutyCycleOut(speed).withEnableFOC(false));
+      intake2.setControl(new DutyCycleOut(IntakeConstants.shootingIntakeSpeed).withEnableFOC(false));
+    }
   }
 }

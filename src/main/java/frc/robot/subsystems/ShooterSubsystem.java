@@ -22,6 +22,8 @@ public class ShooterSubsystem extends SubsystemBase {
   private TalonFX shooterL = new TalonFX(ShooterConstants.kShooterLID);
   final VelocityVoltage m_request = new VelocityVoltage(0).withSlot(0);
   private double distanceS;
+  private boolean formula = true;
+  private String formulaString = "Formula";
 
   private final InterpolatingDoubleTreeMap table;
 
@@ -63,25 +65,49 @@ public class ShooterSubsystem extends SubsystemBase {
     table.put(2.7183398813842256, 29.37109275);
     table.put(2.99853897094, 29.61328425);
     table.put(3.170593738555908, 30.889475125);
-    table.put(3.4036731719979793, 31.2578125);
-    table.put(4.0192394256, 34.0937638125);
-    table.put(5.164938449859619, 38.8828125);
+    table.put(3.2199461460113525, 32.94921875);
+    table.put(3.3115975856781, 33.61328125);
+    table.put(3.39748825, 35.006859775);
+    table.put(3.4820139408, 35.240234);
+    table.put(3.552674298, 35.179687875);
+    table.put(3.5915567874908447, 34.814453124);
+    table.put(3.660079002371, 35.708984375);
+    table.put(3.718740224838, 35.494762875);
+    table.put(3.717987060546875, 36.02734375);
+    table.put(4.24855232287695, 37.49023475);
+    table.put(4.33591890335083, 37.099609375);
+    table.put(4.378777560396, 38.498046875);
+    table.put(4.94870710372928, 39.119140625);
+    table.put(5.0353322029115, 39.326171875);
+    table.put(5.103743076324463, 41.794921875);
+    table.put(5.1390204429626465, 41.193359375);
+    table.put(5.466902256011963, 43.2265625);
     distanceS = 0;
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    if (formula) {
+      formulaString = "Formula";
+    } else {
+      formulaString = "Interpolating";
+    }
     SmartDashboard.putNumber("Shooter RPS", getSpeed());
     SmartDashboard.putNumber("Shooter Additive", RobotContainer.getSpeedChange());
     SmartDashboard.putNumber("Interpolating", table.get(1.802564382553) + RobotContainer.getSpeedChange());
     SmartDashboard.putNumber("Formula", getShooterPower(distanceS));
+    SmartDashboard.putString("Type Of Shooting", formulaString);
 
   }
 
   @Override
   public void simulationPeriodic() {
     // This method will be called once per scheduler run during simulation
+  }
+
+  public void changeShooting() {
+    formula = !formula;
   }
 
   public boolean shooterSpeed() {
@@ -115,31 +141,36 @@ public class ShooterSubsystem extends SubsystemBase {
   }
 
   public double getShooterPower(double distanceToTargetMeters) {
-    // Constants - Adjust these to your robot's physical dimensions
-    final double targetHeightMeters = 1.8288; // Height of the hoop
-    final double shooterHeightMeters = 0.476758; // Height of your shooter exit
-    final double angleDegrees = 62.0;
-    final double g = 9.81;
-
-    double x = distanceToTargetMeters;
-    double y = targetHeightMeters - shooterHeightMeters;
-    double theta = Math.toRadians(angleDegrees);
-
-    // Projectile Motion Formula for Velocity
-    double velocitySquared = (g * Math.pow(x, 2)) /
-        (2 * Math.pow(Math.cos(theta), 2) * (x * Math.tan(theta) - y));
-
-    if (velocitySquared <= 0)
-      return 0; // Target is physically unreachable
-
-    double requiredVelocity = Math.sqrt(velocitySquared);
-
-    double RPS = requiredVelocity / (Math.PI * .1016);
-    RPS *= ShooterConstants.variableShootingMult;
-    RPS += RobotContainer.getSpeedChange();
-    RPS += 0; // speedChange usually at 0.4 at Bethesda, set here at request of Dhruv
-    // Will show 0.0 on Elastic with 0.4 applied
     distanceS = distanceToTargetMeters;
-    return RPS;
+    if (formula) {
+      // Constants - Adjust these to your robot's physical dimensions
+      final double targetHeightMeters = 1.8288; // Height of the hoop
+      final double shooterHeightMeters = 0.476758; // Height of your shooter exit
+      final double angleDegrees = 62.0;
+      final double g = 9.81;
+
+      double x = distanceToTargetMeters;
+      double y = targetHeightMeters - shooterHeightMeters;
+      double theta = Math.toRadians(angleDegrees);
+
+      // Projectile Motion Formula for Velocity
+      double velocitySquared = (g * Math.pow(x, 2)) /
+          (2 * Math.pow(Math.cos(theta), 2) * (x * Math.tan(theta) - y));
+
+      if (velocitySquared <= 0)
+        return 0; // Target is physically unreachable
+
+      double requiredVelocity = Math.sqrt(velocitySquared);
+
+      double RPS = requiredVelocity / (Math.PI * .1016);
+      RPS *= ShooterConstants.variableShootingMult;
+      RPS += RobotContainer.getSpeedChange();
+      RPS -= 1.5; // speedChange usually at 0.4 at Bethesda, set here at request of Dhruv
+      // Will show 0.0 on Elastic with 0.4 applied
+      return RPS;
+
+    } else {
+      return table.get(distanceToTargetMeters) + RobotContainer.getSpeedChange();
+    }
   }
 }

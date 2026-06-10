@@ -11,8 +11,8 @@ public final class OtherConstants {
         public static final double kIntakeI = 0;
         public static final double kIntakeD = 0;
 
-        public static double intakeSpeed = -.8;
-        public static double outtakeSpeed = .5;
+        public static double intakeSpeed = -1;
+        public static double outtakeSpeed = 1;
         public static double passiveIntakeSpeed = 0;
         public static double shootingIntakeSpeed = -.3;
         public static double intakeSlowShootSpeed = -.1;
@@ -35,7 +35,7 @@ public final class OtherConstants {
         public static double shooterSpeedTower = 30;
         public static double shooterSpeedOutpost = 35;
         public static double passiveShooterSpeed = 5;
-        public static double outreachShooterSpeed = 35;
+        public static double outreachShooterSpeed = 25;
 
         public static double shooterRPSMinimum = 400;
         public static double variableShootingMult = 1.33;

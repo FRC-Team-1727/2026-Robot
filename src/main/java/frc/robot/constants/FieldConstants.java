@@ -92,7 +92,7 @@ public class FieldConstants {
 
                 // Relevant reference points on alliance side
                 public static final Translation3d topCenterPointBlue = new Translation3d(
-                                AprilTagLayoutType.OFFICIAL.getLayout().getTagPose(26).get().getX() + width / 2.0,
+                                AprilTagLayoutType.OFFICIAL.getLayout().getTagPose(26).get().getX() + .15 + width / 2.0,
                                 fieldWidth / 2.0,
                                 height);
 

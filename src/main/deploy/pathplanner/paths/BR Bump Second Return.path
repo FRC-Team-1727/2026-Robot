@@ -3,13 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.346803571428572,
-        "y": 4.402119047619047
+        "x": 7.383555240793203,
+        "y": 3.707400849858356
       },
       "prevControl": null,
       "nextControl": {
-        "x": 6.536982142857144,
-        "y": 2.091428571428571
+        "x": 6.573733812221774,
+        "y": 1.3967103736678799
       },
       "isLocked": false,
       "linkedName": "BR Bump Second Collect"
@@ -42,7 +42,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 87.9904461869788
+    "rotation": 90.0
   },
   "reversed": false,
   "folder": "Blue Right",

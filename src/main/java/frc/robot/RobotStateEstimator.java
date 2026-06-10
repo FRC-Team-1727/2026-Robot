@@ -2,6 +2,7 @@ package frc.robot;
 
 import edu.wpi.first.apriltag.AprilTag;
 import edu.wpi.first.math.VecBuilder;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.subsystems.CommandSwerveDrivetrain;
 
@@ -20,9 +21,13 @@ public class RobotStateEstimator extends SubsystemBase {
   @Override
   public void periodic() {
     doRejectUpdate = false;
+    // LimelightHelpers.SetRobotOrientation("limelight",
+    // m_SwerveDriveTrain.getPigeon2().getYaw().getValueAsDouble(), 0, 0,
+    // 0, 0, 0);
     LimelightHelpers.PoseEstimate mt1 = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight");
     // LimelightHelpers.PoseEstimate mt1 =
     // LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight");
+
     if (mt1 == null) {
       return;
     }
@@ -34,6 +39,7 @@ public class RobotStateEstimator extends SubsystemBase {
                                                                                                        // ignore vision
                                                                                                        // updates
     {
+
       doRejectUpdate = true;
     }
     if (mt1.tagCount == 0) {
@@ -45,7 +51,6 @@ public class RobotStateEstimator extends SubsystemBase {
           mt1.pose,
           mt1.timestampSeconds);
     }
-
     // System.out.println("dog");
     // System.out.println("distance : " +
     // FieldLayout.distanceFromAllianceWall(m_SwerveDriveTrain.getState().Pose.getX(),

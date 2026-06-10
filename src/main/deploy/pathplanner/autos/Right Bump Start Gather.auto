@@ -11,6 +11,18 @@
           }
         },
         {
+          "type": "path",
+          "data": {
+            "pathName": "BR Bump Move"
+          }
+        },
+        {
+          "type": "wait",
+          "data": {
+            "waitTime": 3.2
+          }
+        },
+        {
           "type": "parallel",
           "data": {
             "commands": [

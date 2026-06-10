@@ -113,6 +113,9 @@ public class PassCommand extends Command {
           .getAngle();
       // upToSpeed = RobotContainer.fromAlign();
     }
+    m_Drivetrain.setControl(driveRequest.withVelocityX(-joystick.getLeftY() * MaxSpeed)
+        .withVelocityY(-joystick.getLeftX() * MaxSpeed)
+        .withRotationalRate(-joystick.getRightX() * MaxAngularRate));
 
     difference = (float) m_Drivetrain.getState().Pose.getTranslation().getDistance(target);
     double speedError;

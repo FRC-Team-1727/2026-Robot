@@ -23,6 +23,7 @@ import com.pathplanner.lib.path.PathPlannerPath;
 
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
@@ -52,7 +53,11 @@ public class Robot extends TimedRobot {
         m_robotContainer = new RobotContainer(m_leds);
         // Logger.start();
         SignalLogger.start();
-
+        NetworkTableInstance.getDefault()
+                .getTable("CameraPublisher")
+                .getSubTable("limelight")
+                .getEntry("streams")
+                .setStringArray(new String[] { "mjpg:http://10.17.27.200:5800/stream.mjpg" });
         SmartDashboard.putData("Auto Field", autoField);
     }
 

@@ -17,6 +17,8 @@ import edu.wpi.first.cscore.HttpCamera;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -55,9 +57,10 @@ import frc.robot.subsystems.ShooterSubsystem;
 import frc.robot.subsystems.SpindexerSubsystem;
 
 public class RobotContainer {
-        private double MaxSpeed = 1.0 * TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired
-                                                                                            // top
-                                                                                            // speed
+        private double MaxSpeed = 1.0 * TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts
+                                                                                           // desired
+                                                                                           // top
+                                                                                           // speed
         private double MaxAngularRate = RotationsPerSecond.of(0.75).in(RadiansPerSecond); // 3/4 of a rotation per
                                                                                           // second
                                                                                           // max angular velocity
@@ -94,6 +97,7 @@ public class RobotContainer {
 
         // private final LumynDevice mCx = new LumynDevice(3);
         private boolean aligning;
+        private boolean formula = true;
 
         public static final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
 
@@ -139,12 +143,17 @@ public class RobotContainer {
                 autoChooser.addOption("Follower Left Trench Gather",
                                 new PathPlannerAuto("Follower Left Trench Gather"));
                 autoChooser.addOption("Follower Left Bump Gather", new PathPlannerAuto("Follower Left Bump Gather"));
+                autoChooser.addOption("Follower Right Trench Gather",
+                                new PathPlannerAuto("Follower Right Trench Gather"));
+                autoChooser.addOption("Follower Right Bump Gather", new PathPlannerAuto("Follower Right Bump Gather"));
                 autoChooser.addOption("Left Trench + Depot Collect",
                                 new PathPlannerAuto("Left Trench + Depot Collect"));
                 autoChooser.addOption("Left Bump and Trench Circles",
                                 new PathPlannerAuto("Left Bump and Trench Circles"));
                 autoChooser.addOption("Right Trench and Bump Circles",
                                 new PathPlannerAuto("Right Trench and Bump Circles"));
+                autoChooser.addOption("One Cycle Right Bump Start Gather",
+                                new PathPlannerAuto("One Cycle Right Bump Start Gather"));
 
                 isRed = DriverStation.getAlliance()
                                 .orElse(DriverStation.Alliance.Blue) == DriverStation.Alliance.Red;
@@ -155,8 +164,13 @@ public class RobotContainer {
                 }
 
                 SmartDashboard.putData("Auto Chooser", autoChooser);
-                HttpCamera limelightFeed = new HttpCamera("limelight", "http://10.17.27.11:5800/stream.mjpg");
-                CameraServer.startAutomaticCapture(limelightFeed);
+                HttpCamera limelightFeed = new HttpCamera("limelight", "http://10.17.27.200:5800/stream.mjpg");
+                // CameraServer.startAutomaticCapture(limelightFeed);
+                Shuffleboard.getTab("SmartDashboard")
+                                .add("Limelight Stream", limelightFeed)
+                                .withWidget(BuiltInWidgets.kCameraStream) // Forces the camera widget type
+                                .withSize(4, 3) // Optional: sets the widget size
+                                .withPosition(0, 0);
                 SmartDashboard.putData("Auto Field", autoField);
 
                 m_LedSubsystem.PARTYMODE();
@@ -203,7 +217,8 @@ public class RobotContainer {
                 joystick.start().and(joystick.x()).whileTrue(drivetrain.sysIdQuasistatic(Direction.kReverse));
 
                 // Reset the field-centric heading
-                joystick.y().onTrue(drivetrain.runOnce(drivetrain::seedFieldCentric)); // xbox Y = PS5 triangle
+                joystick.y().onTrue(drivetrain.runOnce(drivetrain::seedFieldCentric)
+                                .andThen(() -> drivetrain.getPigeon2().setYaw(0))); // xbox Y = PS5 triangle
 
                 drivetrain.registerTelemetry(logger::telemeterize);
 
@@ -254,11 +269,12 @@ public class RobotContainer {
                 joystick2.leftTrigger()
                                 .whileTrue(new RunCommand(() -> m_IntakeSubsystem
                                                 .setSpeed(IntakeConstants.intakeSlowShootSpeed)));
+                joystick2.b().toggleOnTrue(new InstantCommand(() -> m_ShooterSubsystem.changeShooting()));
         }
 
         private void configureNamedCommands() {
                 NamedCommands.registerCommand("Intake",
-                                new IntakeCommand(m_IntakeSubsystem, m_LedSubsystem, -.8).withTimeout(3));
+                                new IntakeCommand(m_IntakeSubsystem, m_LedSubsystem, -.8).withTimeout(2.5));
                 NamedCommands.registerCommand("Align",
                                 new ShooterAlignAutoCommand(drivetrain, m_ShooterSubsystem, m_LedSubsystem,
                                                 driveRequest, this)
@@ -270,7 +286,7 @@ public class RobotContainer {
                                                 .withTimeout(6.5));
                 NamedCommands.registerCommand("Climb", new ClimbCommand(m_ClimbSubsystem).withTimeout(2.5));
                 NamedCommands.registerCommand("Intake Deploy",
-                                new IntakeDeployCommand(m_IndexerSubsystem, m_ShooterSubsystem).withTimeout(.7));
+                                new IntakeDeployCommand(m_IndexerSubsystem, m_ShooterSubsystem).withTimeout(.6));
                 NamedCommands.registerCommand("Rock", new ForwardCommand(drivetrain).withTimeout(.1)
                                 .andThen(new BackwardCommand(drivetrain).withTimeout(.185)));
                 NamedCommands.registerCommand("Brake", new BrakeCommand(drivetrain, joystick).withTimeout(.5));

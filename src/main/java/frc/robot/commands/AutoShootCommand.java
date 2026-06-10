@@ -93,23 +93,24 @@ public class AutoShootCommand extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    counter++;
-    cycleCount++;
-    double shake = (cycleCount / CYCLES_PER_DIRECTION) % 2 == 0 ? SHAKE_SPEED : -SHAKE_SPEED;
-    // m_ShooterSubsystem.setSpeed(shootSpeed);
+    // counter++;
+    // cycleCount++;
+    // double shake = (cycleCount / CYCLES_PER_DIRECTION) % 2 == 0 ? SHAKE_SPEED :
+    // -SHAKE_SPEED;
+    // // m_ShooterSubsystem.setSpeed(shootSpeed);
     difference = (float) RobotContainer.getDrivetrain().getState().Pose.getTranslation().getDistance(target);
-    double power = m_ShooterSubsystem.getShooterPower(difference) + .5;
+    double power = m_ShooterSubsystem.getShooterPower(difference) + 1;
     m_ShooterSubsystem.setSpeed(power);
 
-    turnCommand.withVelocityX(MaxSpeed * -joystick.getLeftY() +
-        shake).withVelocityY(MaxSpeed * -joystick.getLeftX());
-    RobotContainer.getDrivetrain().setControl(turnCommand);
+    // turnCommand.withVelocityX(MaxSpeed * -joystick.getLeftY() +
+    // shake).withVelocityY(0);
+    // RobotContainer.getDrivetrain().setControl(turnCommand);
 
     SmartDashboard.putNumber("Distance to Hub",
         (float) RobotContainer.getDrivetrain().getState().Pose.getTranslation().getDistance(target));
 
-    double speedError = Math.abs(power - m_ShooterSubsystem.getSpeed());
-    if (speedError <= 1.5 && !upToSpeed) {
+    double speedError = power - m_ShooterSubsystem.getSpeed();
+    if (speedError <= 0 && !upToSpeed) {
       upToSpeed = true;
     }
     if (upToSpeed) {
