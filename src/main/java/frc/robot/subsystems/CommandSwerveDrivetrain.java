@@ -8,6 +8,7 @@ import java.util.function.Supplier;
 import com.ctre.phoenix6.SignalLogger;
 import com.ctre.phoenix6.Utils;
 import com.ctre.phoenix6.swerve.SwerveDrivetrainConstants;
+import com.ctre.phoenix6.swerve.SwerveModule.DriveRequestType;
 import com.ctre.phoenix6.swerve.SwerveModuleConstants;
 import com.ctre.phoenix6.swerve.SwerveRequest;
 import com.pathplanner.lib.auto.AutoBuilder;
@@ -32,6 +33,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 import frc.robot.constants.FieldConstants.Hub;
+import frc.robot.constants.TunerConstants;
 import frc.robot.constants.TunerConstants.TunerSwerveDrivetrain;
 
 /**
@@ -61,6 +63,19 @@ public class CommandSwerveDrivetrain extends TunerSwerveDrivetrain implements Su
     private final SwerveRequest.SwerveDriveBrake brakeRequest = new SwerveRequest.SwerveDriveBrake();
 
     private final SwerveRequest.ApplyRobotSpeeds m_pathApplyRobotSpeeds = new SwerveRequest.ApplyRobotSpeeds();
+
+    private double MaxSpeed = 1.0 * TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts
+                                                                                        // desired
+                                                                                        // top
+                                                                                        // speed
+    private double MaxAngularRate = RotationsPerSecond.of(0.75).in(RadiansPerSecond); // 3/4 of a rotation per
+                                                                                      // second
+                                                                                      // max angular velocity
+
+    /* Setting up bindings for necessary control of the swerve drive platform */
+    private final SwerveRequest.FieldCentric driveRequest = new SwerveRequest.FieldCentric()
+            .withDeadband(MaxSpeed * 0.1).withRotationalDeadband(MaxAngularRate * 0.1) // Add a 10% deadband
+            .withDriveRequestType(DriveRequestType.OpenLoopVoltage);
 
     /*
      * SysId routine for characterizing translation. This is used to find PID gains
@@ -414,6 +429,35 @@ public class CommandSwerveDrivetrain extends TunerSwerveDrivetrain implements Su
 
     public void setX() {
         setControl(brakeRequest);
+    }
+
+    public void driveAlt(double masterXSpeed, double masterYSpeed, double masterRot,
+            double xSpeed, double ySpeed, double rot) {
+        if (masterXSpeed != 0 || masterRot != 0 || masterYSpeed != 0) {
+            this.applyRequest(() -> driveRequest
+                    .withVelocityX(masterYSpeed) // Drive
+                                                 // forward
+                                                 // with
+                                                 // negative Y
+                                                 // (forward)
+                    .withVelocityY(masterXSpeed) // Drive left
+                                                 // with
+                                                 // negative X
+                                                 // (left)
+                    .withRotationalRate(masterRot));
+        } else {
+            this.applyRequest(() -> driveRequest
+                    .withVelocityX(ySpeed) // Drive
+                                           // forward
+                                           // with
+                                           // negative Y
+                                           // (forward)
+                    .withVelocityY(xSpeed) // Drive left
+                                           // with
+                                           // negative X
+                                           // (left)
+                    .withRotationalRate(rot));
+        }
     }
 
 }

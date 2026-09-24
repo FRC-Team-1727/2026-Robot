@@ -181,51 +181,60 @@ public class RobotContainer {
         private void configureBindings() {
                 // Note that X is defined as forward according to WPILib convention,
                 // and Y is defined as to the left according to WPILib convention.
-                if (joystick3 != null) {
-                        drivetrain.setDefaultCommand(
-                                        // Drivetrain will execute this command periodically
-                                        drivetrain.applyRequest(() -> driveRequest
-                                                        .withVelocityX(-joystick3.getLeftY() * MaxSpeed * .3) // Drive
-                                                                                                              // forward
-                                                                                                              // with
-                                                                                                              // negative
-                                                                                                              // Y
-                                                                                                              // (forward)
-                                                        .withVelocityY(-joystick3.getLeftX() * MaxSpeed * .3) // Drive
-                                                                                                              // left
-                                                                                                              // with
-                                                                                                              // negative
-                                                                                                              // X
-                                                                                                              // (left)
-                                                        .withRotationalRate(-joystick3.getRightX() * MaxAngularRate) // Drive
-                                                                                                                     // counterclockwise
-                                                                                                                     // with
-                                                                                                                     // negative
-                                                                                                                     // X
-                                                                                                                     // (left)
-                                        ));
-                } else {
-                        drivetrain.setDefaultCommand(
-                                        // Drivetrain will execute this command periodically
-                                        drivetrain.applyRequest(() -> driveRequest
-                                                        .withVelocityX(-joystick.getLeftY() * MaxSpeed) // Drive
-                                                                                                        // forward
-                                                                                                        // with
-                                                                                                        // negative Y
-                                                                                                        // (forward)
-                                                        .withVelocityY(-joystick.getLeftX() * MaxSpeed) // Drive left
-                                                                                                        // with
-                                                                                                        // negative X
-                                                                                                        // (left)
-                                                        .withRotationalRate(-joystick.getRightX() * MaxAngularRate) // Drive
-                                                                                                                    // counterclockwise
-                                                                                                                    // with
-                                                                                                                    // negative
-                                                                                                                    // X
-                                                                                                                    // (left)
-                                        ));
-                }
-                // Idle while the robot is disabled. This ensures the configured
+
+                drivetrain.setDefaultCommand(new RunCommand(() -> drivetrain.driveAlt(
+                                -joystick.getLeftX() * MaxSpeed,
+                                -joystick.getLeftY() * MaxSpeed,
+                                -joystick.getRightX() * MaxAngularRate,
+                                -joystick3.getLeftX() * MaxSpeed * .3,
+                                -joystick3.getLeftY() * MaxSpeed * .3,
+                                -joystick3.getRightX() * MaxAngularRate)));
+
+                // if (joystick3 != null) {
+                // drivetrain.setDefaultCommand(
+                // // Drivetrain will execute this command periodically
+                // drivetrain.applyRequest(() -> driveRequest
+                // .withVelocityX(-joystick3.getLeftY() * MaxSpeed * .3) // Drive
+                // // forward
+                // // with
+                // // negative
+                // // Y
+                // // (forward)
+                // .withVelocityY(-joystick3.getLeftX() * MaxSpeed * .3) // Drive
+                // // left
+                // // with
+                // // negative
+                // // X
+                // // (left)
+                // .withRotationalRate(-joystick3.getRightX() * MaxAngularRate) // Drive
+                // // counterclockwise
+                // // with
+                // // negative
+                // // X
+                // // (left)
+                // ));
+                // } else {
+                // drivetrain.setDefaultCommand(
+                // // Drivetrain will execute this command periodically
+                // drivetrain.applyRequest(() -> driveRequest
+                // .withVelocityX(-joystick.getLeftY() * MaxSpeed) // Drive
+                // // forward
+                // // with
+                // // negative Y
+                // // (forward)
+                // .withVelocityY(-joystick.getLeftX() * MaxSpeed) // Drive left
+                // // with
+                // // negative X
+                // // (left)
+                // .withRotationalRate(-joystick.getRightX() * MaxAngularRate) // Drive
+                // // counterclockwise
+                // // with
+                // // negative
+                // // X
+                // // (left)
+                // ));
+                // }
+                // // Idle while the robot is disabled. This ensures the configured
                 // neutral mode is applied to the drive motors while disabled.
                 final var idle = new SwerveRequest.Idle();
                 RobotModeTriggers.disabled().whileTrue(
