@@ -434,7 +434,7 @@ public class CommandSwerveDrivetrain extends TunerSwerveDrivetrain implements Su
     public void driveAlt(double masterXSpeed, double masterYSpeed, double masterRot,
             double xSpeed, double ySpeed, double rot) {
         if (masterXSpeed != 0 || masterRot != 0 || masterYSpeed != 0) {
-            this.applyRequest(() -> driveRequest
+            driveRequest
                     .withVelocityX(masterYSpeed) // Drive
                                                  // forward
                                                  // with
@@ -444,9 +444,9 @@ public class CommandSwerveDrivetrain extends TunerSwerveDrivetrain implements Su
                                                  // with
                                                  // negative X
                                                  // (left)
-                    .withRotationalRate(masterRot));
+                    .withRotationalRate(masterRot);
         } else {
-            this.applyRequest(() -> driveRequest
+            driveRequest
                     .withVelocityX(ySpeed) // Drive
                                            // forward
                                            // with
@@ -456,7 +456,7 @@ public class CommandSwerveDrivetrain extends TunerSwerveDrivetrain implements Su
                                            // with
                                            // negative X
                                            // (left)
-                    .withRotationalRate(rot));
+                    .withRotationalRate(rot);
         }
     }
 

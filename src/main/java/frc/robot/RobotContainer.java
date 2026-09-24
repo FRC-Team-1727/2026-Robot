@@ -249,18 +249,6 @@ public class RobotContainer {
                 // Run SysId routines when holding back/start and X/Y.
                 // Note that each routine should be run exactly once in a single log.
 
-                drivetrain.applyRequest(() -> driveRequest
-                                .withVelocityX(-joystick.getLeftY() * MaxSpeed) // Drive
-                                                                                // forward
-                                                                                // with
-                                                                                // negative Y
-                                                                                // (forward)
-                                .withVelocityY(-joystick.getLeftX() * MaxSpeed) // Drive left
-                                                                                // with
-                                                                                // negative X
-                                                                                // (left)
-                                .withRotationalRate(-joystick.getRightX() * MaxAngularRate));
-
                 if (joystick3 != null) {
                         joystick3.back().and(joystick3.y()).whileTrue(drivetrain.sysIdDynamic(Direction.kForward));
                         joystick3.back().and(joystick3.x()).whileTrue(drivetrain.sysIdDynamic(Direction.kReverse));
@@ -296,6 +284,9 @@ public class RobotContainer {
                                                                       // =
                                                                       // PS5
                                                                       // square
+                joystick3.rightBumper()
+                                .whileTrue(new ShooterAlignCommand(drivetrain, m_ShooterSubsystem, m_LedSubsystem,
+                                                driveRequest, this));
                 joystick.rightTrigger()
                                 .whileTrue(new ShootCommand(m_ShooterSubsystem, m_IndexerSubsystem,
                                                 m_SpindexerSubsystem,
